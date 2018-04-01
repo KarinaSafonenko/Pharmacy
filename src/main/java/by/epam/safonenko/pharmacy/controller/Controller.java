@@ -1,5 +1,9 @@
 package by.epam.safonenko.pharmacy.controller;
 
+import by.epam.safonenko.pharmacy.command.Command;
+import by.epam.safonenko.pharmacy.command.CommandFactory;
+import by.epam.safonenko.pharmacy.util.PagePath;
+import by.epam.safonenko.pharmacy.util.RequestContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,11 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet("/ControllerServlet")
 public class Controller extends HttpServlet {
     private static final String COMMAND = "command";
-    private static Logger logger = LogManager.getLogger();
+    private static Logger logger = LogManager.getLogger(Controller.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,15 +30,22 @@ public class Controller extends HttpServlet {
         processRequest(req, resp);
     }
 
-    private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter(COMMAND);
-//        Command command = null;
-//        try {
-//            command = new CommandFactory().defineCommand(action);
-//        } catch (XMLParsingException e) {
-//            LOGGER.catching(e);
-//        }
-       // String page = command.execute(req);
-       // req.getRequestDispatcher(page).forward(req, resp);
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter(COMMAND);
+        Optional<Command> command = new CommandFactory().defineCommand(action);
+        if (command.isPresent()){
+            RequestContent requestContent = new RequestContent();
+            requestContent.extractValues(request);
+            Trigger trigger = command.get().execute(requestContent);
+            requestContent.insertAttributes(request);
+            if (trigger.getRoot().equals(Trigger.TriggerType.FORWARD)){
+                request.getRequestDispatcher(trigger.getPagePath()).forward(request, response);
+            }else{
+                response.sendRedirect(trigger.getPagePath());
+            }
+        }
+        else{
+            response.sendRedirect(request.getContextPath() + PagePath.INDEX_PATH);
+        }
     }
 }

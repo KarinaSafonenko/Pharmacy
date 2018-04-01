@@ -15,9 +15,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Enumeration;
-import java.util.MissingResourceException;
 import java.util.Properties;
-import java.util.ResourceBundle;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -32,8 +30,7 @@ public final class ConnectionPool implements Serializable, Cloneable {
 
     private enum Property{
 
-        PROPERTY_PATH("property.database"), URL_PROPERTY("url"), USER_PROPERTY("user"), PASSWORD_PROPERTY("password"),
-        ENCODING_PROPERTY("characterEncoding"), UNICODE_PROPERTY("useUnicode"), POOL_SIZE_PROPERTY("poolSize");
+        PROPERTY_PATH("/property/database.properties"), URL_PROPERTY("url"), POOL_SIZE_PROPERTY("poolSize");
 
         private String value;
 
@@ -117,7 +114,7 @@ public final class ConnectionPool implements Serializable, Cloneable {
             Driver driver = drivers.nextElement();
             try {
                 DriverManager.deregisterDriver(driver);
-            } catch (SQLException e) {
+            } catch (SQLException e){
                 logger.catching(Level.ERROR,e);
             }
         }
@@ -147,25 +144,17 @@ public final class ConnectionPool implements Serializable, Cloneable {
             logger.catching(Level.WARN, e);
         }
 
-        String url = properties.getProperty(Property.URL_PROPERTY.toString());
-        String user = properties.getProperty(Property.USER_PROPERTY.toString());
-        String password = properties.getProperty(Property.PASSWORD_PROPERTY.toString());
-        String encoding = properties.getProperty(Property.ENCODING_PROPERTY.toString());
-        String unicode = properties.getProperty(Property.UNICODE_PROPERTY.toString());
         int poolSize = Integer.parseInt(properties.getProperty(Property.POOL_SIZE_PROPERTY.toString()));
-
-        Properties databaseProperties = new Properties();
-        databaseProperties.put(Property.URL_PROPERTY.toString(), user);
-        databaseProperties.put(Property.PASSWORD_PROPERTY.toString(), password);
-        databaseProperties.put(Property.ENCODING_PROPERTY.toString(), encoding);
-        databaseProperties.put(Property.UNICODE_PROPERTY.toString(), unicode);
+        String url = properties.getProperty(Property.URL_PROPERTY.toString());
+        properties.remove(Property.URL_PROPERTY.toString());
+        properties.remove(Property.POOL_SIZE_PROPERTY.toString());
 
         connectionQueue = new ArrayBlockingQueue<>(poolSize);
 
         for (int index = 0; index < poolSize; index++) {
             Connection connection;
             try {
-                connection = DriverManager.getConnection(url, databaseProperties);
+                connection = DriverManager.getConnection(url, properties);
             } catch (SQLException e) {
                 logger.log(Level.FATAL, e);
                 throw new RuntimeException(e);
