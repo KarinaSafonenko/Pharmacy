@@ -4,6 +4,7 @@
     <title>Welcome</title>
 </head>
 <body>
-Добро пожаловать, ${name}!
+Добро пожаловать!
+<a href="/jsp/register.jsp">Главная</a>
 </body>
 </html>

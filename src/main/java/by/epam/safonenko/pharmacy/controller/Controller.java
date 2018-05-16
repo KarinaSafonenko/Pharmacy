@@ -4,8 +4,6 @@ import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.command.CommandFactory;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +16,6 @@ import java.util.Optional;
 @WebServlet("/ControllerServlet")
 public class Controller extends HttpServlet {
     private static final String COMMAND = "command";
-    private static Logger logger = LogManager.getLogger(Controller.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

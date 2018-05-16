@@ -1,6 +1,7 @@
 package by.epam.safonenko.pharmacy.util;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +16,16 @@ public class RequestContent {
         sessionAttributes = new HashMap<>();
     }
 
-    public void extractValues(HttpServletRequest request) {
+    public void extractValues(HttpServletRequest request){
         requestParameters = request.getParameterMap();
+        Enumeration keys = request.getSession().getAttributeNames();
+        while (keys.hasMoreElements())
+        {
+            String key = (String)keys.nextElement();
+            sessionAttributes.put(key, request.getSession().getAttribute(key));
+        }
     }
+
     public void insertAttributes(HttpServletRequest request) {
         for (Map.Entry entry: requestAttributes.entrySet()){
             request.setAttribute(entry.getKey().toString(), entry.getValue());
@@ -27,7 +35,8 @@ public class RequestContent {
         }
     }
 
-    public void addRequestAttridute(String key, Object value){
+
+    public void addRequestAttribute(String key, Object value){
         requestAttributes.put(key, value);
     }
 
@@ -35,8 +44,18 @@ public class RequestContent {
         return requestParameters.get(key)[0];
     }
 
-    public void addSessionAttridute(String key, Object value){
+//    public void addRequestParameter(String key, String value){
+//        String[] input = {value};
+//        requestParameters.put(key, input);
+//    }
+
+    public void addSessionAttribute(String key, Object value){
         sessionAttributes.put(key, value);
     }
+
+    public Object getSessionAttribute(String key){
+        return sessionAttributes.get(key);
+    }
+
 
 }

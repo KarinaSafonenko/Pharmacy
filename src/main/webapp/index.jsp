@@ -3,7 +3,7 @@
   <head>
     <title></title>
   </head>
+  <jsp:forward page="/jsp/register.jsp"/>
   <body>
-    <jsp:forward page="/pages/register.jsp"/>
   </body>
 </html>

@@ -38,8 +38,7 @@ public final class ConnectionPool implements Serializable, Cloneable {
             this.value = value;
         }
 
-        @Override
-        public String toString() {
+        public String getValue() {
             return value;
         }
     }
@@ -80,6 +79,7 @@ public final class ConnectionPool implements Serializable, Cloneable {
 
     public void releaseConnection(ProxyConnection connection){
         try {
+            connection.setAutoCommit(false);
             connection.rollback();
             connection.setAutoCommit(true);
             connectionQueue.put(connection);
@@ -131,7 +131,7 @@ public final class ConnectionPool implements Serializable, Cloneable {
 
     private void init(){
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        URL propertyURL = classLoader.getResource(Property.PROPERTY_PATH.toString());
+        URL propertyURL = classLoader.getResource(Property.PROPERTY_PATH.getValue());
         if (propertyURL == null) {
             logger.log(Level.FATAL, "Database property file hasn't been found");
             throw new RuntimeException();
@@ -141,13 +141,14 @@ public final class ConnectionPool implements Serializable, Cloneable {
         try {
             properties.load(new FileInputStream(new File(propertyURL.toURI())));
         } catch (URISyntaxException | IOException e) {
-            logger.catching(Level.WARN, e);
+            logger.log(Level.FATAL, e);
+            throw new RuntimeException(e);
         }
 
-        int poolSize = Integer.parseInt(properties.getProperty(Property.POOL_SIZE_PROPERTY.toString()));
-        String url = properties.getProperty(Property.URL_PROPERTY.toString());
-        properties.remove(Property.URL_PROPERTY.toString());
-        properties.remove(Property.POOL_SIZE_PROPERTY.toString());
+        int poolSize = Integer.parseInt(properties.getProperty(Property.POOL_SIZE_PROPERTY.getValue()));
+        String url = properties.getProperty(Property.URL_PROPERTY.getValue());
+        properties.remove(Property.URL_PROPERTY.getValue());
+        properties.remove(Property.POOL_SIZE_PROPERTY.getValue());
 
         connectionQueue = new ArrayBlockingQueue<>(poolSize);
 
