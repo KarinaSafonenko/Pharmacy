@@ -1,7 +1,6 @@
 package by.epam.safonenko.pharmacy.command.impl;
 
 import by.epam.safonenko.pharmacy.command.Command;
-import by.epam.safonenko.pharmacy.connection.ConnectionPool;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.logic.UserLogic;
@@ -9,7 +8,6 @@ import by.epam.safonenko.pharmacy.mail.MailSender;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import by.epam.safonenko.pharmacy.util.UserParameter;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,7 +22,8 @@ import java.util.Properties;
 
 public class RegistrationCommand implements Command {
     private static Logger logger = LogManager.getLogger(RegistrationCommand.class);
-    private static final String SUBJECT = "subject";
+    public static final String MESSAGE_PATH = "/property/message.properties";
+    private static final String ROLE = "CLIENT";
     private UserLogic userLogic;
 
     public enum RegistrationMessage {
@@ -49,7 +48,7 @@ public class RegistrationCommand implements Command {
         String repeatPassword = requestContent.getRequestParameter(UserParameter.REPEAT_PASSWORD.name().toLowerCase());
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        URL propertyURL = classLoader.getResource(PagePath.MESSAGE_PATH);
+        URL propertyURL = classLoader.getResource(MESSAGE_PATH);
         if (propertyURL == null) {
            // logger.log(Level.FATAL, "Database property file hasn't been found");
             //throw new RuntimeException();
@@ -63,7 +62,7 @@ public class RegistrationCommand implements Command {
             //throw new RuntimeException(e);
         }
 
-        String subject = properties.getProperty(SUBJECT.toLowerCase());
+        String subject = properties.getProperty(MailSender.MailParameter.SUBJECT.name().toLowerCase());
 
 
         Map<RegistrationMessage, UserParameter> incorrect = null;
@@ -97,6 +96,9 @@ public class RegistrationCommand implements Command {
             requestContent.addRequestAttribute(MailSender.MailParameter.MESSAGE.name().toLowerCase(), code);
             new MailSender().sendMail(mail, subject, code);
             requestContent.addSessionAttribute(UserParameter.LOGIN.name().toLowerCase(), login);
+            requestContent.addSessionAttribute(UserParameter.NAME.name().toLowerCase(), name);
+            requestContent.addSessionAttribute(UserParameter.SURNAME.name().toLowerCase(), surname);
+            requestContent.addSessionAttribute(UserParameter.ROLE.name().toLowerCase(), ROLE);
             return new Trigger(PagePath.CONFIRM_PATH, Trigger.TriggerType.REDIRECT);
 
         }else{

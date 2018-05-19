@@ -80,4 +80,18 @@ public class UserRepository implements Repository<User> {
         }
         return result;
     }
+
+    @Override
+    public List<String> findValues(FindSpecification specification) throws RepositoryException {
+        List<String> result;
+        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+        try(PreparedStatement statement = connection.prepareStatement(specification.getRequest())) {
+            result = specification.execute(statement);
+        } catch (SQLException e) {
+            throw new RepositoryException(e);
+        } finally {
+            releaseConnection(connection);
+        }
+        return result;
+    }
 }

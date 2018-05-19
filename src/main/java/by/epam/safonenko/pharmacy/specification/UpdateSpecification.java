@@ -4,6 +4,6 @@ import by.epam.safonenko.pharmacy.exception.RepositoryException;
 
 import java.sql.Statement;
 
-public interface UpdateSpecification<T> extends Specification {
+public interface UpdateSpecification extends Specification {
     void update(Statement statement) throws RepositoryException;
 }

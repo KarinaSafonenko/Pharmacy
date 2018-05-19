@@ -17,7 +17,7 @@
 На вашу почту был отправлен активационный код, для завершения регистрации введите этот код:<br/>
 <input type="text" name="confirmation_code"/>
 <br/>
-    <c:if test="${wrong_password}">${wrong_confirmation_message}</c:if>
+    <c:if test="${confirmation_failed}">${wrong_confirmation_message}</c:if>
     <br/>
     <input type="submit" value="Завершить регистрацию"/>
 </form>

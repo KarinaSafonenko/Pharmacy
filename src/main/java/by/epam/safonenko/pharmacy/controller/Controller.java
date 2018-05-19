@@ -2,6 +2,7 @@ package by.epam.safonenko.pharmacy.controller;
 
 import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.command.CommandFactory;
+import by.epam.safonenko.pharmacy.connection.ConnectionPool;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 
@@ -16,6 +17,11 @@ import java.util.Optional;
 @WebServlet("/ControllerServlet")
 public class Controller extends HttpServlet {
     private static final String COMMAND = "command";
+
+    @Override
+    public void destroy() {
+        ConnectionPool.getInstance().closeConnections();
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

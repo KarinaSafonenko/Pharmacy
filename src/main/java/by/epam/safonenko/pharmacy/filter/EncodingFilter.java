@@ -9,11 +9,11 @@ import java.io.IOException;
         initParams = {
         @WebInitParam(name = "encoding", value = "UTF-8", description = "Encoding Param") })
 public class EncodingFilter implements Filter {
-
+    private final String ENCODING = "encoding";
     private String code;
 
     public void init(FilterConfig fConfig) {
-        code = fConfig.getInitParameter("encoding");
+        code = fConfig.getInitParameter(ENCODING);
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

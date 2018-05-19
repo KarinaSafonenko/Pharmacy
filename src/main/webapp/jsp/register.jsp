@@ -21,40 +21,40 @@
 <form name="registration" method="POST" action="/ControllerServlet">
     <input type="hidden" name="command" value="registration" />
     Фамилия:<br/>
-    <input type="text" name="surname" value="${surname}"/>
+    <input type="text" name="surname" value="${requestScope.surname}"/>
     <br/>
-    <c:if test = "${wrong_surname}">${wrong_surname_message}</c:if>
+    <c:if test = "${requestScope.wrong_surname}">${wrong_surname_message}</c:if>
     <br>Имя:<br/>
-    <input type="text" name="name" value="${name}"/>
+    <input type="text" name="name" value="${requestScope.name}"/>
     <br/>
-    <c:if test="${wrong_name}">${wrong_name_message}</c:if>
+    <c:if test="${requestScope.wrong_name}">${wrong_name_message}</c:if>
     <br>Отчество:<br/>
-    <input type="text" name="patronymic" value="${patronymic}"/>
+    <input type="text" name="patronymic" value="${requestScope.patronymic}"/>
     <br/>
-    <c:if test="${wrong_patronymic}">${wrong_patronymic_message}</c:if>
+    <c:if test="${requestScope.wrong_patronymic}">${wrong_patronymic_message}</c:if>
     <br>Пол:<br/>
     <select name="sex">
         <option value="male">мужской</option>
         <option value="female">женский</option>
     </select>
     <br>Адрес электронной почты:<br/>
-    <input type="text" name="mail" value="${mail}"/>
+    <input type="text" name="mail" value="${requestScope.mail}"/>
     <br/>
-    <c:if test="${wrong_email}">${wrong_email_message}</c:if>
+    <c:if test="${requestScope.wrong_email}">${wrong_email_message}</c:if>
     <br>Логин:<br/>
-    <input type="text" name="login" value="${login}"/>
+    <input type="text" name="login" value="${requestScope.login}"/>
     <br/>
-    <c:if test="${wrong_login}">${wrong_login_message}</c:if>
-    <c:if test="${duplicate_login}">${duplicate_login_message}</c:if>
+    <c:if test="${requestScope.wrong_login}">${wrong_login_message}</c:if>
+    <c:if test="${requestScope.duplicate_login}">${duplicate_login_message}</c:if>
     <br/>Пароль:<br/>
     <input type="password" name="password"/>
     <br/>
-    <c:if test="${wrong_password}">${wrong_password_message}</c:if>
+    <c:if test="${requestScope.wrong_password}">${wrong_password_message}</c:if>
     <br/>
     <br/>Повторите пароль:<br/>
     <input type="password" name="repeat_password"/>
     <br/>
-    <c:if test="${wrong_password}">${different_passwords}</c:if>
+    <c:if test="${requestScope.wrong_password}">${different_passwords}</c:if>
     <br/>
     <input type="submit" value="Зарегистрироваться"/>
 </form>

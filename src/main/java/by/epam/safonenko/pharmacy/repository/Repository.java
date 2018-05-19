@@ -13,6 +13,7 @@ public interface Repository<T> {
     boolean check(FindSpecification specification) throws RepositoryException;
     void update(UpdateSpecification specification) throws RepositoryException;
     String find(FindValueSpecification specification) throws RepositoryException;
+    List<String> findValues(FindSpecification specification) throws RepositoryException;
     default void releaseConnection(ProxyConnection proxyConnection) {
         if (proxyConnection != null) {
             proxyConnection.close();

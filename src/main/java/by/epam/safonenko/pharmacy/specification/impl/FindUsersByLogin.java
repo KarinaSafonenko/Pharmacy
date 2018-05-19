@@ -1,7 +1,8 @@
-package by.epam.safonenko.pharmacy.specification;
+package by.epam.safonenko.pharmacy.specification.impl;
 
 import by.epam.safonenko.pharmacy.entity.User;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
+import by.epam.safonenko.pharmacy.specification.FindSpecification;
 import by.epam.safonenko.pharmacy.util.UserParameter;
 
 import java.sql.PreparedStatement;
@@ -11,11 +12,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindUsersByLoginSpecification implements FindSpecification<User> {
-    private static String REQUEST = "SELECT login, password, mail, second_name, first_name, patronymic, sex, role FROM pharmacy.user WHERE login = ?";
+public class FindUsersByLogin implements FindSpecification<User> {
+    private static String REQUEST = "SELECT login, password, mail, surname, name, patronymic, sex, role FROM pharmacy.user WHERE login = ?";
     private String login;
 
-    public FindUsersByLoginSpecification(String login){
+    public FindUsersByLogin(String login){
         this.login = login;
     }
 

@@ -1,5 +1,7 @@
 package by.epam.safonenko.pharmacy.specification;
 
+import by.epam.safonenko.pharmacy.exception.RepositoryException;
+
 public interface Specification {
-    String getRequest();
+    String getRequest() throws RepositoryException;
 }

@@ -1,19 +1,19 @@
-package by.epam.safonenko.pharmacy.specification;
+package by.epam.safonenko.pharmacy.specification.impl;
 
-import by.epam.safonenko.pharmacy.entity.User;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
+import by.epam.safonenko.pharmacy.specification.UpdateSpecification;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class UpdateCodeByLoginSpecification implements UpdateSpecification<User>{
-    private static final String REQUEST = "UPDATE pharmacy.user SET user.confirm_code = ? WHERE login = ?";
+public class UpdateCodeByLogin implements UpdateSpecification {
+    private static final String REQUEST = "UPDATE pharmacy.user SET user.confirmation_code = ? WHERE login = ?";
 
     private String login;
     private String code;
 
-    public UpdateCodeByLoginSpecification(String login, String code){
+    public UpdateCodeByLogin(String login, String code){
         this.login = login;
         this.code = code;
     }
