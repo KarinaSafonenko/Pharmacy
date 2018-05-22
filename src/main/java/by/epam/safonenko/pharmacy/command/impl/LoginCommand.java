@@ -34,8 +34,7 @@ public class LoginCommand implements Command {
                 return new Trigger(PagePath.LOGIN_PATH, Trigger.TriggerType.FORWARD);
             }
         } catch (LogicException e) {
-            //e.printStackTrace();
+            return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
         }
-        return null;
     }
 }

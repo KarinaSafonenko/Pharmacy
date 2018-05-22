@@ -1,16 +1,16 @@
 <%@ page isErrorPage="true" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html><title>Error Page</title>
-Request from ${pageContext.errorData.requestURI} is failed
-<br/>
-Servlet name: ${pageContext.errorData.servletName}
-<br/>
-Status code: ${pageContext.errorData.statusCode}
-<br/>
-Exception: ${pageContext.exception}
-<br/>
-Message from exception: ${pageContext.exception.message}
-<br/>
-<a href="../index.jsp">Назад</a>
+<fmt:setLocale value="${locale}"/>
+<fmt:setBundle basename="property.message" var="bundle" scope="request"/>
+
+<fmt:message bundle = "${bundle}" key ="errorMessage" var = "error_message"/>
+<fmt:message bundle = "${bundle}" key ="toMainPage" var = "main_page"/>
+${error_message}
+<br><br/>
+<a href="../../index.jsp">${main_page}</a>
+<img src="../../images/sorry.jpg">
 </body>
 </html>

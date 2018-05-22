@@ -3,6 +3,7 @@ package by.epam.safonenko.pharmacy.command.impl;
 import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.exception.LogicException;
+import by.epam.safonenko.pharmacy.logic.CreditCardLogic;
 import by.epam.safonenko.pharmacy.logic.UserLogic;
 import by.epam.safonenko.pharmacy.mail.MailSender;
 import by.epam.safonenko.pharmacy.util.PagePath;
@@ -50,27 +51,26 @@ public class RegistrationCommand implements Command {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         URL propertyURL = classLoader.getResource(MESSAGE_PATH);
         if (propertyURL == null) {
-           // logger.log(Level.FATAL, "Database property file hasn't been found");
-            //throw new RuntimeException();
+            return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
         }
 
         Properties properties = new Properties();
         try {
             properties.load(new FileInputStream(new File(propertyURL.toURI())));
         } catch (URISyntaxException | IOException e) {
-            //logger.log(Level.FATAL, e);
-            //throw new RuntimeException(e);
+            logger.catching(e);
+            return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
         }
 
         String subject = properties.getProperty(MailSender.MailParameter.SUBJECT.name().toLowerCase());
 
 
-        Map<RegistrationMessage, UserParameter> incorrect = null;
+        Map<RegistrationMessage, UserParameter> incorrect;
         try {
             incorrect = userLogic.addUser(name, surname, patronymic, sex, mail, login, password, repeatPassword);
         } catch (LogicException e) {
             logger.catching(e);
-            //e.printStackTrace();
+            return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
         }
 
         requestContent.addRequestAttribute(UserParameter.NAME.name().toLowerCase(), name);
@@ -91,7 +91,7 @@ public class RegistrationCommand implements Command {
             try {
                 userLogic.setUserCode(login, code);
             } catch (LogicException e) {
-                //e.printStackTrace();
+                return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
             }
             requestContent.addRequestAttribute(MailSender.MailParameter.MESSAGE.name().toLowerCase(), code);
             new MailSender().sendMail(mail, subject, code);

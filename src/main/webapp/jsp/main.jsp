@@ -5,6 +5,5 @@
 </head>
 <body>
 Добро пожаловать, ${sessionScope.name} ${sessionScope.surname} [${sessionScope.role}]!
-<a href="/jsp/register.jsp">Главная</a>
 </body>
 </html>
