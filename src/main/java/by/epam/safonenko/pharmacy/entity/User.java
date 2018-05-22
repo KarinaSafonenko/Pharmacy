@@ -1,5 +1,7 @@
 package by.epam.safonenko.pharmacy.entity;
 
+import java.util.Objects;
+
 public class User {
     private String name;
     private String surname;
@@ -85,5 +87,26 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) &&
+                Objects.equals(surname, user.surname) &&
+                Objects.equals(patronymic, user.patronymic) &&
+                Objects.equals(sex, user.sex) &&
+                Objects.equals(mail, user.mail) &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(role, user.role);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, surname, patronymic, sex, mail, login, password, role);
     }
 }
