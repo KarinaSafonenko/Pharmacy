@@ -7,7 +7,7 @@
     <title>Login</title>
 </head>
 <body>
-<fmt:setLocale value="${locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
 
 <fmt:message bundle = "${bundle}" key ="wrongConfirmationCode" var = "wrong_confirmation_message"/>
@@ -20,7 +20,7 @@
 ${confirmation_message}<br/>
 <input type="text" name="confirmation_code"/>
 <br/>
-    <c:if test="${confirmation_failed}">${wrong_confirmation_message}</c:if>
+    <c:if test="${requestScope.confirmation_failed}">${wrong_confirmation_message}</c:if>
     <br/>
     <input type="submit" value="${complete_registration}"/>
 </form>

@@ -9,11 +9,11 @@ import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import by.epam.safonenko.pharmacy.util.UserParameter;
 
-public class LoginCommand implements Command {
+public class Login implements Command {
     private UserLogic userLogic;
     private static final String LOGIN_FAILED = "login_failed";
 
-    public LoginCommand(){
+    public Login(){
         userLogic = new UserLogic();
     }
 

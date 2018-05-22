@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html><title>Error Page</title>
-<fmt:setLocale value="${locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
 
 <fmt:message bundle = "${bundle}" key ="errorMessage" var = "error_message"/>

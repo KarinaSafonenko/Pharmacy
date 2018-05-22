@@ -3,12 +3,13 @@ package by.epam.safonenko.pharmacy.command.impl;
 import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.exception.LogicException;
-import by.epam.safonenko.pharmacy.logic.CreditCardLogic;
 import by.epam.safonenko.pharmacy.logic.UserLogic;
 import by.epam.safonenko.pharmacy.mail.MailSender;
+import by.epam.safonenko.pharmacy.repository.UserRepository;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import by.epam.safonenko.pharmacy.util.UserParameter;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,10 +22,10 @@ import java.util.Map;
 import java.util.Properties;
 
 
-public class RegistrationCommand implements Command {
-    private static Logger logger = LogManager.getLogger(RegistrationCommand.class);
+public class Registration implements Command {
+    private static Logger logger = LogManager.getLogger(Registration.class);
     public static final String MESSAGE_PATH = "/property/message.properties";
-    private static final String ROLE = "CLIENT";
+    private static final String REGISTRATION_SUBJECT = "registrationSubject";
     private UserLogic userLogic;
 
     public enum RegistrationMessage {
@@ -33,7 +34,7 @@ public class RegistrationCommand implements Command {
         DUPLICATE_LOGIN, DIFFERENT_PASSWORDS
     }
 
-    public RegistrationCommand(){
+    public Registration(){
         userLogic = new UserLogic();
     }
 
@@ -51,7 +52,8 @@ public class RegistrationCommand implements Command {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         URL propertyURL = classLoader.getResource(MESSAGE_PATH);
         if (propertyURL == null) {
-            return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
+            logger.log(Level.FATAL, "Message property file hasn't been found");
+            throw new RuntimeException();
         }
 
         Properties properties = new Properties();
@@ -59,15 +61,15 @@ public class RegistrationCommand implements Command {
             properties.load(new FileInputStream(new File(propertyURL.toURI())));
         } catch (URISyntaxException | IOException e) {
             logger.catching(e);
-            return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
+            throw new RuntimeException(e);
         }
 
-        String subject = properties.getProperty(MailSender.MailParameter.SUBJECT.name().toLowerCase());
+        String subject = properties.getProperty(REGISTRATION_SUBJECT);
 
 
         Map<RegistrationMessage, UserParameter> incorrect;
         try {
-            incorrect = userLogic.addUser(name, surname, patronymic, sex, mail, login, password, repeatPassword);
+            incorrect = userLogic.addUser(name, surname, patronymic, sex, mail, login, password, repeatPassword, UserRepository.UserRole.CLIENT);
         } catch (LogicException e) {
             logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
@@ -86,19 +88,14 @@ public class RegistrationCommand implements Command {
         }
 
         if (incorrect.isEmpty()){
-            requestContent.addRequestAttribute(MailSender.MailParameter.SUBJECT.name().toLowerCase(), subject);
             String code = userLogic.generateUserCode();
             try {
                 userLogic.setUserCode(login, code);
             } catch (LogicException e) {
                 return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
             }
-            requestContent.addRequestAttribute(MailSender.MailParameter.MESSAGE.name().toLowerCase(), code);
             new MailSender().sendMail(mail, subject, code);
             requestContent.addSessionAttribute(UserParameter.LOGIN.name().toLowerCase(), login);
-            requestContent.addSessionAttribute(UserParameter.NAME.name().toLowerCase(), name);
-            requestContent.addSessionAttribute(UserParameter.SURNAME.name().toLowerCase(), surname);
-            requestContent.addSessionAttribute(UserParameter.ROLE.name().toLowerCase(), ROLE);
             return new Trigger(PagePath.CONFIRM_PATH, Trigger.TriggerType.REDIRECT);
 
         }else{

@@ -14,7 +14,8 @@ public class FindParameterByLogin implements FindValueSpecification {
 
     public enum RequestType{
         CONFIRMATION_CODE ("SELECT user.confirmation_code FROM pharmacy.user WHERE login = ?") ,
-        REGISTERED ("SELECT user.registered FROM pharmacy.user WHERE login = ?");
+        REGISTERED ("SELECT user.registered FROM pharmacy.user WHERE login = ?"),
+        MAIL("SELECT user.mail FROM pharmacy.user WHERE login = ?");
 
         private final String REQUEST;
 

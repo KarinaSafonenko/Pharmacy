@@ -1,13 +1,15 @@
 package by.epam.safonenko.pharmacy.command;
 
-import by.epam.safonenko.pharmacy.command.impl.ConfirmationCommand;
-import by.epam.safonenko.pharmacy.command.impl.LoginCommand;
-import by.epam.safonenko.pharmacy.command.impl.RegistrationCommand;
+import by.epam.safonenko.pharmacy.command.impl.*;
 
 public enum CommandType {
-    REGISTRATION(new RegistrationCommand()),
-    CONFIRMATION(new ConfirmationCommand()),
-    LOGIN(new LoginCommand());
+    REGISTRATION(new Registration()),
+    CONFIRMATION(new Confirmation()),
+    LOGIN(new Login()),
+    CHANGE_LOCALE(new ChangeLocale()),
+    FORGOT_PASSWORD(new ForgotPassword()),
+    LOGOUT(new Logout()),
+    CHANGE_FORGOTTEN_PASSWORD(new ChangeForgottenPassword());
 
     private Command command;
 

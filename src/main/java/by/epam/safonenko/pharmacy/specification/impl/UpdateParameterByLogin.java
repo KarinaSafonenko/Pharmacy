@@ -7,22 +7,38 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class UpdateCodeByLogin implements UpdateSpecification {
-    private static final String REQUEST = "UPDATE pharmacy.user SET user.confirmation_code = ? WHERE login = ?";
-
+public class UpdateParameterByLogin implements UpdateSpecification {
     private String login;
-    private String code;
+    private ParameterType parameterType;
+    private String value;
 
-    public UpdateCodeByLogin(String login, String code){
+    public enum ParameterType{
+        CONFIRMATION_CODE ("UPDATE pharmacy.user SET user.confirmation_code = ? WHERE login = ?") ,
+        PASSWORD ("UPDATE pharmacy.user SET user.password = SHA1(?) WHERE login = ?");
+
+        private final String REQUEST;
+
+        ParameterType(String request){
+            this.REQUEST = request;
+        }
+
+        public String getRequest() {
+            return REQUEST;
+        }
+
+    }
+
+    public UpdateParameterByLogin(String login, ParameterType parameterType, String value){
         this.login = login;
-        this.code = code;
+        this.parameterType = parameterType;
+        this.value = value;
     }
 
     @Override
     public void update(Statement statement) throws RepositoryException {
         PreparedStatement current = (PreparedStatement) statement;
         try {
-            current.setString(1, code);
+            current.setString(1, value);
             current.setString(2, login);
             int changed = current.executeUpdate();
             if (changed == 0) {
@@ -35,6 +51,6 @@ public class UpdateCodeByLogin implements UpdateSpecification {
 
     @Override
     public String getRequest() {
-        return REQUEST;
+        return parameterType.getRequest();
     }
 }

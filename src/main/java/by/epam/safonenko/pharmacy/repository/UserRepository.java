@@ -11,9 +11,13 @@ import java.sql.SQLException;
 
 public class UserRepository implements Repository<User> {
 
-    private static final String INSERT_USER = "INSERT INTO pharmacy.user(login, password, mail, surname, name, patronymic, sex) VALUES(?,SHA1(?),?,?,?,?,?)";
+    public enum UserRole{
+        ADMIN, CLIENT, PHARMACIST, DOCTOR
+    }
 
-    public void add(String name, String surname, String patronymic, String sex, String mail, String login, String password) throws RepositoryException {
+    private static final String INSERT_USER = "INSERT INTO pharmacy.user(login, password, mail, surname, name, patronymic, sex, role) VALUES(?,SHA1(?),?,?,?,?,?,?)";
+
+    public void add(String name, String surname, String patronymic, String sex, String mail, String login, String password, UserRole role) throws RepositoryException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         try(PreparedStatement statement = connection.prepareStatement(INSERT_USER)) {
             statement.setString(1,login);
@@ -23,6 +27,7 @@ public class UserRepository implements Repository<User> {
             statement.setString(5,name);
             statement.setString(6,patronymic);
             statement.setString(7,sex);
+            statement.setString(8,role.name());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException(e);

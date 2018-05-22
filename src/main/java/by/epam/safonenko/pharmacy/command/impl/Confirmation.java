@@ -10,12 +10,12 @@ import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import by.epam.safonenko.pharmacy.util.UserParameter;
 
-public class ConfirmationCommand implements Command {
+public class Confirmation implements Command {
     private final String CONFIRMATION_FAILED = "confirmation_failed";
     private UserLogic userLogic;
     private CreditCardLogic creditCardLogic;
 
-    public ConfirmationCommand(){
+    public Confirmation(){
         userLogic = new UserLogic();
         creditCardLogic = new CreditCardLogic();
     }

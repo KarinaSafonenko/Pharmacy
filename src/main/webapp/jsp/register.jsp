@@ -5,7 +5,7 @@
 <html><head><title>Login</title></head>
 <body>
 
-<fmt:setLocale value="${locale}"/>
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
 
 <fmt:message bundle = "${bundle}" key ="wrongNameMessage" var = "wrong_name_message"/>
@@ -15,7 +15,7 @@
 <fmt:message bundle = "${bundle}" key ="wrongEmailMessage" var = "wrong_email_message"/>
 <fmt:message bundle = "${bundle}" key ="wrongLoginMessage" var = "wrong_login_message"/>
 <fmt:message bundle = "${bundle}" key ="wrongPasswordMessage" var = "wrong_password_message"/>
-<fmt:message bundle = "${bundle}" key ="differentPasswordsMessage" var = "different_passwords"/>
+<fmt:message bundle = "${bundle}" key ="differentPasswordsMessage" var = "different_passwords_message"/>
 
 <fmt:message bundle = "${bundle}" key ="nameMessage" var = "name_message"/>
 <fmt:message bundle = "${bundle}" key ="surnameMessage" var = "surname_message"/>
@@ -66,7 +66,7 @@
     <br/>${repeat_password}<br/>
     <input type="password" name="repeat_password"/>
     <br/>
-    <c:if test="${requestScope.wrong_password}">${different_passwords}</c:if>
+    <c:if test="${requestScope.different_passwords}">${different_passwords_message}</c:if>
     <br/>
     <input type="submit" value="${register}"/>
 </form>

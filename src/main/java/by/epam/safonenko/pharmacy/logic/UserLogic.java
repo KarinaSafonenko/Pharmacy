@@ -1,6 +1,6 @@
 package by.epam.safonenko.pharmacy.logic;
 
-import by.epam.safonenko.pharmacy.command.impl.RegistrationCommand;
+import by.epam.safonenko.pharmacy.command.impl.Registration;
 import by.epam.safonenko.pharmacy.entity.User;
 import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
@@ -18,50 +18,63 @@ public class UserLogic {
         userRepository = new UserRepository();
     }
 
-    public Map<RegistrationCommand.RegistrationMessage, UserParameter> addUser(String name, String surname, String patronymic, String sex, String mail, String login, String password, String repeatPassword) throws LogicException {
-        Map<RegistrationCommand.RegistrationMessage, UserParameter> incorrect = new HashMap<>();
+    public Map<Registration.RegistrationMessage, UserParameter> addUser(String name, String surname, String patronymic, String sex, String mail, String login, String password, String repeatPassword, UserRepository.UserRole role) throws LogicException {
+        Map<Registration.RegistrationMessage, UserParameter> incorrect = new HashMap<>();
         boolean validated = true;
         if (!Validator.validateInitials(name)){
-            incorrect.put(RegistrationCommand.RegistrationMessage.WRONG_NAME, UserParameter.NAME);
+            incorrect.put(Registration.RegistrationMessage.WRONG_NAME, UserParameter.NAME);
             validated = false;
         }
         if (!Validator.validateInitials(surname)){
-            incorrect.put(RegistrationCommand.RegistrationMessage.WRONG_SURNAME, UserParameter.SURNAME);
+            incorrect.put(Registration.RegistrationMessage.WRONG_SURNAME, UserParameter.SURNAME);
             validated = false;
         }
         if (!Validator.validateInitials(patronymic)) {
-            incorrect.put(RegistrationCommand.RegistrationMessage.WRONG_PATRONYMIC, UserParameter.PATRONYMIC);
+            incorrect.put(Registration.RegistrationMessage.WRONG_PATRONYMIC, UserParameter.PATRONYMIC);
             validated = false;
         }
         if (!Validator.validateMail(mail)){
-            incorrect.put(RegistrationCommand.RegistrationMessage.WRONG_EMAIL, UserParameter.MAIL);
+            incorrect.put(Registration.RegistrationMessage.WRONG_EMAIL, UserParameter.MAIL);
             validated = false;
         }
         if (!Validator.validateLogin(login)){
-            incorrect.put(RegistrationCommand.RegistrationMessage.WRONG_LOGIN, UserParameter.LOGIN);
+            incorrect.put(Registration.RegistrationMessage.WRONG_LOGIN, UserParameter.LOGIN);
             validated = false;
         }else if (findLogin(login)){
-            incorrect.put(RegistrationCommand.RegistrationMessage.DUPLICATE_LOGIN, UserParameter.LOGIN);
+            incorrect.put(Registration.RegistrationMessage.DUPLICATE_LOGIN, UserParameter.LOGIN);
             validated = false;
         }
 
         if (!Validator.validatePassword(password)){
-            incorrect.put(RegistrationCommand.RegistrationMessage.WRONG_PASSWORD, UserParameter.PASSWORD);
+            incorrect.put(Registration.RegistrationMessage.WRONG_PASSWORD, UserParameter.PASSWORD);
             validated = false;
         }
 
         if (!password.equals(repeatPassword)){
-            incorrect.put(RegistrationCommand.RegistrationMessage.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
+            incorrect.put(Registration.RegistrationMessage.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
             validated = false;
         }
 
         if (validated){
             try {
-                userRepository.add(name, surname, patronymic, sex, mail, login, password);
+                userRepository.add(name, surname, patronymic, sex, mail, login, password, role);
             } catch (RepositoryException e) {
                 throw new LogicException(e);
             }
         }
+        return incorrect;
+    }
+
+    public Map<Registration.RegistrationMessage, UserParameter> comparePasswords(String password, String repeatPassword){
+        Map<Registration.RegistrationMessage, UserParameter> incorrect = new HashMap<>();
+        if (!Validator.validatePassword(password)){
+            incorrect.put(Registration.RegistrationMessage.WRONG_PASSWORD, UserParameter.PASSWORD);
+        }
+
+        if (!password.equals(repeatPassword)){
+            incorrect.put(Registration.RegistrationMessage.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
+        }
+
         return incorrect;
     }
 
@@ -70,7 +83,18 @@ public class UserLogic {
             throw new LogicException("Trying to set invalid code");
         }
         try {
-            userRepository.update(new UpdateCodeByLogin(login, code));
+            userRepository.update(new UpdateParameterByLogin(login, UpdateParameterByLogin.ParameterType.CONFIRMATION_CODE, code));
+        } catch (RepositoryException e) {
+            throw new LogicException(e);
+        }
+    }
+
+    public void setUserPassword(String login, String pasword) throws LogicException {
+        if (!Validator.validatePassword(pasword)){
+            throw new LogicException("Trying to set invalid password");
+        }
+        try {
+            userRepository.update(new UpdateParameterByLogin(login, UpdateParameterByLogin.ParameterType.PASSWORD, pasword));
         } catch (RepositoryException e) {
             throw new LogicException(e);
         }
@@ -130,6 +154,20 @@ public class UserLogic {
             return new Boolean(foundStatus);
         }
     }
+
+    public String findMailByLogin(String login) throws LogicException {
+        if (!Validator.validateLogin(login)){
+            throw new LogicException("Trying to use invalid user login while finding mail by login.");
+        } else{
+            try {
+                String foundMail = userRepository.find(new FindParameterByLogin(login, FindParameterByLogin.RequestType.MAIL));
+                return foundMail;
+            } catch (RepositoryException e) {
+                throw new LogicException(e);
+            }
+        }
+    }
+
 
     public void setUserRegisteredStatus(String login) throws LogicException {
         try {
