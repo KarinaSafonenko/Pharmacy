@@ -24,11 +24,11 @@ public class CreditCardLogic {
     }
 
     public void bindUserToCard(String login, String cardId) throws LogicException {
-        if (!Validator.validateCardId(cardId)){
+        if (!Validator.validateId(cardId)){
             throw new LogicException("Trying to bind user to invalid card id.");
         }
         try {
-            creditCardRepository.update(new UpdateCardUser(login, cardId));
+            creditCardRepository.update(new UpdateCardUser(login, Integer.parseInt(cardId)));
         } catch (RepositoryException e) {
             throw new LogicException(e);
         }

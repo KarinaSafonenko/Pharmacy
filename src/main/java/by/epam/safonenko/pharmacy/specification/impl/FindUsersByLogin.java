@@ -26,7 +26,7 @@ public class FindUsersByLogin implements FindSpecification<User> {
         try(PreparedStatement current = (PreparedStatement) statement) {
             current.setString(1, login);
             ResultSet resultSet = current.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 String name = resultSet.getString(UserParameter.NAME.name().toLowerCase());
                 String surname = resultSet.getString(UserParameter.SURNAME.name().toLowerCase());
                 String patronymic = resultSet.getString(UserParameter.PATRONYMIC.name().toLowerCase());

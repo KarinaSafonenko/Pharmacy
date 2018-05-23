@@ -51,7 +51,7 @@ public class FindMedicinePacks implements FindSpecification<Pack> {
     }
 
     @Override
-    public String getRequest() throws RepositoryException {
+    public String getRequest() {
         return REQUEST;
     }
 }

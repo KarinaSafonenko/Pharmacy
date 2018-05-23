@@ -7,24 +7,28 @@ import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.logic.MedicineLogic;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
+import by.epam.safonenko.pharmacy.util.parameter.MedicineParameter;
+import by.epam.safonenko.pharmacy.util.parameter.ProductCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class FormMainPage implements Command {
-    private static Logger logger = LogManager.getLogger(FormMainPage.class);
+public class ShowCategoryProducts implements Command {
+    private static Logger logger = LogManager.getLogger(ShowCategoryProducts.class);
     private static final String PRODUCTS = "products";
     private MedicineLogic medicineLogic;
 
-    public FormMainPage(){
+    public ShowCategoryProducts() {
         medicineLogic = new MedicineLogic();
     }
 
     @Override
     public Trigger execute(RequestContent requestContent) {
+        String category = requestContent.getRequestParameter(MedicineParameter.CATEGORY.name().toLowerCase());
+        ProductCategory productCategory = ProductCategory.valueOf(category.toUpperCase());
         try {
-            List<Medicine> products = medicineLogic.findPopularProducts();
+            List<Medicine> products = medicineLogic.findMedicinesByCategory(productCategory);
             requestContent.addRequestAttribute(PRODUCTS, products);
             return new Trigger(PagePath.TEST_PATH, Trigger.TriggerType.FORWARD);
         } catch (LogicException e) {

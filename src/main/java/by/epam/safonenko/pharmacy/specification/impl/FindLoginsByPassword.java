@@ -9,9 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class FindLoginsByPassword implements FindSpecification<String>{
     private static String REQUEST = "SELECT login FROM pharmacy.user WHERE user.password = SHA1(?)";
