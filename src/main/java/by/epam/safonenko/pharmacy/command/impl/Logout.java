@@ -4,7 +4,7 @@ import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.UserParameter;
+import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
 
 public class Logout implements Command {
     private final String LAST_PAGE = "lastPage";

@@ -6,7 +6,7 @@ import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.repository.UserRepository;
 import by.epam.safonenko.pharmacy.specification.impl.*;
-import by.epam.safonenko.pharmacy.util.UserParameter;
+import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
 import by.epam.safonenko.pharmacy.validator.Validator;
 
 import java.util.*;

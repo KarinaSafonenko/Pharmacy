@@ -12,4 +12,14 @@
         <tag-class>by.epam.safonenko.pharmacy.tag.InfoTimeTag</tag-class>
         <body-content>empty</body-content>
     </tag>
+    <tag>
+        <name>show-popular</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowPopularTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>products</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
 </taglib>

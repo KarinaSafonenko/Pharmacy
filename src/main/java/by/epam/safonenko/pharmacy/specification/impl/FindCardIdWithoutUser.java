@@ -2,7 +2,7 @@ package by.epam.safonenko.pharmacy.specification.impl;
 
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.specification.FindValueSpecification;
-import by.epam.safonenko.pharmacy.util.CardParameter;
+import by.epam.safonenko.pharmacy.util.parameter.CardParameter;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

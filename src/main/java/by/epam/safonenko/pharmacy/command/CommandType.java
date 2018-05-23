@@ -9,7 +9,8 @@ public enum CommandType {
     CHANGE_LOCALE(new ChangeLocale()),
     FORGOT_PASSWORD(new ForgotPassword()),
     LOGOUT(new Logout()),
-    CHANGE_FORGOTTEN_PASSWORD(new ChangeForgottenPassword());
+    CHANGE_FORGOTTEN_PASSWORD(new ChangeForgottenPassword()),
+    FORM_MAIN_PAGE(new FormMainPage());
 
     private Command command;
 

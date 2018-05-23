@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Pack {
-    private String packId;
+    private int packId;
     private Producer producer;
     private int quantity;
     private int dosage;
@@ -14,11 +14,11 @@ public class Pack {
 
     public Pack(){}
 
-    public String getPackId() {
+    public int getPackId() {
         return packId;
     }
 
-    public void setPackId(String packId) {
+    public void setPackId(int packId) {
         this.packId = packId;
     }
 
@@ -75,10 +75,10 @@ public class Pack {
         if (this == o) return true;
         if (!(o instanceof Pack)) return false;
         Pack pack = (Pack) o;
-        return quantity == pack.quantity &&
+        return packId == pack.packId &&
+                quantity == pack.quantity &&
                 dosage == pack.dosage &&
                 amount == pack.amount &&
-                Objects.equals(packId, pack.packId) &&
                 Objects.equals(producer, pack.producer) &&
                 Objects.equals(price, pack.price) &&
                 Objects.equals(imagePath, pack.imagePath);

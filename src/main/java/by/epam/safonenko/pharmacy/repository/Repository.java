@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface Repository<T> {
-    default List<T> find(FindSpecification specification) throws RepositoryException{
+    default List<T> find(FindSpecification<T> specification) throws RepositoryException{
         List<T> result;
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         try(PreparedStatement statement = connection.prepareStatement(specification.getRequest())) {
@@ -24,7 +24,7 @@ public interface Repository<T> {
         }
         return result;
     }
-    default boolean check(FindSpecification specification) throws RepositoryException{
+    default boolean check(FindSpecification<T> specification) throws RepositoryException{
         List<T> userList= find(specification);
         return !userList.isEmpty();
     }

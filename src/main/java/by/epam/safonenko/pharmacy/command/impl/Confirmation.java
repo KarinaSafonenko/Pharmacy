@@ -8,9 +8,12 @@ import by.epam.safonenko.pharmacy.logic.UserLogic;
 import by.epam.safonenko.pharmacy.specification.impl.FindParameterByLogin;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.UserParameter;
+import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Confirmation implements Command {
+    private static Logger logger = LogManager.getLogger(Confirmation.class);
     private final String CONFIRMATION_FAILED = "confirmation_failed";
     private UserLogic userLogic;
     private CreditCardLogic creditCardLogic;
@@ -35,6 +38,7 @@ public class Confirmation implements Command {
                 return new Trigger(PagePath.CONFIRM_PATH, Trigger.TriggerType.REDIRECT);
             }
         } catch (LogicException e) {
+            logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
         }
     }

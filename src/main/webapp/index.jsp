@@ -3,7 +3,7 @@
   <head>
     <title></title>
   </head>
-  <jsp:forward page="/jsp/register.jsp"/>
+  <jsp:forward page="/ControllerServlet?command=form_main_page"/>
   <body>
   </body>
 </html>

@@ -3,6 +3,7 @@ package by.epam.safonenko.pharmacy.entity;
 import java.util.Objects;
 
 public class Card {
+    private int id;
     private String number;
     private String code;
 
@@ -24,6 +25,14 @@ public class Card {
     public void setCode(String code) {
         this.code = code;
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 
     @Override
     public boolean equals(Object o) {

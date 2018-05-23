@@ -1,20 +1,19 @@
 package by.epam.safonenko.pharmacy.entity;
 
-import by.epam.safonenko.pharmacy.util.ProductCategory;
+import by.epam.safonenko.pharmacy.util.parameter.ProductCategory;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Medicine {
+    private int id;
     private String name;
     private ProductCategory category;
     private boolean recipeNeed;
     private String description;
-    private Set<Pack> medicinePacks;
+    private List<Pack> medicinePacks;
 
     public Medicine(){
-        medicinePacks = new HashSet<>();
+        medicinePacks = new ArrayList<>();
     }
 
     public String getName() {
@@ -49,12 +48,20 @@ public class Medicine {
         this.description = description;
     }
 
-    public Set<Pack> getMedicinePacks() {
+    public List<Pack> getMedicinePacks() {
         return medicinePacks;
     }
 
-    public void setMedicinePacks(Set<Pack> medicinePacks) {
+    public void setMedicinePacks(List<Pack> medicinePacks) {
         this.medicinePacks = medicinePacks;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -62,7 +69,8 @@ public class Medicine {
         if (this == o) return true;
         if (!(o instanceof Medicine)) return false;
         Medicine medicine = (Medicine) o;
-        return recipeNeed == medicine.recipeNeed &&
+        return id == medicine.id &&
+                recipeNeed == medicine.recipeNeed &&
                 Objects.equals(name, medicine.name) &&
                 category == medicine.category &&
                 Objects.equals(description, medicine.description) &&
@@ -72,6 +80,6 @@ public class Medicine {
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, category, recipeNeed, description, medicinePacks);
+        return Objects.hash(id, name, category, recipeNeed, description, medicinePacks);
     }
 }

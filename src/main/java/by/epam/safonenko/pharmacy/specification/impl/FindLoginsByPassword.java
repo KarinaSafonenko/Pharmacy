@@ -1,16 +1,17 @@
 package by.epam.safonenko.pharmacy.specification.impl;
 
-import by.epam.safonenko.pharmacy.entity.User;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.specification.FindSpecification;
-import by.epam.safonenko.pharmacy.util.UserParameter;
+import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FindLoginsByPassword implements FindSpecification<String>{
     private static String REQUEST = "SELECT login FROM pharmacy.user WHERE user.password = SHA1(?)";

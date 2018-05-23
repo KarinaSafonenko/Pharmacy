@@ -3,7 +3,7 @@ package by.epam.safonenko.pharmacy.specification.impl;
 import by.epam.safonenko.pharmacy.entity.User;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.specification.FindSpecification;
-import by.epam.safonenko.pharmacy.util.UserParameter;
+import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -7,9 +7,12 @@ import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.logic.UserLogic;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.UserParameter;
+import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Login implements Command {
+    private static Logger logger = LogManager.getLogger(FormMainPage.class);
     private UserLogic userLogic;
     private static final String LOGIN_FAILED = "login_failed";
 
@@ -34,6 +37,7 @@ public class Login implements Command {
                 return new Trigger(PagePath.LOGIN_PATH, Trigger.TriggerType.FORWARD);
             }
         } catch (LogicException e) {
+            logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
         }
     }
