@@ -3,12 +3,12 @@ package by.epam.safonenko.pharmacy.command.impl;
 import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.exception.LogicException;
-import by.epam.safonenko.pharmacy.logic.ClientBasketLogic;
+import by.epam.safonenko.pharmacy.logic.impl.ClientBasketLogic;
+import by.epam.safonenko.pharmacy.specification.impl.basket.ClientBasketParameter;
+import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import by.epam.safonenko.pharmacy.util.SessionAttribute;
-import by.epam.safonenko.pharmacy.util.parameter.ClientBasketParameter;
-import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,11 +34,11 @@ public class AddToCart implements Command {
                 if (clientBasketLogic.checkPackIdInClientBasket(packId, login)){
                     int amount = Integer.parseInt(quantity);
                     int currentAmount = clientBasketLogic.findPackAmount(packId, login);
-                    String resultAmount = String.valueOf(amount + currentAmount);
-                    clientBasketLogic.setPackAmount(login, resultAmount);
+                    int resultAmount = amount + currentAmount;
+                    //clientBasketLogic.setPackAmount(login, resultAmount, packId);
                     return new Trigger(latestPage, Trigger.TriggerType.FORWARD);
                 }else{
-                    clientBasketLogic.setPackAmount(login, quantity);
+                    //clientBasketLogic.setPackAmount(login, quantity);
                     return new Trigger(latestPage, Trigger.TriggerType.FORWARD);
                 }
             } catch (LogicException e) {

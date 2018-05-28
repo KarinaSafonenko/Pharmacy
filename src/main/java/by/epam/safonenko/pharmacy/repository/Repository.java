@@ -50,7 +50,7 @@ public interface Repository<T> {
         }
         return result;
     }
-    default List<String> findValues(FindSpecification specification) throws RepositoryException{
+    default List<String> findValues(FindSpecification<String> specification) throws RepositoryException{
         List<String> result;
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         try(PreparedStatement statement = connection.prepareStatement(specification.getRequest())) {

@@ -10,15 +10,15 @@ public class SessionCreator {
     private String password;
     private Properties properties;
 
-    public SessionCreator(Properties properties) {
+    protected SessionCreator(Properties properties) {
         this.properties = properties;
 
-        username = properties.getProperty(MailProperty.USERNAME.name().toLowerCase());
-        password = properties.getProperty(MailProperty.PASSWORD.name().toLowerCase());
+        username = properties.getProperty(MailParameter.USERNAME.name().toLowerCase());
+        password = properties.getProperty(MailParameter.PASSWORD.name().toLowerCase());
 
-        properties.remove(MailProperty.FROM.name().toLowerCase());
-        properties.remove(MailProperty.USERNAME.name().toLowerCase());
-        properties.remove(MailProperty.PASSWORD.name().toLowerCase());
+        properties.remove(MailParameter.FROM.name().toLowerCase());
+        properties.remove(MailParameter.USERNAME.name().toLowerCase());
+        properties.remove(MailParameter.PASSWORD.name().toLowerCase());
     }
     public Session createSession() {
         return Session.getDefaultInstance(properties,

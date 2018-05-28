@@ -4,11 +4,10 @@ import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.entity.Medicine;
 import by.epam.safonenko.pharmacy.exception.LogicException;
-import by.epam.safonenko.pharmacy.logic.MedicineLogic;
+import by.epam.safonenko.pharmacy.logic.impl.MedicineLogic;
+import by.epam.safonenko.pharmacy.specification.impl.medicine.MedicineParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.parameter.MedicineParameter;
-import by.epam.safonenko.pharmacy.util.parameter.ProductCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +25,7 @@ public class ShowCategoryProducts implements Command {
     @Override
     public Trigger execute(RequestContent requestContent) {
         String category = requestContent.getRequestParameter(MedicineParameter.CATEGORY.name().toLowerCase());
-        ProductCategory productCategory = ProductCategory.valueOf(category.toUpperCase());
+        Medicine.ProductCategory productCategory = Medicine.ProductCategory.valueOf(category.toUpperCase());
         try {
             List<Medicine> products = medicineLogic.findMedicinesByCategory(productCategory);
             requestContent.addRequestAttribute(PRODUCTS, products);

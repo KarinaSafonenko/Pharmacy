@@ -3,12 +3,12 @@ package by.epam.safonenko.pharmacy.command.impl;
 import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.exception.LogicException;
-import by.epam.safonenko.pharmacy.logic.CreditCardLogic;
-import by.epam.safonenko.pharmacy.logic.UserLogic;
-import by.epam.safonenko.pharmacy.specification.impl.FindParameterByLogin;
+import by.epam.safonenko.pharmacy.logic.impl.CreditCardLogic;
+import by.epam.safonenko.pharmacy.logic.impl.UserLogic;
+import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
+import by.epam.safonenko.pharmacy.specification.impl.user.find.FindParameterByLogin;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

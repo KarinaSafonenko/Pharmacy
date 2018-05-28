@@ -4,7 +4,7 @@ import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.entity.Medicine;
 import by.epam.safonenko.pharmacy.exception.LogicException;
-import by.epam.safonenko.pharmacy.logic.MedicineLogic;
+import by.epam.safonenko.pharmacy.logic.impl.MedicineLogic;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import org.apache.logging.log4j.LogManager;

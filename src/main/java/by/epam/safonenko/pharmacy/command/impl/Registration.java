@@ -2,13 +2,14 @@ package by.epam.safonenko.pharmacy.command.impl;
 
 import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.controller.Trigger;
+import by.epam.safonenko.pharmacy.entity.User;
 import by.epam.safonenko.pharmacy.exception.LogicException;
-import by.epam.safonenko.pharmacy.logic.UserLogic;
+import by.epam.safonenko.pharmacy.logic.impl.UserLogic;
 import by.epam.safonenko.pharmacy.mail.MailSender;
-import by.epam.safonenko.pharmacy.repository.UserRepository;
+import by.epam.safonenko.pharmacy.repository.impl.UserRepository;
+import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.parameter.UserParameter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -69,7 +70,7 @@ public class Registration implements Command {
 
         Map<RegistrationMessage, UserParameter> incorrect;
         try {
-            incorrect = userLogic.addUser(name, surname, patronymic, sex, mail, login, password, repeatPassword, UserRepository.UserRole.CLIENT);
+            incorrect = userLogic.addUser(name, surname, patronymic, sex, mail, login, password, repeatPassword, User.UserRole.CLIENT);
         } catch (LogicException e) {
             logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);

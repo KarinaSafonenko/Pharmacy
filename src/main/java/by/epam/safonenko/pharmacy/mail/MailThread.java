@@ -29,7 +29,7 @@ public class MailThread extends Thread {
         this.properties = properties;
     }
     private void init() {
-        String from = properties.getProperty(MailProperty.FROM.name().toLowerCase());
+        String from = properties.getProperty(MailParameter.FROM.name().toLowerCase());
 
         Session mailSession = (new SessionCreator(properties)).createSession();
         mailSession.setDebug(true);

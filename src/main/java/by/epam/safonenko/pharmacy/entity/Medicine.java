@@ -1,7 +1,5 @@
 package by.epam.safonenko.pharmacy.entity;
 
-import by.epam.safonenko.pharmacy.util.parameter.ProductCategory;
-
 import java.util.*;
 
 public class Medicine {
@@ -11,6 +9,10 @@ public class Medicine {
     private boolean recipeNeed;
     private String description;
     private List<Pack> medicinePacks;
+
+    public enum ProductCategory {
+        VITAMIN, ALLERGY, ANTIBIOTIC, CARDIOVASCULAR, COLD, COSMETICS
+    }
 
     public Medicine(){
         medicinePacks = new ArrayList<>();
