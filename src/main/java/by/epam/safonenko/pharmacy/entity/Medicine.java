@@ -9,9 +9,10 @@ public class Medicine {
     private boolean recipeNeed;
     private String description;
     private List<Pack> medicinePacks;
+    private String imagePath;
 
     public enum ProductCategory {
-        VITAMIN, ALLERGY, ANTIBIOTIC, CARDIOVASCULAR, COLD, COSMETICS
+        VITAMINS, ALLERGY, ANTIBIOTICS, HEART, COLD, COSMETICS
     }
 
     public Medicine(){
@@ -34,7 +35,7 @@ public class Medicine {
         this.category = category;
     }
 
-    public boolean isRecipeNeed() {
+    public boolean getRecipeNeed() {
         return recipeNeed;
     }
 
@@ -66,6 +67,14 @@ public class Medicine {
         this.id = id;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -76,12 +85,13 @@ public class Medicine {
                 Objects.equals(name, medicine.name) &&
                 category == medicine.category &&
                 Objects.equals(description, medicine.description) &&
-                Objects.equals(medicinePacks, medicine.medicinePacks);
+                Objects.equals(medicinePacks, medicine.medicinePacks) &&
+                Objects.equals(imagePath, medicine.imagePath);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, category, recipeNeed, description, medicinePacks);
+        return Objects.hash(id, name, category, recipeNeed, description, medicinePacks, imagePath);
     }
 }

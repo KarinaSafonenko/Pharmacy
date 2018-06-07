@@ -8,6 +8,7 @@ import by.epam.safonenko.pharmacy.logic.impl.MedicineLogic;
 import by.epam.safonenko.pharmacy.specification.impl.medicine.MedicineParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
+import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class ShowCategoryProducts implements Command {
     private static Logger logger = LogManager.getLogger(ShowCategoryProducts.class);
-    private static final String PRODUCTS = "products";
+    private static final String PRODUCTS = "productList";
     private MedicineLogic medicineLogic;
 
     public ShowCategoryProducts() {
@@ -29,7 +30,8 @@ public class ShowCategoryProducts implements Command {
         try {
             List<Medicine> products = medicineLogic.findMedicinesByCategory(productCategory);
             requestContent.addRequestAttribute(PRODUCTS, products);
-            return new Trigger(PagePath.TEST_PATH, Trigger.TriggerType.FORWARD);
+            requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.SHOP_PATH);
+            return new Trigger(PagePath.SHOP_PATH, Trigger.TriggerType.FORWARD);
         } catch (LogicException e) {
             logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);

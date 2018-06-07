@@ -8,6 +8,7 @@ import by.epam.safonenko.pharmacy.logic.impl.UserLogic;
 import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
+import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,7 +32,8 @@ public class Login implements Command {
                 requestContent.addSessionAttribute(UserParameter.NAME.name().toLowerCase(), current.getName());
                 requestContent.addSessionAttribute(UserParameter.SURNAME.name().toLowerCase(), current.getSurname());
                 requestContent.addSessionAttribute(UserParameter.ROLE.name().toLowerCase(), current.getRole());
-                return new Trigger(PagePath.MAIN_PATH, Trigger.TriggerType.FORWARD);
+                requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.INDEX_PATH);
+                return new Trigger(PagePath.INDEX_PATH, Trigger.TriggerType.REDIRECT);
             }else{
                 requestContent.addRequestAttribute(LOGIN_FAILED, true);
                 return new Trigger(PagePath.LOGIN_PATH, Trigger.TriggerType.FORWARD);

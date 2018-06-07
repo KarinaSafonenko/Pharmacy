@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FindMedicinesByCategory implements FindSpecification<Medicine>, FormMedicineWithoutPacks {
-    private static String REQUEST = "SELECT medicine_id, name, category, recipe_need, description FROM pharmacy.medicine WHERE medicine.category = ?";
+    private static String REQUEST = "SELECT medicine_id, name, category, recipe_need, image_path, description FROM pharmacy.medicine WHERE medicine.category = ?";
     private Medicine.ProductCategory category;
 
     public FindMedicinesByCategory(Medicine.ProductCategory category){

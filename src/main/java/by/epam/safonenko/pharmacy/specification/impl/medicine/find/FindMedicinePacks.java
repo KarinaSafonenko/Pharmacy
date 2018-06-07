@@ -1,6 +1,5 @@
 package by.epam.safonenko.pharmacy.specification.impl.medicine.find;
 
-import by.epam.safonenko.pharmacy.entity.Medicine;
 import by.epam.safonenko.pharmacy.entity.Producer;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.entity.Pack;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FindMedicinePacks implements FindSpecification<Pack> {
-    private static String REQUEST = "SELECT pack.pack_id, producer.id, producer.name, producer.country, pack.quantity, pack.dosage, pack.price, pack.amount, pack.image_path FROM pharmacy.pack \n" +
+    private static String REQUEST = "SELECT pack.pack_id, producer.producer_id, producer.name, producer.country, pack.quantity, pack.dosage, pack.price, pack.amount FROM pharmacy.pack \n" +
             "INNER JOIN pharmacy.producer ON producer.producer_id = pack.producer_id\n" +
             "WHERE pack.medicine_id = ?";
     private int id;
@@ -41,7 +40,6 @@ public class FindMedicinePacks implements FindSpecification<Pack> {
                 pack.setPackId(resultSet.getInt(PackParameter.PACK_ID.name().toLowerCase()));
                 pack.setPrice(resultSet.getBigDecimal(PackParameter.PRICE.name().toLowerCase()));
                 pack.setQuantity(resultSet.getInt(PackParameter.QUANTITY.name().toLowerCase()));
-                pack.setImagePath(resultSet.getString(PackParameter.IMAGE_PATH.name().toLowerCase()));
                 pack.setDosage(resultSet.getInt(PackParameter.DOSAGE.name().toLowerCase()));
                 pack.setAmount(resultSet.getInt(PackParameter.AMOUNT.name().toLowerCase()));
                 result.add(pack);

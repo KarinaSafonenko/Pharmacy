@@ -1,35 +1,52 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+
 <html>
-<head>
-</head>
-<body>
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="property.message" var="bundle" scope="request"/>
-
-<fmt:message bundle = "${bundle}" key ="wrongLoginOrPassword" var = "wrong_login_or_password"/>
-<fmt:message bundle = "${bundle}" key ="loginMessage" var = "login_message"/>
-<fmt:message bundle = "${bundle}" key ="passwordMessage" var = "password_message"/>
-<fmt:message bundle = "${bundle}" key ="entry" var = "entry_message"/>
-<fmt:message bundle = "${bundle}" key ="forgotPassword" var = "forgot_password_message"/>
-
-<form name="login" method="POST" action="/ControllerServlet">
-    <input type="hidden" name="command" value="login" />
-    ${login_message}<br/>
-    <input type="text" name="login" value=""/>
-    <br/>
-    <br/>${password_message}<br/>
-    <input type="password" name="password" value=""/>
-    <br/>
-    <c:if test="${login_failed}">${wrong_login_or_password}</c:if>
-<br/>
-<input type="submit" value="${entry_message}"/>
-</form>
-<form name="forgot" method="POST" action="forgotPassword.jsp">
-        <input type="hidden" name="command" value="forgot_password" />
-        <input type="submit" value="${forgot_password_message}"/>
-</form>
-</body>
+  <head>
+    <title>${login}</title>
+      <%@ include file="../WEB-INF/jsp/style.jsp"%>
+      <fmt:setLocale value="${sessionScope.locale}"/>
+      <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
+      <fmt:message bundle = "${bundle}" key ="wrong_login_or_password" var = "wrong_login_or_password"/>
+      <fmt:message bundle = "${bundle}" key ="login" var = "login"/>
+      <fmt:message bundle = "${bundle}" key ="password_message" var = "password"/>
+      <fmt:message bundle = "${bundle}" key ="log_in" var = "log_in"/>
+      <fmt:message bundle = "${bundle}" key ="account" var = "account"/>
+      <fmt:message bundle = "${bundle}" key ="forgot_password" var = "forgot_password_message"/>
+  </head>
+  <body class="animsition">
+  <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/header.jsp"/>
+  <div class="login" id="page">
+        <ctg:show-sub_header name="${account}"/>
+      <section class="boxed-sm">
+        <div class="container">
+          <div class="login-wrapper">
+              <form name="login" method="POST" action="/ControllerServlet">
+              <div class="row">
+              <h3>${entry}</h3>
+                  <input type="hidden" name="command" value="login" />
+                  <div class="form-group organic-form-2">
+                  <label>${login}:</label>
+                  <input class="form-control" type="text" name="login">
+                </div>
+                <div class="form-group organic-form-2">
+                  <label>${password}:</label>
+                  <input class="form-control" type="Password" name="password">
+                </div>
+                  <c:if test="${login_failed}"><span style="color: red">${wrong_login_or_password}</span></c:if>
+                  <a class="pull-right" href="/ControllerServlet?command=change_latest_path&path=/jsp/forgot_password.jsp">${forgot_password_message}</a>
+              </div>
+                  <div class="form-group footer-form">
+                  <button class="btn btn-brand pill" type="submit">${log_in}</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+      </section>
+  </div>
+  <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/footer.jsp"/>
+  <%@ include file="../WEB-INF/jsp/action.jsp"%>
+  </body>
 </html>
-

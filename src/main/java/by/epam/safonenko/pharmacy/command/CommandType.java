@@ -12,7 +12,8 @@ public enum CommandType {
     CHANGE_FORGOTTEN_PASSWORD(new ChangeForgottenPassword()),
     FORM_MAIN_PAGE(new FormMainPage()),
     SHOW_CATEGORY_PRODUCTS(new ShowCategoryProducts()),
-    ADD_TO_CART(new AddToCart());
+    ADD_TO_CART(new AddToCart()),
+    CHANGE_LATEST_PATH(new ChangeLatestPath());
 
     private Command command;
 

@@ -10,7 +10,6 @@ public class Pack {
     private int dosage;
     private BigDecimal price;
     private int amount;
-    private String imagePath;
 
     public Pack(){}
 
@@ -62,13 +61,6 @@ public class Pack {
         this.amount = amount;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -80,13 +72,12 @@ public class Pack {
                 dosage == pack.dosage &&
                 amount == pack.amount &&
                 Objects.equals(producer, pack.producer) &&
-                Objects.equals(price, pack.price) &&
-                Objects.equals(imagePath, pack.imagePath);
+                Objects.equals(price, pack.price);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(packId, producer, quantity, dosage, price, amount, imagePath);
+        return Objects.hash(packId, producer, quantity, dosage, price, amount);
     }
 }

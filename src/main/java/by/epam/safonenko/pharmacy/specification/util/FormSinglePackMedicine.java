@@ -12,13 +12,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface FormSinglePackMedicine {
+public interface FormSinglePackMedicine extends FormMedicineWithoutPacks {
     String PRODUCER = "producer.";
     String MEDICINE = "medicine.";
     String PACK = "pack.";
 
     default Medicine formMedicineWithSinglePack(ResultSet resultSet) throws SQLException {
-        Medicine medicine = new Medicine();
+        Medicine medicine = formMedicine(resultSet);
         Pack pack = new Pack();
         Producer producer = new Producer();
         List<Pack> packList = new ArrayList<>();
@@ -28,7 +28,6 @@ public interface FormSinglePackMedicine {
         pack.setPackId(resultSet.getInt(PackParameter.PACK_ID.name().toLowerCase()));
         pack.setPrice(resultSet.getBigDecimal(PackParameter.PRICE.name().toLowerCase()));
         pack.setQuantity(resultSet.getInt(PackParameter.QUANTITY.name().toLowerCase()));
-        pack.setImagePath(resultSet.getString(PackParameter.IMAGE_PATH.name().toLowerCase()));
         pack.setDosage(resultSet.getInt(PackParameter.DOSAGE.name().toLowerCase()));
         pack.setAmount(resultSet.getInt(PACK + PackParameter.AMOUNT.name().toLowerCase()));
         packList.add(pack);

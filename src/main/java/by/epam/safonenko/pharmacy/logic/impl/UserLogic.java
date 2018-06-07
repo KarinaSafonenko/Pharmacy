@@ -74,12 +74,9 @@ public class UserLogic implements Logic {
         Map<Registration.RegistrationMessage, UserParameter> incorrect = new HashMap<>();
         if (!Validator.validatePassword(password)){
             incorrect.put(Registration.RegistrationMessage.WRONG_PASSWORD, UserParameter.PASSWORD);
-        }
-
-        if (!password.equals(repeatPassword)){
+        }else if (!password.equals(repeatPassword)){
             incorrect.put(Registration.RegistrationMessage.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
         }
-
         return incorrect;
     }
 

@@ -16,8 +16,8 @@ public class FindMedicines implements FindSpecification<Medicine>, FormMedicineW
     private FindType type;
 
     public enum FindType{
-        ALL ("SELECT medicine_id, name, category, recipe_need, description FROM pharmacy.medicine") ,
-        POPULAR ("SELECT medicine_id, name, category, recipe_need, description FROM pharmacy.medicine ORDER BY medicine.number_of_orders DESC");
+        ALL ("SELECT medicine_id, name, category, recipe_need, description, image_path FROM pharmacy.medicine") ,
+        POPULAR ("SELECT medicine_id, name, category, recipe_need, description, image_path FROM pharmacy.medicine ORDER BY medicine.number_of_orders DESC");
 
         private final String REQUEST;
 

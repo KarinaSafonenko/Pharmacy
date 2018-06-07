@@ -9,8 +9,8 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 @WebListener
-public class LocaleAndLastPageListener implements HttpSessionListener {
-    private final String DEFAULT_LOCALE = "en_EN";
+public class CreateSessionListener implements HttpSessionListener {
+    private final String DEFAULT_LOCALE = "ru_RU";
 
 
     @Override

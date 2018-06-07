@@ -8,16 +8,46 @@
     <short-name>ctg</short-name>
     <uri>customtags</uri>
     <tag>
-        <name>info-time</name>
-        <tag-class>by.epam.safonenko.pharmacy.tag.InfoTimeTag</tag-class>
-        <body-content>empty</body-content>
-    </tag>
-    <tag>
         <name>show-popular</name>
         <tag-class>by.epam.safonenko.pharmacy.tag.ShowPopularTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>products</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>show-product</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowProductTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>products</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>show-dialog</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowDialogTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>products</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>number</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>show-sub_header</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowSubHeader</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>name</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

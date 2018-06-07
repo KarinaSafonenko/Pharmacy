@@ -44,11 +44,6 @@ public class RequestContent {
         return requestParameters.get(key)[0];
     }
 
-//    public void addRequestParameter(String key, String value){
-//        String[] input = {value};
-//        requestParameters.put(key, input);
-//    }
-
     public void addSessionAttribute(String key, Object value){
         sessionAttributes.put(key, value);
     }

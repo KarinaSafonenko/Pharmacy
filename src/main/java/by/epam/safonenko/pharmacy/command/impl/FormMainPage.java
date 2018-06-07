@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FormMainPage implements Command {
     private static Logger logger = LogManager.getLogger(FormMainPage.class);
-    private static final String PRODUCTS = "products";
+    private static final String PRODUCTS = "productList";
     private MedicineLogic medicineLogic;
 
     public FormMainPage(){
@@ -26,7 +26,7 @@ public class FormMainPage implements Command {
         try {
             List<Medicine> products = medicineLogic.findPopularProducts();
             requestContent.addRequestAttribute(PRODUCTS, products);
-            return new Trigger(PagePath.TEST_PATH, Trigger.TriggerType.FORWARD);
+            return new Trigger(PagePath.MAIN_PATH, Trigger.TriggerType.FORWARD);
         } catch (LogicException e) {
             logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);

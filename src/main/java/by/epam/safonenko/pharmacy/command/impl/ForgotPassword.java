@@ -8,21 +8,17 @@ import by.epam.safonenko.pharmacy.mail.MailSender;
 import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import org.apache.logging.log4j.Level;
+import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Properties;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class ForgotPassword implements Command {
     private static Logger logger = LogManager.getLogger(Registration.class);
-    private static final String MESSAGE_PATH = "/property/message.properties";
-    private static final String CHANGE_PASSWORD_SUBJECT = "changePasswordSubject";
+    private static final String BUNDLE_NAME = "property.message";
+    private static final String CHANGE_PASSWORD_SUBJECT = "change_password_subject";
     private static final String NO_SUCH_LOGIN = "no_such_login";
     private UserLogic userLogic;
 
@@ -41,23 +37,12 @@ public class ForgotPassword implements Command {
                 } catch (LogicException e) {
                     return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
                 }
-                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                URL propertyURL = classLoader.getResource(MESSAGE_PATH);
-                if (propertyURL == null) {
-                    logger.log(Level.FATAL, "Message property file hasn't been found");
-                    throw new RuntimeException();
-                }
-
-                Properties properties = new Properties();
-                try {
-                    properties.load(new FileInputStream(new File(propertyURL.toURI())));
-                } catch (URISyntaxException | IOException e) {
-                    logger.catching(e);
-                    throw new RuntimeException(e);
-                }
-                String subject = properties.getProperty(CHANGE_PASSWORD_SUBJECT);
+                String lang = (String) requestContent.getSessionAttribute(SessionAttribute.LOCALE.name().toLowerCase());
+                ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.forLanguageTag(lang.replace("_", "-")));
+                String subject = resourceBundle.getString(CHANGE_PASSWORD_SUBJECT);
                 requestContent.addSessionAttribute(UserParameter.LOGIN.name().toLowerCase(), login);
                 new MailSender().sendMail(userMail, subject, code);
+                requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.CHANGE_FORGOTTEN_PASSWORD_PATH);
                 return new Trigger(PagePath.CHANGE_FORGOTTEN_PASSWORD_PATH, Trigger.TriggerType.REDIRECT);
             }else {
                 requestContent.addRequestAttribute(NO_SUCH_LOGIN, true);

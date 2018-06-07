@@ -3,7 +3,7 @@
   <head>
     <title></title>
   </head>
-  <jsp:forward page="/ControllerServlet?command=add_to_cart"/>
+  <jsp:forward page="/ControllerServlet?command=form_main_page"/>
   <body>
   </body>
 </html>

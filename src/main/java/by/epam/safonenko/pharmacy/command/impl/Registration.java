@@ -6,27 +6,23 @@ import by.epam.safonenko.pharmacy.entity.User;
 import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.logic.impl.UserLogic;
 import by.epam.safonenko.pharmacy.mail.MailSender;
-import by.epam.safonenko.pharmacy.repository.impl.UserRepository;
 import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import org.apache.logging.log4j.Level;
+import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
+
+import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
+import java.util.ResourceBundle;
 
 
 public class Registration implements Command {
     private static Logger logger = LogManager.getLogger(Registration.class);
-    public static final String MESSAGE_PATH = "/property/message.properties";
-    private static final String REGISTRATION_SUBJECT = "registrationSubject";
+    private static final String BUNDLE_NAME = "property.message";
+    private static final String REGISTRATION_SUBJECT = "registration_subject";
     private UserLogic userLogic;
 
     public enum RegistrationMessage {
@@ -49,24 +45,6 @@ public class Registration implements Command {
         String login = requestContent.getRequestParameter(UserParameter.LOGIN.name().toLowerCase()).trim();
         String password = requestContent.getRequestParameter(UserParameter.PASSWORD.name().toLowerCase());
         String repeatPassword = requestContent.getRequestParameter(UserParameter.REPEAT_PASSWORD.name().toLowerCase());
-
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        URL propertyURL = classLoader.getResource(MESSAGE_PATH);
-        if (propertyURL == null) {
-            logger.log(Level.FATAL, "Message property file hasn't been found");
-            throw new RuntimeException();
-        }
-
-        Properties properties = new Properties();
-        try {
-            properties.load(new FileInputStream(new File(propertyURL.toURI())));
-        } catch (URISyntaxException | IOException e) {
-            logger.catching(e);
-            throw new RuntimeException(e);
-        }
-
-        String subject = properties.getProperty(REGISTRATION_SUBJECT);
-
 
         Map<RegistrationMessage, UserParameter> incorrect;
         try {
@@ -95,12 +73,15 @@ public class Registration implements Command {
             } catch (LogicException e) {
                 return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
             }
+            String lang = (String) requestContent.getSessionAttribute(SessionAttribute.LOCALE.name().toLowerCase());
+            ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.forLanguageTag(lang.replace("_", "-")));
+            String subject = resourceBundle.getString(REGISTRATION_SUBJECT);
             new MailSender().sendMail(mail, subject, code);
             requestContent.addSessionAttribute(UserParameter.LOGIN.name().toLowerCase(), login);
+            requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.CONFIRM_PATH);
             return new Trigger(PagePath.CONFIRM_PATH, Trigger.TriggerType.REDIRECT);
-
         }else{
-            return new Trigger(PagePath.INDEX_PATH, Trigger.TriggerType.FORWARD);
+            return new Trigger(PagePath.REGISTRATION_PATH, Trigger.TriggerType.FORWARD);
         }
     }
 
