@@ -28,7 +28,7 @@
                             <label>${registration_login_message}:</label>
                             <input class="form-control" type="text" name="login">
                         </div>
-                        <c:if test="${requestScope.no_such_login}"><span style="color: red; ">${no_such_login_message}</span></c:if>
+                        <c:if test="${requestScope.no_such_login}"><label class="text-danger">${no_such_login_message}</label></c:if>
                     </div>
                     <div class="form-group footer-form">
                         <button class="btn btn-brand pill" type="submit">${next_message}</button>

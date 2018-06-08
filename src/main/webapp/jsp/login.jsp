@@ -35,12 +35,17 @@
                   <label>${password}:</label>
                   <input class="form-control" type="Password" name="password">
                 </div>
-                  <c:if test="${login_failed}"><span style="color: red">${wrong_login_or_password}</span></c:if>
+                  <input type="date"/>
+                  <label for="file-upload" class="custom-file-upload">
+                      <i class="fa fa-cloud-upload"></i> Custom Upload
+                  </label>
+                  <input id="file-upload" type="file"/>
+                  <c:if test="${login_failed}"><label class="text-danger">${wrong_login_or_password}</label></c:if>
                   <a class="pull-right" href="/ControllerServlet?command=change_latest_path&path=/jsp/forgot_password.jsp">${forgot_password_message}</a>
-              </div>
                   <div class="form-group footer-form">
                   <button class="btn btn-brand pill" type="submit">${log_in}</button>
                   </div>
+              </div>
               </form>
             </div>
           </div>

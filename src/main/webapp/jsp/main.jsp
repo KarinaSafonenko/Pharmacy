@@ -3,28 +3,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="ctg" uri="customtags" %>
 
-<fmt:setLocale value="${sessionScope.locale}"/>
-<fmt:setBundle basename="property.message" var="bundle" scope="request"/>
-
-<fmt:message bundle = "${bundle}" key ="products" var = "products"/>
-<fmt:message bundle = "${bundle}" key ="vitamins" var = "vitamins"/>
-<fmt:message bundle = "${bundle}" key ="allergy" var = "allergy"/>
-<fmt:message bundle = "${bundle}" key ="heart" var = "heart"/>
-<fmt:message bundle = "${bundle}" key ="antibiotics" var = "antibiotics"/>
-<fmt:message bundle = "${bundle}" key ="cold" var = "cold"/>
-<fmt:message bundle = "${bundle}" key ="cosmetics" var = "cosmetics"/>
-<fmt:message bundle = "${bundle}" key ="popular" var = "popular"/>
-<fmt:message bundle = "${bundle}" key ="copyright" var = "copyright"/>
-<fmt:message bundle = "${bundle}" key ="trust" var = "trust"/>
-<fmt:message bundle = "${bundle}" key ="care" var = "care"/>
-<fmt:message bundle = "${bundle}" key ="log_in" var = "log_in"/>
-<fmt:message bundle = "${bundle}" key ="register" var = "register"/>
-
 <html>
   <head>
       <title>${home}</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />   </head>
+      <%@ include file="../WEB-INF/jsp/style.jsp"%>
+      <fmt:setLocale value="${sessionScope.locale}"/>
+      <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
+      <fmt:message bundle = "${bundle}" key ="products" var = "products"/>
+      <fmt:message bundle = "${bundle}" key ="vitamins" var = "vitamins"/>
+      <fmt:message bundle = "${bundle}" key ="allergy" var = "allergy"/>
+      <fmt:message bundle = "${bundle}" key ="heart" var = "heart"/>
+      <fmt:message bundle = "${bundle}" key ="antibiotics" var = "antibiotics"/>
+      <fmt:message bundle = "${bundle}" key ="cold" var = "cold"/>
+      <fmt:message bundle = "${bundle}" key ="cosmetics" var = "cosmetics"/>
+      <fmt:message bundle = "${bundle}" key ="popular" var = "popular"/>
+      <fmt:message bundle = "${bundle}" key ="copyright" var = "copyright"/>
+      <fmt:message bundle = "${bundle}" key ="trust" var = "trust"/>
+      <fmt:message bundle = "${bundle}" key ="care" var = "care"/>
+      <fmt:message bundle = "${bundle}" key ="log_in" var = "log_in"/>
+      <fmt:message bundle = "${bundle}" key ="register" var = "register"/>
+  </head>
   <body class="animsition">
   <jsp:include page="../WEB-INF/jsp/header.jsp"/>
   <div class="home-4" id="page">
@@ -64,7 +62,7 @@
 	  <div class="heading-wrapper text-center">
           <div class="heading-style-4">
             <h3>${products}</h3>
-            <img src="../images/icons/seperator.png" alt="seperator">
+              <img src="../images/icons/seperator.png" alt="seperator">
           </div>
         </div>
         <div class="product-category-grid-style-3">

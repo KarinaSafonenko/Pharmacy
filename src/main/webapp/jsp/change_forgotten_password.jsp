@@ -32,17 +32,17 @@
                             <label>${forgot_password_message}:</label>
                             <input class="form-control" type="text" name="confirmation_code" value="${requestScope.confirmation_code}">
                         </div>
-                        <c:if test="${requestScope.confirmation_failed}"><span style="color: red; ">${wrong_confirmation_message}</span></c:if>
+                        <c:if test="${requestScope.confirmation_failed}"><label class="text-danger">${wrong_confirmation_message}</label></c:if>
                         <div class="form-group organic-form-2">
                             <label>${new_password}: </label>
                             <input class="form-control" type="Password" name="password">
                         </div>
-                        <c:if test="${requestScope.wrong_password}"><span style="color: red; ">${wrong_password_message}</span></c:if>
+                        <c:if test="${requestScope.wrong_password}"><label class="text-danger">${wrong_password_message}</label></c:if>
                         <div class="form-group organic-form-2">
                             <label>${repeat_password}: </label>
                             <input class="form-control" type="Password" name="repeat_password">
                         </div>
-                        <c:if test="${requestScope.different_passwords}"><span style="color: red; ">${different_passwords_message}</span></c:if>
+                        <c:if test="${requestScope.different_passwords}"><label class="text-danger">${different_passwords_message}</label></c:if>
                     </div>
                     <div class="form-group footer-form">
                         <button class="btn btn-brand pill" type="submit">${change_password_message}</button>

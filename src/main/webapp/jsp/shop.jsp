@@ -21,7 +21,7 @@
             <div class="container">
                 <div class="row">
                     <div class="woocommerce-top-control">
-                        <c:if test="${not empty requestScope.productList}"><p class="woocommerce-result-count">${left_border} - ${right_border} ${of} ${result_count}</p></c:if>
+                        <c:if test="${not empty requestScope.products}"><p class="woocommerce-result-count">${left_border} - ${right_border} ${of} ${result_count}</p></c:if>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
             <div class="container">
                 <div class="row main">
                     <div class="row product-grid-equal-height-wrapper product-equal-height-4-columns flex multi-row">
-                        <ctg:show-product products="${productList}"/>
+                        <ctg:show-product products="${products}"/>
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-right">
@@ -58,7 +58,7 @@
             </div>
         </section>
 </div>
-<ctg:show-dialog products="${productList}" number="12"/>
+<ctg:show-dialog products="${products}" number="12"/>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/footer.jsp"/>
 <%@ include file="../WEB-INF/jsp/action.jsp"%>
 </body>
