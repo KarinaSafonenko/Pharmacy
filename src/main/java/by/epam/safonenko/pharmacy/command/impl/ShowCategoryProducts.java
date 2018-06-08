@@ -16,8 +16,12 @@ import java.util.List;
 
 public class ShowCategoryProducts implements Command {
     private static Logger logger = LogManager.getLogger(ShowCategoryProducts.class);
-    private static final String PRODUCTS = "productList";
+    private static final int FIRST = 1;
     private MedicineLogic medicineLogic;
+
+    private enum ShopParameter{
+        PAGE, LEFT_BORDER, RIGHT_BORDER, PRODUCTS, PRODUCT_NUMBER_ON_PAGE, RESULT_COUNT
+    }
 
     public ShowCategoryProducts() {
         medicineLogic = new MedicineLogic();
@@ -29,8 +33,18 @@ public class ShowCategoryProducts implements Command {
         Medicine.ProductCategory productCategory = Medicine.ProductCategory.valueOf(category.toUpperCase());
         try {
             List<Medicine> products = medicineLogic.findMedicinesByCategory(productCategory);
-            requestContent.addRequestAttribute(PRODUCTS, products);
+            requestContent.addRequestAttribute(ShopParameter.PRODUCTS.name().toLowerCase(), products);
+            requestContent.addRequestAttribute(ShopParameter.PAGE.name().toLowerCase(), FIRST);
             requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.SHOP_PATH);
+            int productOnPage = medicineLogic.getMaxNumberOnPage();
+            requestContent.addRequestAttribute(ShopParameter.PRODUCT_NUMBER_ON_PAGE.name().toLowerCase(), productOnPage);
+            if (!products.isEmpty()){
+                int productNumber = products.size();
+                int rightBorder = (productNumber < productOnPage) ? productNumber : productOnPage;
+                requestContent.addRequestAttribute(ShopParameter.LEFT_BORDER.name().toLowerCase(), FIRST);
+                requestContent.addRequestAttribute(ShopParameter.RESULT_COUNT.name().toLowerCase(), productNumber);
+                requestContent.addRequestAttribute(ShopParameter.RIGHT_BORDER.name().toLowerCase(), rightBorder);
+            }
             return new Trigger(PagePath.SHOP_PATH, Trigger.TriggerType.FORWARD);
         } catch (LogicException e) {
             logger.catching(e);

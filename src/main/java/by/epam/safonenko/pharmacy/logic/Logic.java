@@ -8,4 +8,8 @@ public interface Logic {
     default int countPageNumber(List infoList){
         return (int) Math.ceil(infoList.size()/MAX_NUMBER_ON_PAGE);
     }
+
+    default int getMaxNumberOnPage(){
+        return MAX_NUMBER_ON_PAGE;
+    }
 }

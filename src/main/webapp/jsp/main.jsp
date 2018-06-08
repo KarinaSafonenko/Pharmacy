@@ -23,8 +23,8 @@
 <html>
   <head>
       <title>${home}</title>
-      <%@ include file="../WEB-INF/jsp/style.jsp"%>
-  </head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../css/main.css" />   </head>
   <body class="animsition">
   <jsp:include page="../WEB-INF/jsp/header.jsp"/>
   <div class="home-4" id="page">

@@ -24,6 +24,7 @@ $(function() {
     loading: true,
     loadingParentElement: 'html',
     loadingClass: 'animsition-loading',
+    loadingInner: '<img src="../images/icons/spin.svg" />',
     timeout: false,
     timeoutCountdown: 5000,
     onLoadEvent: true,
