@@ -19,7 +19,7 @@ public class ShowCategoryProducts implements Command {
     private static final int FIRST = 1;
     private MedicineLogic medicineLogic;
 
-    private enum ShopParameter{
+    public enum ShopParameter{
         PAGE, LEFT_BORDER, RIGHT_BORDER, PRODUCTS, PRODUCT_NUMBER_ON_PAGE, RESULT_COUNT
     }
 
@@ -38,6 +38,7 @@ public class ShowCategoryProducts implements Command {
             requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.SHOP_PATH);
             int productOnPage = medicineLogic.getMaxNumberOnPage();
             requestContent.addRequestAttribute(ShopParameter.PRODUCT_NUMBER_ON_PAGE.name().toLowerCase(), productOnPage);
+            requestContent.addRequestAttribute(MedicineParameter.CATEGORY.name().toLowerCase(), category);
             if (!products.isEmpty()){
                 int productNumber = products.size();
                 int rightBorder = (productNumber < productOnPage) ? productNumber : productOnPage;

@@ -9,7 +9,7 @@
       <%@ include file="../WEB-INF/jsp/style.jsp"%>
       <fmt:setLocale value="${sessionScope.locale}"/>
       <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
-      <fmt:message bundle = "${bundle}" key ="products" var = "products"/>
+      <fmt:message bundle = "${bundle}" key ="our_products" var = "our_products"/>
       <fmt:message bundle = "${bundle}" key ="vitamins" var = "vitamins"/>
       <fmt:message bundle = "${bundle}" key ="allergy" var = "allergy"/>
       <fmt:message bundle = "${bundle}" key ="heart" var = "heart"/>
@@ -61,7 +61,7 @@
       <section class="boxed">
 	  <div class="heading-wrapper text-center">
           <div class="heading-style-4">
-            <h3>${products}</h3>
+            <h3>${our_products}</h3>
               <img src="../images/icons/seperator.png" alt="seperator">
           </div>
         </div>
@@ -168,14 +168,14 @@
             </div>
             <div class="col-md-7">
               <div class="row">
-                  <ctg:show-popular products="${productList}"/>
+                  <ctg:show-popular products="${productList}" number="${popular_product_number}"/>
               </div>
             </div>
           </div>
         </div>
       </section>
     </div>
-  <ctg:show-dialog products="${productList}" number="3"/>
+  <ctg:show-dialog products="${productList}" number="${popular_product_number}"/>
   <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/footer.jsp"/>
   <%@ include file="../WEB-INF/jsp/action.jsp"%>
   <%@ include file="../WEB-INF/jsp/main.jsp"%>

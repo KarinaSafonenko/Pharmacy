@@ -45,7 +45,6 @@ public class ShowProductTag extends TagSupport implements ShowProduct {
         if (products == null || products.isEmpty()){
             return SKIP_BODY;
         }
-        System.out.println("PRODUCT");
         int productNumber = products.size() < MAX_PRODUCT_NUMBER ? products.size(): MAX_PRODUCT_NUMBER;
         try {
             show(pageContext, PRODUCT, products, productNumber);

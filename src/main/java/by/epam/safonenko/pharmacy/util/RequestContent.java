@@ -18,10 +18,10 @@ public class RequestContent {
 
     public void extractValues(HttpServletRequest request){
         requestParameters = request.getParameterMap();
-        Enumeration keys = request.getSession().getAttributeNames();
-        while (keys.hasMoreElements())
+        Enumeration sessionKeys = request.getSession().getAttributeNames();
+        while (sessionKeys.hasMoreElements())
         {
-            String key = (String)keys.nextElement();
+            String key = (String)sessionKeys.nextElement();
             sessionAttributes.put(key, request.getSession().getAttribute(key));
         }
     }
@@ -34,7 +34,6 @@ public class RequestContent {
             request.getSession().setAttribute(entry.getKey().toString(), entry.getValue());
         }
     }
-
 
     public void addRequestAttribute(String key, Object value){
         requestAttributes.put(key, value);

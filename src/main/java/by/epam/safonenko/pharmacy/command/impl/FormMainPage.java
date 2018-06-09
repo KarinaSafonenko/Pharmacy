@@ -17,6 +17,10 @@ public class FormMainPage implements Command {
     private static final String PRODUCTS = "productList";
     private MedicineLogic medicineLogic;
 
+    private enum Parameter{
+        POPULAR_PRODUCT_NUMBER
+    }
+
     public FormMainPage(){
         medicineLogic = new MedicineLogic();
     }
@@ -26,6 +30,8 @@ public class FormMainPage implements Command {
         try {
             List<Medicine> products = medicineLogic.findPopularProducts();
             requestContent.addRequestAttribute(PRODUCTS, products);
+            int popularProductNumber = medicineLogic.getPopularProductNumber();
+            requestContent.addRequestAttribute(Parameter.POPULAR_PRODUCT_NUMBER.name().toLowerCase(), popularProductNumber);
             return new Trigger(PagePath.MAIN_PATH, Trigger.TriggerType.FORWARD);
         } catch (LogicException e) {
             logger.catching(e);

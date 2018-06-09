@@ -13,7 +13,9 @@ public enum CommandType {
     FORM_MAIN_PAGE(new FormMainPage()),
     SHOW_CATEGORY_PRODUCTS(new ShowCategoryProducts()),
     ADD_TO_CART(new AddToCart()),
-    CHANGE_LATEST_PATH(new ChangeLatestPath());
+    CHANGE_LATEST_PATH(new ChangeLatestPath()),
+    SHOW_NEXT_PRODUCT_PAGE(new ShowNextProductPage()),
+    SHOW_PREVIOUS_PRODUCT_PAGE(new ShowPreviousProductPage());
 
     private Command command;
 

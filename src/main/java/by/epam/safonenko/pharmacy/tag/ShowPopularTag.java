@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class ShowPopularTag extends TagSupport implements ShowProduct{
-    private static final int MAX_PRODUCT_NUMBER = 3;
     private static Logger logger = LogManager.getLogger(ShowPopularTag.class);
     private List<Medicine> products;
+    private int number;
 
     private static final String POPULAR_PRODUCT = "<div class=\"col-md-4\">\n" +
             "                                      <figure>\n" +
@@ -40,12 +40,16 @@ public class ShowPopularTag extends TagSupport implements ShowProduct{
         this.products = products;
     }
 
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
     @Override
     public int doStartTag() {
         if (products == null || products.isEmpty()){
             return SKIP_BODY;
         }
-        int productNumber = products.size() < MAX_PRODUCT_NUMBER ? products.size(): MAX_PRODUCT_NUMBER;
+        int productNumber = products.size() < number ? products.size(): number;
         try {
             show(pageContext, POPULAR_PRODUCT, products, productNumber);
         } catch (IOException e) {

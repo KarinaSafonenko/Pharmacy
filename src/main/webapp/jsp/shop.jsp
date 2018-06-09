@@ -11,6 +11,7 @@
     <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
     <fmt:message bundle = "${bundle}" key ="shop" var = "shop"/>
     <fmt:message bundle = "${bundle}" key ="of" var = "of"/>
+    <fmt:message bundle = "${bundle}" key ="no_products" var = "no_products"/>
 </head>
 <body class="animsition">
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/header.jsp"/>
@@ -31,6 +32,7 @@
             <div class="container">
                 <div class="row main">
                     <div class="row product-grid-equal-height-wrapper product-equal-height-4-columns flex multi-row">
+                        <c:if test="${empty requestScope.products}"><p class="woocommerce-result-count">${no_products}</p></c:if>
                         <ctg:show-product products="${products}"/>
                     </div>
                     <div class="row">
@@ -38,7 +40,7 @@
                             <nav>
                                 <ul class="pagination pagination-style-1">
                                     <li>
-                                        <a class="prev page-numbers" href="#">
+                                        <a class="prev page-numbers" href="/ControllerServlet?command=show_previous_product_page&page=${page}&category=${category}">
                                             <i class="fa fa-angle-left"></i>
                                         </a>
                                     </li>
@@ -46,7 +48,7 @@
                                         <a class="page-numbers">${page}</a>
                                     </li>
                                     <li>
-                                        <a class="next page-numbers" href="#">
+                                        <a class="next page-numbers" href="/ControllerServlet?command=show_next_product_page&page=${page}&category=${category}">
                                             <i class="fa fa-angle-right"></i>
                                         </a>
                                     </li>
@@ -58,7 +60,7 @@
             </div>
         </section>
 </div>
-<ctg:show-dialog products="${products}" number="12"/>
+<ctg:show-dialog products="${products}" number="${product_number_on_page}"/>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/footer.jsp"/>
 <%@ include file="../WEB-INF/jsp/action.jsp"%>
 </body>

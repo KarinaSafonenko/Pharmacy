@@ -12,7 +12,6 @@ public interface ShowProduct{
         JspWriter out = pageContext.getOut();
         for (int index = 0; index < productNumber; index++) {
             Medicine current = products.get(index);
-            System.out.println(String.format(productTemplate, current.getImagePath(), current.getId(), current.getName()));
             out.write(String.format(productTemplate, current.getImagePath(), current.getId(), current.getName()));
         }
     }

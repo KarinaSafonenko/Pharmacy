@@ -60,7 +60,7 @@ public class ShowDialogTag extends TagSupport {
             "                                                    %s\n" +
             "                                                </p>\n" +
             "                                                <p class=\"posted-in\">%s:\n" +
-            "                                                    <a href=\"#\" rel=\"tag\">%s</a>\n" +
+            "                                                    <a href=\"/ControllerServlet?command=show_category_products&category=%s\" rel=\"tag\">%s</a>\n" +
             "                                                </p>\n" +
             "                                            </div>\n" +
             "                                            <div class=\"quantity buttons-added\">\n" +
@@ -80,7 +80,7 @@ public class ShowDialogTag extends TagSupport {
             "        </div>\n" +
             "    </div>";
 
-    private static final String RADIO_BUTTON = "<input type='radio' name='pack_id' value='%d'>%d %s (%d %s) %s: %s  %s: %s <br/> $ %3.2f </input><br/>\n";
+    private static final String RADIO_BUTTON = "<input type='radio' name='pack_id' value='%d' checked>%d %s (%d %s) %s: %s  %s: %s <br/> $ %3.2f </input><br/>\n";
 
     private enum TagParameter{
         YES, NO, PRODUCER, ADD_TO_CART, RECIPE_NEED, CATEGORY, MG, PIECE
@@ -123,8 +123,7 @@ public class ShowDialogTag extends TagSupport {
                 }
                 String recipeNeed = current.getRecipeNeed()? resourceBundle.getString(TagParameter.YES.name().toLowerCase()): resourceBundle.getString(TagParameter.NO.name().toLowerCase());
                 String productCategory = resourceBundle.getString(current.getCategory().name().toLowerCase());
-                System.out.println(String.format(DIALOG, current.getId(), current.getImagePath(), current.getName(), current.getDescription(), builder.toString(),recipe, recipeNeed, category, productCategory, add));
-                out.write(String.format(DIALOG, current.getId(), current.getImagePath(), current.getName(), current.getDescription(), builder.toString(),recipe, recipeNeed, category, productCategory, add));
+                out.write(String.format(DIALOG, current.getId(), current.getImagePath(), current.getName(), current.getDescription(), builder.toString(),recipe, recipeNeed, category, current.getCategory().name().toLowerCase(), productCategory, add));
             }
         } catch (IOException e) {
             logger.catching(e);
