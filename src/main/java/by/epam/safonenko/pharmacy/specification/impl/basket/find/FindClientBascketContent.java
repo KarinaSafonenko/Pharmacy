@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class FindClientBascketContent implements FindSpecification<Basket>, MedicineMapUtil {
 
-    private static String REQUEST = "SELECT client_basket.amount, pack.pack_id, producer.name, producer.country, pack.quantity, pack.dosage, pack.price, pack.amount, pack.image_path, medicine.medicine_id, medicine.name, medicine.category, medicine.recipe_need, medicine.description\n" +
+    private static String REQUEST = "SELECT client_basket.amount, pack.pack_id, producer.name, producer.country, pack.quantity, pack.dosage, pack.price, pack.amount, medicine.medicine_id, medicine.name, medicine.category, medicine.recipe_need, medicine.image_path, medicine.description\n" +
             "FROM  pharmacy.client_basket INNER JOIN (pharmacy.pack INNER JOIN pharmacy.medicine ON medicine.medicine_id = pack.medicine_id\n" +
             "INNER JOIN pharmacy.producer ON producer.producer_id = pack.producer_id) \n" +
             "ON pack.pack_id = client_basket.pack_id WHERE client_basket.client = ?";

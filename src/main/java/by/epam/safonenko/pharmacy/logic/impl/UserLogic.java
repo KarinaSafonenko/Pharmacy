@@ -12,6 +12,7 @@ import by.epam.safonenko.pharmacy.specification.impl.user.find.FindParameterByLo
 import by.epam.safonenko.pharmacy.specification.impl.user.find.FindUsersByLogin;
 import by.epam.safonenko.pharmacy.specification.impl.user.update.UpdateRegistrationStatusByLogin;
 import by.epam.safonenko.pharmacy.specification.impl.user.update.UpdateStringParameterByLogin;
+import by.epam.safonenko.pharmacy.specification.impl.user.update.UpdateUserInfo;
 import by.epam.safonenko.pharmacy.validator.Validator;
 
 import java.util.*;
@@ -23,40 +24,28 @@ public class UserLogic implements Logic {
         userRepository = new UserRepository();
     }
 
-    public Map<Registration.RegistrationMessage, UserParameter> addUser(String name, String surname, String patronymic, String sex, String mail, String login, String password, String repeatPassword, User.UserRole role) throws LogicException {
-        Map<Registration.RegistrationMessage, UserParameter> incorrect = new HashMap<>();
-        boolean validated = true;
-        if (!Validator.validateInitials(name)){
-            incorrect.put(Registration.RegistrationMessage.WRONG_NAME, UserParameter.NAME);
-            validated = false;
-        }
-        if (!Validator.validateInitials(surname)){
-            incorrect.put(Registration.RegistrationMessage.WRONG_SURNAME, UserParameter.SURNAME);
-            validated = false;
-        }
-        if (!Validator.validateInitials(patronymic)) {
-            incorrect.put(Registration.RegistrationMessage.WRONG_PATRONYMIC, UserParameter.PATRONYMIC);
-            validated = false;
-        }
+    public Map<Registration.Parameter, UserParameter> addUser(String name, String surname, String patronymic, String sex, String mail, String login, String password, String repeatPassword, User.UserRole role) throws LogicException {
+        Map<Registration.Parameter, UserParameter> incorrect = checkInitials(name, surname, patronymic);
+        boolean validated = incorrect.isEmpty();
         if (!Validator.validateMail(mail)){
-            incorrect.put(Registration.RegistrationMessage.WRONG_EMAIL, UserParameter.MAIL);
+            incorrect.put(Registration.Parameter.WRONG_EMAIL, UserParameter.MAIL);
             validated = false;
         }
         if (!Validator.validateLogin(login)){
-            incorrect.put(Registration.RegistrationMessage.WRONG_LOGIN, UserParameter.LOGIN);
+            incorrect.put(Registration.Parameter.WRONG_LOGIN, UserParameter.LOGIN);
             validated = false;
         }else if (findLogin(login)){
-            incorrect.put(Registration.RegistrationMessage.DUPLICATE_LOGIN, UserParameter.LOGIN);
+            incorrect.put(Registration.Parameter.DUPLICATE_LOGIN, UserParameter.LOGIN);
             validated = false;
         }
 
         if (!Validator.validatePassword(password)){
-            incorrect.put(Registration.RegistrationMessage.WRONG_PASSWORD, UserParameter.PASSWORD);
+            incorrect.put(Registration.Parameter.WRONG_PASSWORD, UserParameter.PASSWORD);
             validated = false;
         }
 
         if (!password.equals(repeatPassword)){
-            incorrect.put(Registration.RegistrationMessage.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
+            incorrect.put(Registration.Parameter.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
             validated = false;
         }
 
@@ -70,15 +59,42 @@ public class UserLogic implements Logic {
         return incorrect;
     }
 
-    public Map<Registration.RegistrationMessage, UserParameter> comparePasswords(String password, String repeatPassword){
-        Map<Registration.RegistrationMessage, UserParameter> incorrect = new HashMap<>();
-        if (!Validator.validatePassword(password)){
-            incorrect.put(Registration.RegistrationMessage.WRONG_PASSWORD, UserParameter.PASSWORD);
-        }else if (!password.equals(repeatPassword)){
-            incorrect.put(Registration.RegistrationMessage.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
+    public Map<Registration.Parameter, UserParameter> checkInitials(String name, String surname, String patronymic){
+        Map<Registration.Parameter, UserParameter> incorrect = new HashMap<>();
+        if (!Validator.validateInitials(name)){
+            incorrect.put(Registration.Parameter.WRONG_NAME, UserParameter.NAME);
+        }
+        if (!Validator.validateInitials(surname)){
+            incorrect.put(Registration.Parameter.WRONG_SURNAME, UserParameter.SURNAME);
+        }
+        if (!Validator.validateInitials(patronymic)) {
+            incorrect.put(Registration.Parameter.WRONG_PATRONYMIC, UserParameter.PATRONYMIC);
         }
         return incorrect;
     }
+
+    public Map<Registration.Parameter, UserParameter> comparePasswords(String password, String repeatPassword){
+        Map<Registration.Parameter, UserParameter> incorrect = new HashMap<>();
+        if (!Validator.validatePassword(password)){
+            incorrect.put(Registration.Parameter.WRONG_PASSWORD, UserParameter.PASSWORD);
+        }else if (!password.equals(repeatPassword)){
+            incorrect.put(Registration.Parameter.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
+        }
+        return incorrect;
+    }
+
+    public void updateUserInfo (String login, String name, String surname, String patronymic, String sex) throws LogicException {
+        if (!Validator.validateLogin(login) || !Validator.validateInitials(name)
+                || !Validator.validateInitials(surname) || !Validator.validateInitials(patronymic)) {
+            throw new LogicException("Trying to update user info with incorrect parameter values");
+        }
+        try {
+            userRepository.update(new UpdateUserInfo(name, surname, patronymic, sex, login));
+        } catch (RepositoryException e) {
+            throw  new LogicException(e);
+        }
+    }
+
 
     public void setUserCode(String login, String code) throws LogicException {
         if (!Validator.validateCode(code)){

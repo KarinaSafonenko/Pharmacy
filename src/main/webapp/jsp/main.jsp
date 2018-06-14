@@ -24,7 +24,7 @@
       <fmt:message bundle = "${bundle}" key ="register" var = "register"/>
   </head>
   <body class="animsition">
-  <jsp:include page="../WEB-INF/jsp/header.jsp"/>
+  <%@ include file="../WEB-INF/jsp/header.jsp"%>
   <div class="home-4" id="page">
       <section class="boxed u-mb60">
         <div class="banner-slider-4 rev_slider" id="slider-4">
@@ -43,14 +43,14 @@
                 <c:if test="${empty sessionScope.name}">
                 <div class="tp-caption" data-x="left" data-y="center" data-voffset="120" data-width="['800','600','400','320']" data-transform_in="y:100px;opacity:0;s:800;e:easeInOutCubic;" data-transform_out="y:200px;opacity:0;s:300;" data-start="1800">
                  <div class="text-center">
-                   <a class="btn btn-brand-pink pill" href="/ControllerServlet?command=change_latest_path&path=/jsp/login.jsp">${log_in}</a>
+                   <a class="btn btn-brand-pink pill" href="${pageContext.request.contextPath}/jsp/login.jsp">${log_in}</a>
                  </div>
                 </div>
                 </c:if>
             <c:if test="${empty sessionScope.name}">
                 <div class="tp-caption" data-x="center" data-y="center" data-voffset="120" data-width="['800','600','400','320']" data-transform_in="y:100px;opacity:0;s:800;e:easeInOutCubic;" data-transform_out="y:200px;opacity:0;s:300;" data-start="1800">
                 <div class="text-center">
-                      <a class="btn btn-brand-pink pill" href="/ControllerServlet?command=change_latest_path&path=/jsp/registration.jsp">${register}</a>
+                      <a class="btn btn-brand-pink pill" href="${pageContext.request.contextPath}/jsp/registration.jsp">${register}</a>
                 </div>
                 </div>
             </c:if>
@@ -168,16 +168,16 @@
             </div>
             <div class="col-md-7">
               <div class="row">
-                  <ctg:show-popular products="${productList}" number="${popular_product_number}"/>
+                  <ctg:show-popular products="${products}" number="${popular_product_number}"/>
               </div>
             </div>
           </div>
         </div>
       </section>
-    </div>
-  <ctg:show-dialog products="${productList}" number="${popular_product_number}"/>
+  </div>
+  <ctg:show-dialog products="${products}" number="${popular_product_number}" buttons="true"/>
   <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/footer.jsp"/>
   <%@ include file="../WEB-INF/jsp/action.jsp"%>
-  <%@ include file="../WEB-INF/jsp/main.jsp"%>
+  <%@ include file="../WEB-INF/jsp/main_style.jsp"%>
   </body>
 </html>

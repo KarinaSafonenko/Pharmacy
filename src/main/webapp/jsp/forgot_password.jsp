@@ -15,7 +15,7 @@
     <fmt:message bundle = "${bundle}" key ="forgot_password" var = "forgot_password_message"/>
 </head>
 <body class="animsition">
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/header.jsp"/>
+<%@ include file="../WEB-INF/jsp/header.jsp"%>
 <div class="login" id="page">
     <ctg:show-sub_header name="${forgot_password_message}"/>
     <section class="boxed-sm">

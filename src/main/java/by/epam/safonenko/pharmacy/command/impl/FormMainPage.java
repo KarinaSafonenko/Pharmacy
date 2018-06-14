@@ -14,11 +14,10 @@ import java.util.List;
 
 public class FormMainPage implements Command {
     private static Logger logger = LogManager.getLogger(FormMainPage.class);
-    private static final String PRODUCTS = "productList";
     private MedicineLogic medicineLogic;
 
     private enum Parameter{
-        POPULAR_PRODUCT_NUMBER
+        POPULAR_PRODUCT_NUMBER, PRODUCTS
     }
 
     public FormMainPage(){
@@ -29,7 +28,7 @@ public class FormMainPage implements Command {
     public Trigger execute(RequestContent requestContent) {
         try {
             List<Medicine> products = medicineLogic.findPopularProducts();
-            requestContent.addRequestAttribute(PRODUCTS, products);
+            requestContent.addRequestAttribute(Parameter.PRODUCTS.name().toLowerCase(), products);
             int popularProductNumber = medicineLogic.getPopularProductNumber();
             requestContent.addRequestAttribute(Parameter.POPULAR_PRODUCT_NUMBER.name().toLowerCase(), popularProductNumber);
             return new Trigger(PagePath.MAIN_PATH, Trigger.TriggerType.FORWARD);

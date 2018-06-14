@@ -43,6 +43,10 @@ public class RequestContent {
         return requestParameters.get(key)[0];
     }
 
+    public String[] getRequestParameters(String key){
+        return requestParameters.get(key);
+    }
+
     public void addSessionAttribute(String key, Object value){
         sessionAttributes.put(key, value);
     }

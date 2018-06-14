@@ -17,10 +17,8 @@ public class ClientBasketRepository implements Repository<Basket>, UpdateByClien
     public void add(String client, int packId, int amount) throws RepositoryException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         try(PreparedStatement current = connection.prepareStatement(INSERT_IN_BASKET)) {
-            current.setString(1,client);
-            current.setInt(2,packId);
             current.setInt(3, amount);
-            current.executeUpdate();
+            executeUpdate(current, client, packId);
         } catch (SQLException e) {
             throw new RepositoryException(e);
         } finally {

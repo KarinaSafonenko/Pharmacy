@@ -28,12 +28,11 @@ public class FindBasketProductAmount implements FindValueSpecification{
             if (resultSet.next()) {
                 int amount = resultSet.getInt(ClientBasketParameter.AMOUNT.name().toLowerCase());
                 return String.valueOf(amount);
-            }else{
-                throw new RepositoryException("Something went wrong while finding basket product amount.");
             }
         }catch (SQLException e){
             throw new RepositoryException(e);
         }
+        return null;
     }
 
     @Override

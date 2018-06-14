@@ -14,7 +14,7 @@
     <fmt:message bundle = "${bundle}" key ="no_products" var = "no_products"/>
 </head>
 <body class="animsition">
-<jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/header.jsp"/>
+<%@ include file="../WEB-INF/jsp/header.jsp"%>
 <div class="shop-layout-1" id="page">
     <ctg:show-sub_header name="${shop}"/>
     <div class="woocommerce-top-control wrapper">
@@ -33,7 +33,7 @@
                 <div class="row main">
                     <div class="row product-grid-equal-height-wrapper product-equal-height-4-columns flex multi-row">
                         <c:if test="${empty requestScope.products}"><p class="woocommerce-result-count">${no_products}</p></c:if>
-                        <ctg:show-product products="${products}"/>
+                        <ctg:show-product products="${products}" number="${product_number_on_page}"/>
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-right">
@@ -60,7 +60,7 @@
             </div>
         </section>
 </div>
-<ctg:show-dialog products="${products}" number="${product_number_on_page}"/>
+<ctg:show-dialog products="${products}" number="${product_number_on_page}" buttons="true"/>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/footer.jsp"/>
 <%@ include file="../WEB-INF/jsp/action.jsp"%>
 </body>

@@ -1,18 +1,9 @@
 package by.epam.safonenko.pharmacy.specification.impl.user.find;
 
-import by.epam.safonenko.pharmacy.entity.User;
-import by.epam.safonenko.pharmacy.exception.RepositoryException;
-import by.epam.safonenko.pharmacy.specification.FindSpecification;
-import by.epam.safonenko.pharmacy.specification.util.FormUser;
-
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
-public class FindUsersByLogin implements FindSpecification<User>, FormUser {
+public class FindUsersByLogin extends AbstractFindUsers {
     private static String REQUEST = "SELECT login, password, mail, surname, name, patronymic, sex, role FROM pharmacy.user WHERE login = ?";
     private String login;
 
@@ -21,19 +12,8 @@ public class FindUsersByLogin implements FindSpecification<User>, FormUser {
     }
 
     @Override
-    public List<User> execute(Statement statement) throws RepositoryException {
-        List<User> result = new ArrayList<>();
-        try(PreparedStatement current = (PreparedStatement) statement) {
-            current.setString(1, login);
-            ResultSet resultSet = current.executeQuery();
-            while (resultSet.next()) {
-                User user = formUser(resultSet);
-                result.add(user);
-            }
-        }catch (SQLException e){
-            throw new RepositoryException(e);
-        }
-        return result;
+    protected void prepareStatement(PreparedStatement current) throws SQLException {
+        current.setString(1, login);
     }
 
     @Override

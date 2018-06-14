@@ -10,15 +10,17 @@ import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.specification.impl.user.find.FindParameterByLogin;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Confirmation implements Command {
     private static Logger logger = LogManager.getLogger(Confirmation.class);
-    private final String CONFIRMATION_FAILED = "confirmation_failed";
     private UserLogic userLogic;
     private CreditCardLogic creditCardLogic;
+
+    private enum Parameter{
+        CONFIRMATION_FAILED
+    }
 
     public Confirmation(){
         userLogic = new UserLogic();
@@ -35,14 +37,13 @@ public class Confirmation implements Command {
                 String cardId = creditCardLogic.findCardId();
                 creditCardLogic.bindUserToCard(login, cardId);
                 User current = userLogic.findUser(login);
-                requestContent.addSessionAttribute(UserParameter.LOGIN.name().toLowerCase(), login);
                 requestContent.addSessionAttribute(UserParameter.NAME.name().toLowerCase(), current.getName());
                 requestContent.addSessionAttribute(UserParameter.SURNAME.name().toLowerCase(), current.getSurname());
                 requestContent.addSessionAttribute(UserParameter.ROLE.name().toLowerCase(), current.getRole());
-                requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.INDEX_PATH);
+                requestContent.addSessionAttribute(UserParameter.PATRONYMIC.name().toLowerCase(), current.getPatronymic());
                 return new Trigger(PagePath.INDEX_PATH, Trigger.TriggerType.REDIRECT);
             }else{
-                requestContent.addRequestAttribute(CONFIRMATION_FAILED, true);
+                requestContent.addRequestAttribute(Parameter.CONFIRMATION_FAILED.name().toLowerCase(), true);
                 return new Trigger(PagePath.CONFIRM_PATH, Trigger.TriggerType.FORWARD);
             }
         } catch (LogicException e) {

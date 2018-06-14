@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UpdateBasketProductAmount implements UpdateSpecification {
-    private final String REQUEST = "UPDATE pharmacy.client_basket SET amount = 10 WHERE pack_id = ? AND client = ?";
+    private final String REQUEST = "UPDATE pharmacy.client_basket SET amount = ? WHERE pack_id = ? AND client = ?";
     private String login;
     private int amount;
     private int packId;

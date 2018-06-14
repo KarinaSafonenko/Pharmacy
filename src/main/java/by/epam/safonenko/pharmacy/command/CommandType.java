@@ -13,9 +13,15 @@ public enum CommandType {
     FORM_MAIN_PAGE(new FormMainPage()),
     SHOW_CATEGORY_PRODUCTS(new ShowCategoryProducts()),
     ADD_TO_CART(new AddToCart()),
-    CHANGE_LATEST_PATH(new ChangeLatestPath()),
-    SHOW_NEXT_PRODUCT_PAGE(new ShowNextProductPage()),
-    SHOW_PREVIOUS_PRODUCT_PAGE(new ShowPreviousProductPage());
+    SHOW_NEXT_PRODUCT_PAGE(new ShowNextProductPageUtil()),
+    SHOW_PREVIOUS_PRODUCT_PAGE(new ShowPreviousProductPageUtil()),
+    SHOW_PROFILE(new ShowProfile()),
+    CHANGE_USER_INFO(new ChangeUserInfo()),
+    TOP_UP_THE_BALANCE(new TopUpTheBalance()),
+    SHOW_BASKET(new ShowBasketProducts()),
+    REMOVE_PACK(new RemoveFromBasket()),
+    UPDATE_BASKET(new UpdateBasket()),
+    REQUEST_RECIPE(new RequestRecipe());
 
     private Command command;
 

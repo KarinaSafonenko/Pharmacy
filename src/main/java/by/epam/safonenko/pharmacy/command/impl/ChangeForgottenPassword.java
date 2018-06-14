@@ -8,7 +8,6 @@ import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.specification.impl.user.find.FindParameterByLogin;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,8 +15,11 @@ import java.util.Map;
 
 public class ChangeForgottenPassword implements Command {
     private static Logger logger = LogManager.getLogger(ChangeForgottenPassword.class);
-    private final String CONFIRMATION_FAILED = "confirmation_failed";
     private UserLogic userLogic;
+
+    private enum Parameter{
+        CONFIRMATION_FAILED
+    }
 
     public ChangeForgottenPassword(){
         userLogic = new UserLogic();
@@ -33,20 +35,19 @@ public class ChangeForgottenPassword implements Command {
             requestContent.addRequestAttribute(FindParameterByLogin.RequestType.CONFIRMATION_CODE.name().toLowerCase(), code);
             if (userLogic.checkConfirmationCode(login, code)){
                 requestContent.addRequestAttribute(FindParameterByLogin.RequestType.CONFIRMATION_CODE.name().toLowerCase(), code);
-                Map<Registration.RegistrationMessage, UserParameter> incorrect = userLogic.comparePasswords(password, repeatPassword);
-                for (Map.Entry<Registration.RegistrationMessage, UserParameter> entry : incorrect.entrySet()) {
+                Map<Registration.Parameter, UserParameter> incorrect = userLogic.comparePasswords(password, repeatPassword);
+                for (Map.Entry<Registration.Parameter, UserParameter> entry : incorrect.entrySet()) {
                     requestContent.addRequestAttribute(entry.getKey().name().toLowerCase(), true);
                     requestContent.addRequestAttribute(entry.getValue().name().toLowerCase(), null);
                 }
                 if (incorrect.isEmpty()){
                     userLogic.setUserPassword(login, password);
-                    requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.LOGIN_PATH);
                     return new Trigger(PagePath.LOGIN_PATH, Trigger.TriggerType.FORWARD);
                 }else {
                     return new Trigger(PagePath.CHANGE_FORGOTTEN_PASSWORD_PATH, Trigger.TriggerType.FORWARD);
                 }
             }else{
-                requestContent.addRequestAttribute(CONFIRMATION_FAILED, true);
+                requestContent.addRequestAttribute(Parameter.CONFIRMATION_FAILED.name().toLowerCase(), true);
                 return new Trigger(PagePath.CHANGE_FORGOTTEN_PASSWORD_PATH, Trigger.TriggerType.FORWARD);
             }
         } catch (LogicException e) {

@@ -3,16 +3,17 @@ package by.epam.safonenko.pharmacy.specification.impl.card.update;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.specification.UpdateSpecification;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UpdateMoneyAmount implements UpdateSpecification {
     private static final String REQUEST = "UPDATE pharmacy.credit_card SET credit_card.money_amount = ? WHERE login = ?";
-    private int moneyAmount;
+    private BigDecimal moneyAmount;
     private String login;
 
-    public UpdateMoneyAmount(int moneyAmount, String login){
+    public UpdateMoneyAmount(BigDecimal moneyAmount, String login){
         this.moneyAmount = moneyAmount;
         this.login = login;
     }
@@ -21,7 +22,7 @@ public class UpdateMoneyAmount implements UpdateSpecification {
     public void update(Statement statement) throws RepositoryException {
         PreparedStatement current = (PreparedStatement) statement;
         try {
-            current.setInt(1, moneyAmount);
+            current.setBigDecimal(1, moneyAmount);
             current.setString(2, login);
             int changed = current.executeUpdate();
             if (changed == 0) {

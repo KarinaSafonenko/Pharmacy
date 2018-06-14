@@ -14,7 +14,7 @@
     <fmt:message bundle = "${bundle}" key ="wrong_confirmation_code" var = "wrong_confirmation_message"/>
     <fmt:message bundle = "${bundle}" key ="confirmation_message" var = "confirmation_message"/>
     <fmt:message bundle = "${bundle}" key ="next" var = "next"/>
-    <fmt:message bundle = "${bundle}" key ="registration" var = "registration"/>
+    <fmt:message bundle = "${bundle}" key ="forgot_password" var = "forgot_password"/>
 </head>
 <body class="animsition">
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/header.jsp"/>
@@ -30,6 +30,7 @@
                             <label>${confirmation_message}: </label>
                             <input class="form-control" type="text" name="confirmation_code">
                         </div>
+                        <c:if test="${confirmation_failed}"><label class="text-danger">${wrong_confirmation_message}</label></c:if>
                     </div>
                     <div class="form-group footer-form">
                         <button class="btn btn-brand pill" type="submit">${next}</button>
@@ -38,7 +39,6 @@
             </div>
         </div>
     </section>
-</div>
 </div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/footer.jsp"/>
 <%@ include file="../WEB-INF/jsp/action.jsp"%>

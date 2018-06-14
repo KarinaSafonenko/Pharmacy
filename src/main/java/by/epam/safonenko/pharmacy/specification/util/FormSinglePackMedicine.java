@@ -31,11 +31,7 @@ public interface FormSinglePackMedicine extends FormMedicineWithoutPacks {
         pack.setDosage(resultSet.getInt(PackParameter.DOSAGE.name().toLowerCase()));
         pack.setAmount(resultSet.getInt(PACK + PackParameter.AMOUNT.name().toLowerCase()));
         packList.add(pack);
-        medicine.setId(resultSet.getInt(MedicineParameter.MEDICINE_ID.name().toLowerCase()));
         medicine.setName(resultSet.getString(MEDICINE + MedicineParameter.NAME.name().toLowerCase()));
-        medicine.setCategory(Medicine.ProductCategory.valueOf(resultSet.getString(MedicineParameter.CATEGORY.name().toLowerCase())));
-        medicine.setRecipeNeed(resultSet.getBoolean(MedicineParameter.RECIPE_NEED.name().toLowerCase()));
-        medicine.setDescription(resultSet.getString(MedicineParameter.DESCRIPTION.name().toLowerCase()));
         medicine.setMedicinePacks(packList);
         return medicine;
     }

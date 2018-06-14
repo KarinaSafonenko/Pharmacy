@@ -15,11 +15,13 @@
             <name>products</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.List</type>
         </attribute>
         <attribute>
             <name>number</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
         </attribute>
     </tag>
     <tag>
@@ -28,6 +30,11 @@
         <body-content>empty</body-content>
         <attribute>
             <name>products</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>number</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -46,6 +53,11 @@
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
+        <attribute>
+            <name>buttons</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
     </tag>
     <tag>
         <name>show-sub_header</name>
@@ -53,6 +65,31 @@
         <body-content>empty</body-content>
         <attribute>
             <name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>show-sex</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowSexSelection</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>sex</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>basket-product</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowBasketProductTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>basket</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>recipeMap</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>

@@ -28,7 +28,7 @@ public class ShowSubHeader extends TagSupport{
         }
         try {
             JspWriter out = pageContext.getOut();
-                out.write(String.format(SUB_HEADER, name));
+            out.write(String.format(SUB_HEADER, name));
         } catch (IOException e) {
             logger.catching(e);
             throw new CustomTagException(e);

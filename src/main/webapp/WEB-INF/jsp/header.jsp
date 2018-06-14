@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -12,6 +11,7 @@
     <fmt:message bundle = "${bundle}" key ="welcome" var = "welcome_message"/>
     <fmt:message bundle = "${bundle}" key ="home" var = "home"/>
     <fmt:message bundle = "${bundle}" key ="profile" var = "profile"/>
+    <fmt:message bundle = "${bundle}" key ="basket" var = "basket"/>
     <fmt:message bundle = "${bundle}" key ="language" var = "language"/>
     <fmt:message bundle = "${bundle}" key ="logout" var = "logout"/>
 </head>
@@ -28,17 +28,20 @@
                         <li>
                             <a href="/ControllerServlet?command=change_latest_path&path=index.jsp">${home}</a>
                         </li>
-                            <c:if test="${not empty sessionScope.name}">
-                                <li>
-                                    <a href="about.html">${profile}</a>
-                                </li>
-                                <li>
-                                        ${welcome_message}, ${sessionScope.name} ${sessionScope.surname} [${sessionScope.role}]! 
-                                </li>
-                                <li>
-                                    <a href="/ControllerServlet?command=logout">${logout}</a>
-                                </li>
-                            </c:if>
+                        <c:if test="${not empty sessionScope.name}">
+                        <li>
+                            <a href="/ControllerServlet?command=show_profile">${profile}</a>
+                        </li>
+                        <li>
+                            <a href="/ControllerServlet?command=show_basket">${basket}</a>
+                        </li>
+                        <li>
+                                ${welcome_message}, ${sessionScope.name} ${sessionScope.surname} !
+                        </li>
+                        <li>
+                            <a href="/ControllerServlet?command=logout">${logout}</a>
+                        </li>
+                        </c:if>
                     </ul>
                 </nav>
                 <aside class="right">

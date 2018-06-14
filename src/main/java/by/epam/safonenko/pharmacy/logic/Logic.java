@@ -2,6 +2,8 @@ package by.epam.safonenko.pharmacy.logic;
 
 import by.epam.safonenko.pharmacy.exception.LogicException;
 
+import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 public interface Logic {
@@ -25,20 +27,20 @@ public interface Logic {
         return FIRST_PAGE_NUMBER;
     }
 
-    default int countLeftBorder(List infoList, int page) throws LogicException {
+    default int countLeftBorder(int infoListSize, int page) {
         int leftBorder = FIRST_PAGE_NUMBER + (page - FIRST_PAGE_NUMBER) * MAX_NUMBER_ON_PAGE;
-        if (leftBorder > infoList.size()){
-            throw new LogicException("Incorrect page number. The list contains fewer elements.");
+        if (leftBorder > infoListSize){
+            leftBorder = infoListSize;
         }
         return leftBorder;
     }
 
-    default int countRightBorder(List infoList, int page) throws LogicException {
+    default int countRightBorder(int infoListSize, int page) throws LogicException {
         int rightBorder = page * MAX_NUMBER_ON_PAGE;
-        if (rightBorder > infoList.size()){
-            rightBorder = infoList.size();
+        if (rightBorder > infoListSize){
+            rightBorder = infoListSize;
         }
-        int leftBorder = countLeftBorder(infoList, page);
+        int leftBorder = countLeftBorder(infoListSize, page);
         if (rightBorder < leftBorder){
             throw new LogicException("The list contains fewer elements. Can't count right border.");
         }
@@ -46,9 +48,20 @@ public interface Logic {
     }
 
    default List formSubList(List infoList, int page) throws LogicException {
-        int leftBorder = countLeftBorder(infoList, page);
-        int rightBorder = countRightBorder(infoList, page);
+        int size = infoList.size();
+        int leftBorder = countLeftBorder(size, page);
+        int rightBorder = countRightBorder(size, page);
         return infoList.subList(leftBorder - FIRST_PAGE_NUMBER, rightBorder);
+   }
+
+   default Date getCurrentDate(){
+       Calendar today = Calendar.getInstance();
+       today.set(Calendar.HOUR,0);
+       today.set(Calendar.HOUR_OF_DAY,0);
+       today.set(Calendar.MINUTE,0);
+       today.set(Calendar.SECOND,0);
+       today.set(Calendar.MILLISECOND,0);
+       return today.getTime();
    }
 
 }

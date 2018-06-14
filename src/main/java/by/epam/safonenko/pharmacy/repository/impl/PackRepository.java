@@ -5,13 +5,12 @@ import by.epam.safonenko.pharmacy.connection.ProxyConnection;
 import by.epam.safonenko.pharmacy.entity.Pack;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.repository.Repository;
-import by.epam.safonenko.pharmacy.repository.util.DeleteById;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PackRepository implements Repository<Pack>, DeleteById {
+public class PackRepository implements Repository<Pack> {
     private static final String INSERT_PACK = "INSERT INTO pharmacy.pack(medicine_id, producer_id, quantity, dosage, price, amount, image_path) values (?,?,?,?,?,?,?)";
     private static final String DELETE_PACK = "DELETE FROM pharmacy.pack WHERE pack_id = ?";
 
@@ -36,7 +35,8 @@ public class PackRepository implements Repository<Pack>, DeleteById {
     public void delete(int packId) throws RepositoryException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         try(PreparedStatement current = connection.prepareStatement(DELETE_PACK)) {
-            deleteBtId(current, packId);
+            current.setInt(1, packId);
+            current.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException(e);
         } finally {

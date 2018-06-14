@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public interface FormMedicineWithoutPacks {
-
     default Medicine formMedicine(ResultSet resultSet) throws SQLException {
             Medicine medicine = new Medicine();
             medicine.setImagePath(resultSet.getString(MedicineParameter.IMAGE_PATH.name().toLowerCase()));

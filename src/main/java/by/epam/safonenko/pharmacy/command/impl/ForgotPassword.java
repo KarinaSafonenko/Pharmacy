@@ -6,25 +6,27 @@ import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.logic.impl.UserLogic;
 import by.epam.safonenko.pharmacy.mail.MailSender;
 import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
+import by.epam.safonenko.pharmacy.util.BundleUtil;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ForgotPassword implements Command {
     private static Logger logger = LogManager.getLogger(Registration.class);
-    private static final String BUNDLE_NAME = "property.message";
-    private static final String CHANGE_PASSWORD_SUBJECT = "change_password_subject";
-    private static final String NO_SUCH_LOGIN = "no_such_login";
     private UserLogic userLogic;
+
+    private enum Parameter{
+        CHANGE_PASSWORD_SUBJECT, NO_SUCH_LOGIN
+    }
 
     public ForgotPassword(){
         userLogic = new UserLogic();
     }
+
     @Override
     public Trigger execute(RequestContent requestContent) {
         String login = requestContent.getRequestParameter(UserParameter.LOGIN.name().toLowerCase().trim());
@@ -38,14 +40,13 @@ public class ForgotPassword implements Command {
                     return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
                 }
                 String lang = (String) requestContent.getSessionAttribute(SessionAttribute.LOCALE.name().toLowerCase());
-                ResourceBundle resourceBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.forLanguageTag(lang.replace("_", "-")));
-                String subject = resourceBundle.getString(CHANGE_PASSWORD_SUBJECT);
+                ResourceBundle resourceBundle = BundleUtil.getResourceBundle(lang);
+                String subject = resourceBundle.getString(Parameter.CHANGE_PASSWORD_SUBJECT.name().toLowerCase());
                 requestContent.addSessionAttribute(UserParameter.LOGIN.name().toLowerCase(), login);
                 new MailSender().sendMail(userMail, subject, code);
-                requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.CHANGE_FORGOTTEN_PASSWORD_PATH);
                 return new Trigger(PagePath.CHANGE_FORGOTTEN_PASSWORD_PATH, Trigger.TriggerType.REDIRECT);
             }else {
-                requestContent.addRequestAttribute(NO_SUCH_LOGIN, true);
+                requestContent.addRequestAttribute(Parameter.NO_SUCH_LOGIN.name().toLowerCase(), true);
                 return new Trigger(PagePath.FORGOT_PASSWORD_PATH, Trigger.TriggerType.FORWARD);
             }
         } catch (LogicException e) {

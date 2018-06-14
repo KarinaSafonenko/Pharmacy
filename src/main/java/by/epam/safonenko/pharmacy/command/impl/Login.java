@@ -8,14 +8,16 @@ import by.epam.safonenko.pharmacy.logic.impl.UserLogic;
 import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
-import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Login implements Command {
     private static Logger logger = LogManager.getLogger(FormMainPage.class);
     private UserLogic userLogic;
-    private static final String LOGIN_FAILED = "login_failed";
+
+    private enum Parameter{
+        LOGIN_FAILED
+    }
 
     public Login(){
         userLogic = new UserLogic();
@@ -32,10 +34,10 @@ public class Login implements Command {
                 requestContent.addSessionAttribute(UserParameter.NAME.name().toLowerCase(), current.getName());
                 requestContent.addSessionAttribute(UserParameter.SURNAME.name().toLowerCase(), current.getSurname());
                 requestContent.addSessionAttribute(UserParameter.ROLE.name().toLowerCase(), current.getRole());
-                requestContent.addSessionAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.INDEX_PATH);
+                requestContent.addSessionAttribute(UserParameter.PATRONYMIC.name().toLowerCase(), current.getPatronymic());
                 return new Trigger(PagePath.INDEX_PATH, Trigger.TriggerType.REDIRECT);
             }else{
-                requestContent.addRequestAttribute(LOGIN_FAILED, true);
+                requestContent.addRequestAttribute(Parameter.LOGIN_FAILED.name().toLowerCase(), true);
                 return new Trigger(PagePath.LOGIN_PATH, Trigger.TriggerType.FORWARD);
             }
         } catch (LogicException e) {

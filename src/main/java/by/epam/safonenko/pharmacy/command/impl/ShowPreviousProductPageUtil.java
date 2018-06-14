@@ -1,7 +1,7 @@
 package by.epam.safonenko.pharmacy.command.impl;
 
 import by.epam.safonenko.pharmacy.command.Command;
-import by.epam.safonenko.pharmacy.command.util.FormShopPage;
+import by.epam.safonenko.pharmacy.command.util.PageUtil;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.entity.Medicine;
 import by.epam.safonenko.pharmacy.exception.LogicException;
@@ -14,11 +14,11 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class ShowPreviousProductPage implements Command, FormShopPage {
-    private static Logger logger = LogManager.getLogger(ShowPreviousProductPage.class);
+public class ShowPreviousProductPageUtil implements Command, PageUtil {
+    private static Logger logger = LogManager.getLogger(ShowPreviousProductPageUtil.class);
     private MedicineLogic medicineLogic;
 
-    public ShowPreviousProductPage() {
+    public ShowPreviousProductPageUtil() {
         medicineLogic = new MedicineLogic();
     }
 
@@ -34,7 +34,11 @@ public class ShowPreviousProductPage implements Command, FormShopPage {
         }
         try {
             List<Medicine> products = medicineLogic.findMedicinesByCategory(productCategory);
-            return formShopPage(requestContent, products, category, page);
+            List productList = medicineLogic.formSubList(products, page);
+            requestContent.addRequestAttribute(ShowCategoryProducts.ShopParameter.PRODUCTS.name().toLowerCase(), productList);
+            requestContent.addRequestAttribute(MedicineParameter.CATEGORY.name().toLowerCase(), category);
+            addPageParameters(requestContent, products.size(), page);
+            return new Trigger(PagePath.SHOP_PATH, Trigger.TriggerType.FORWARD);
         } catch (LogicException e) {
             logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);

@@ -12387,6 +12387,11 @@ html.mm-dropdown.mm-opened:not(.mm-opening) .mm-menu {
   padding: 0 0 0 17px;
 }
 
+.cart_image {
+  width: 100px;
+  height: 150px;
+}
+
 .mm-navbar .mm-breadcrumbs > * {
   display: inline-block;
   padding: 10px 3px;
@@ -19069,8 +19074,8 @@ body.modal-open .mm-slideout {
     color: #fff;
     font-size: 18px;
     border-bottom-width: 2px;
-    placeholder: #fff;
   }
+
   .widget-search-header form .search {
     color: #fff;
     font-size: 20px;

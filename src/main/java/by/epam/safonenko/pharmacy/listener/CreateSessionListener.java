@@ -1,6 +1,5 @@
 package by.epam.safonenko.pharmacy.listener;
 
-import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.SessionAttribute;
 
 import javax.servlet.annotation.WebListener;
@@ -17,7 +16,6 @@ public class CreateSessionListener implements HttpSessionListener {
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
         HttpSession session = httpSessionEvent.getSession();
         session.setAttribute(SessionAttribute.LOCALE.name().toLowerCase(), DEFAULT_LOCALE);
-        session.setAttribute(SessionAttribute.LATEST_PAGE.name().toLowerCase(), PagePath.INDEX_PATH);
     }
 
     @Override
