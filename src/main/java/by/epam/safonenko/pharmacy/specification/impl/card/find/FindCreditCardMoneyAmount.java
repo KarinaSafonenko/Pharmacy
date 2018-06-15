@@ -4,6 +4,7 @@ import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.specification.FindValueSpecification;
 import by.epam.safonenko.pharmacy.specification.impl.card.CardParameter;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,7 @@ public class FindCreditCardMoneyAmount implements FindValueSpecification {
             current.setString(1, login);
             ResultSet resultSet = current.executeQuery();
             if (resultSet.next()) {
-                int amount = resultSet.getInt(CardParameter.MONEY_AMOUNT.name().toLowerCase());
+                BigDecimal amount = resultSet.getBigDecimal(CardParameter.MONEY_AMOUNT.name().toLowerCase());
                 return String.valueOf(amount);
             }else{
                 throw new RepositoryException("Something went wrong while finding credit card money amount.");

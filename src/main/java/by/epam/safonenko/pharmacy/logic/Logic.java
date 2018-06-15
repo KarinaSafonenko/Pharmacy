@@ -64,4 +64,8 @@ public interface Logic {
        return today.getTime();
    }
 
+   default String formAddress(String street, String house, String flat){
+       return (street + " " + house + "-" + flat);
+   }
+
 }

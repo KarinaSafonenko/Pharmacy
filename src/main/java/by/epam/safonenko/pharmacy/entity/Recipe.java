@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Recipe {
     private Medicine medicine;
-    private String doctor;
+    private User doctor;
     private int amount;
     private Date startDate;
     private Date endDate;
@@ -18,14 +18,6 @@ public class Recipe {
 
     public void setMedicine(Medicine medicine) {
         this.medicine = medicine;
-    }
-
-    public String getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(String doctor) {
-        this.doctor = doctor;
     }
 
     public int getAmount() {
@@ -50,6 +42,14 @@ public class Recipe {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public User getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(User doctor) {
+        this.doctor = doctor;
     }
 
     @Override

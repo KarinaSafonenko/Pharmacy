@@ -4,6 +4,9 @@ import by.epam.safonenko.pharmacy.util.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 final class TagUtil {
     private static final String IMAGE_WRAPPER = "<div class=\"img-wrapper\">\n" +
@@ -28,6 +31,7 @@ final class TagUtil {
             "                                   </td>";
 
     private static final String CELL = "<td>%s</td>";
+    private static final String DATE = "dd.MM.yyyy";
 
     private TagUtil(){}
 
@@ -47,11 +51,14 @@ final class TagUtil {
         return String.format(PRODUCT_NAME, name);
     }
 
+    static String formDateString(Date date){
+        DateFormat dateFormat = new SimpleDateFormat(DATE);
+        return date == null ? "": dateFormat.format(date);
+
+    }
+
     static String getLanguage(PageContext pageContext){
         HttpServletRequest request = ((HttpServletRequest) pageContext.getRequest());
         return (String) request.getSession().getAttribute(SessionAttribute.LOCALE.name().toLowerCase());
     }
-
-
-
 }

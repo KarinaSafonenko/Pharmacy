@@ -5,10 +5,10 @@
 <head>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
-
     <fmt:message bundle = "${bundle}" key ="en" var = "en"/>
     <fmt:message bundle = "${bundle}" key ="ru" var = "ru"/>
     <fmt:message bundle = "${bundle}" key ="welcome" var = "welcome_message"/>
+    <fmt:message bundle = "${bundle}" key ="recipes" var = "recipes"/>
     <fmt:message bundle = "${bundle}" key ="home" var = "home"/>
     <fmt:message bundle = "${bundle}" key ="profile" var = "profile"/>
     <fmt:message bundle = "${bundle}" key ="basket" var = "basket"/>
@@ -35,6 +35,9 @@
                         <li>
                             <a href="/ControllerServlet?command=show_basket">${basket}</a>
                         </li>
+                            <li>
+                                <a href="/ControllerServlet?command=show_user_recipes">${recipes}</a>
+                            </li>
                         <li>
                                 ${welcome_message}, ${sessionScope.name} ${sessionScope.surname} !
                         </li>

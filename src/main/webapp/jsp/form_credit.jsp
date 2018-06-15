@@ -12,7 +12,6 @@
     <fmt:message bundle = "${bundle}" key ="checkout" var = "checkout"/>
     <fmt:message bundle = "${bundle}" key ="cart_total" var = "cart_total"/>
     <fmt:message bundle = "${bundle}" key ="verify_data" var = "verify_data"/>
-    <fmt:message bundle = "${bundle}" key ="not_enought_money_message" var = "not_enought_money_message"/>
 </head>
 <body class="animsition">
 <%@ include file="../WEB-INF/jsp/header.jsp"%>
@@ -22,17 +21,14 @@
         <div class="container">
             <div class="login-wrapper">
                 <form method="POST" action="/ControllerServlet">
-                    <input type="hidden" name="command" value="form_order" />
+                    <input type="hidden" name="command" value="form_credit" />
                     <input type="hidden" name="cart_sum" value="${cart_sum}" />
                     <div class="row">
                         <div class="form-group organic-form-2">
                             <label>${cart_total}: ${cart_sum} $</label>
                         </div>
-                        <%@include file="../WEB-INF/jsp/card.jsp"%>
                         <%@include file="../WEB-INF/jsp/address.jsp"%>
-                        <c:if test="${incorrect_address}"><label class="text-danger">${verify_data}</label></c:if>
-                        <br/>
-                        <c:if test="${not_enough_money}"><label class="text-danger">${not_enought_money_message}</label></c:if>
+                        <c:if test="${incorrect}"><label class="text-danger">${verify_data}</label>></c:if>
                         <div class="proceed-to-checkout">
                             <button class="btn btn-brand pill" type="submit">${checkout}</button>
                         </div>

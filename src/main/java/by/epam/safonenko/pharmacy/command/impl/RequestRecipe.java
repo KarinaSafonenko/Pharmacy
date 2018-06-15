@@ -27,7 +27,7 @@ public class RequestRecipe implements Command {
                 recipeLogic.deleteRecipe(login, pack_id);
             }
             recipeLogic.addRecipe(login, pack_id);
-            return new Trigger(PagePath.MAIN_PATH, Trigger.TriggerType.REDIRECT); //на рецепты
+            return new Trigger(PagePath.SHOW_USER_RECIPES, Trigger.TriggerType.REDIRECT);
         } catch (LogicException e) {
             logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);

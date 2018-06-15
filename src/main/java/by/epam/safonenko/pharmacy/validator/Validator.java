@@ -1,7 +1,7 @@
 package by.epam.safonenko.pharmacy.validator;
 
 public class Validator {
-    private static final String INITIALS_TEMPLATE = "[а-яА-Яa-zA-Z]{1,45}";
+    private static final String INITIALS_TEMPLATE = "[а-яА-Я]{1,45}";
     private static final String MAIL_TEMPLATE = "[^-](([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}])|(([a-zA-Z\\-\\d]+\\.)+[a-zA-Z]{2,}))";
     private static final String LOGIN_TEMPLATE = "[a-zA-Z\\d]+([_ -]?[a-zA-Z\\d])*";
     private static final String PASSWORD_TEMPLATE = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,20})";
@@ -11,6 +11,7 @@ public class Validator {
     private static final String MONEY_AMOUNT_TEMPLATE = "\\d{1,5}(.\\d{1,2})";
     private static final String CARD_NUMBER_TEMPLATE = "\\d{12}";
     private static final String CARD_CODE_TEMPLATE = "\\d{3}";
+    private static final String STREET_TEMPLATE = "[а-яА-Я]+(-|\\s)?[а-яА-Я]*";
     private static final int MAX_MAIL_LENGTH = 50;
     private static final int MAX_LOGIN_LENGTH = 20;
 
@@ -18,8 +19,12 @@ public class Validator {
         return !isEmptyOrNull(input) && input.matches(INITIALS_TEMPLATE);
     }
 
-    public static boolean validateAmount(String input) {
+    public static boolean validateNumber(String input) {
         return !isEmptyOrNull(input) && input.matches(AMOUNT_TEMPLATE);
+    }
+
+    public static boolean validateStreet(String input) {
+        return !isEmptyOrNull(input) && input.matches(STREET_TEMPLATE);
     }
 
     public static boolean validateCardNumber(String input) {

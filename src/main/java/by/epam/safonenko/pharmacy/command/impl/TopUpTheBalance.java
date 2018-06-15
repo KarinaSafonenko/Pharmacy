@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Set;
 
 public class TopUpTheBalance implements Command {
     private static Logger logger = LogManager.getLogger(TopUpTheBalance.class);
@@ -33,7 +34,7 @@ public class TopUpTheBalance implements Command {
         String moneyAmount = requestContent.getRequestParameter(CardParameter.MONEY_AMOUNT.name().toLowerCase());
         String login = (String) requestContent.getSessionAttribute(UserParameter.LOGIN.name().toLowerCase());
         try {
-            List<Parameter> incorrect = creditCardLogic.topUpTheBalance(login, cardNumber, cardCode, moneyAmount);
+            Set<Parameter> incorrect = creditCardLogic.topUpTheBalance(login, cardNumber, cardCode, moneyAmount);
             if (incorrect.isEmpty()){
                 return new Trigger(PagePath.SHOW_PROFILE, Trigger.TriggerType.REDIRECT);
             }else{

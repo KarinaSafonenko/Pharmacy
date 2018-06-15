@@ -21,7 +21,11 @@ public enum CommandType {
     SHOW_BASKET(new ShowBasketProducts()),
     REMOVE_PACK(new RemoveFromBasket()),
     UPDATE_BASKET(new UpdateBasket()),
-    REQUEST_RECIPE(new RequestRecipe());
+    REQUEST_RECIPE(new RequestRecipe()),
+    SHOW_USER_RECIPES(new ShowUserRecipes()),
+    CHECKOUT(new Checkout()),
+    FORM_CREDIT(new FormCredit()),
+    FORM_ORDER(new FormOrder());
 
     private Command command;
 

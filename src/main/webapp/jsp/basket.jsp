@@ -20,6 +20,12 @@
     <fmt:message bundle = "${bundle}" key ="cart_total" var = "cart_total"/>
     <fmt:message bundle = "${bundle}" key ="empty_basket" var = "empty_basket"/>
     <fmt:message bundle = "${bundle}" key ="proceed_to_checkout" var = "proceed_to_checkout"/>
+    <fmt:message bundle = "${bundle}" key ="card" var = "card"/>
+    <fmt:message bundle = "${bundle}" key ="credit" var = "credit"/>
+    <fmt:message bundle = "${bundle}" key ="basket_pack_amount_message" var = "basket_pack_amount_message"/>
+    <fmt:message bundle = "${bundle}" key ="recipe_basket_message" var = "recipe_basket_message"/>
+    <fmt:message bundle = "${bundle}" key ="payment_method" var = "payment_method"/>
+    <fmt:message bundle = "${bundle}" key ="credit_message" var = "credit_message"/>
 </head>
 <body class="animsition">
 <%@ include file="../WEB-INF/jsp/header.jsp"%>
@@ -29,7 +35,7 @@
         <div class="container">
             <div class="woocommerce">
                 <c:if test="${empty client_basket.content}">
-                    <label>${empty_basket}.</label>
+                    ${empty_basket}.
                 </c:if>
                 <c:if test="${not empty client_basket.content}">
                 <form class="woocommerce-cart-form" method="POST" action="/ControllerServlet">
@@ -63,7 +69,10 @@
                         </tfoot>
                     </table>
                 </form>
-                <div class="cart_totals">
+                <form method="POST" action="/ControllerServlet">
+                    <input type="hidden" name="command" value="checkout">
+                    <input type="hidden" name="cart_sum" value="${cart_sum}">
+                    <div class="cart_totals">
                     <h3 class="title">${cart_total}</h3>
                     <div class="row">
                         <div class="col-md-8">
@@ -77,9 +86,26 @@
                         </div>
                     </div>
                 </div>
-                    <div class="proceed-to-checkout">
-                        <a class="btn btn-brand pill" href="#">${proceed_to_checkout}</a>
+                    <c:if test="${requestScope.pack_amount_message}"><label class="text-danger">${basket_pack_amount_message}.</label></c:if>
+                    <br/>
+                    <c:if test="${requestScope.recipe_message}"><label class="text-danger">${recipe_basket_message}.</label></c:if>
+                    <br/>
+                    <c:if test="${requestScope.credit_basket_message}"><label class="text-danger">${credit_message}</label></c:if>
+                <div class="form-group organic-form-2">
+                        <label>${payment_method}:</label>
+                    <div class="widget widget-control-header">
+                        <div class="select-custom-wrapper">
+                            <select class="no-border" name="payment">
+                                <option value="CARD">${card}</option>
+                                <option value="CREDIT">${credit}</option>
+                            </select>
+                        </div>
                     </div>
+                </div>
+                    <div class="proceed-to-checkout">
+                        <button class="btn btn-brand pill" type="submit">${proceed_to_checkout}</button>
+                    </div>
+                </form>
                 </c:if>
             </div>
         </div>

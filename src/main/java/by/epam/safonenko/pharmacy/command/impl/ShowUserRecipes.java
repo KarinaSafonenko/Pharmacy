@@ -1,43 +1,40 @@
 package by.epam.safonenko.pharmacy.command.impl;
 
 import by.epam.safonenko.pharmacy.command.Command;
-import by.epam.safonenko.pharmacy.command.util.ShowBasket;
 import by.epam.safonenko.pharmacy.controller.Trigger;
-import by.epam.safonenko.pharmacy.entity.Basket;
 import by.epam.safonenko.pharmacy.entity.Medicine;
+import by.epam.safonenko.pharmacy.entity.Recipe;
 import by.epam.safonenko.pharmacy.exception.LogicException;
-import by.epam.safonenko.pharmacy.logic.impl.ClientBasketLogic;
+import by.epam.safonenko.pharmacy.logic.impl.RecipeLogic;
 import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
 import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-public class ShowBasketProducts implements Command, ShowBasket {
-    private static Logger logger = LogManager.getLogger(ShowBasketProducts.class);
-    private ClientBasketLogic clientBasketLogic;
+public class ShowUserRecipes implements Command {
+    private static Logger logger = LogManager.getLogger(ShowUserRecipes.class);
+    private RecipeLogic recipeLogic;
 
-    public enum Parameter{
-        CLIENT_BASKET, RECIPE_MAP, PRODUCTS, CART_SUM
+    private enum Parameter{
+        RECIPE_LIST, MEDICINE_LIST
     }
 
-    public ShowBasketProducts(){
-        clientBasketLogic = new ClientBasketLogic();
+    public ShowUserRecipes(){
+        recipeLogic = new RecipeLogic();
     }
 
     @Override
     public Trigger execute(RequestContent requestContent) {
         String login = (String) requestContent.getSessionAttribute(UserParameter.LOGIN.name().toLowerCase());
         try {
-           Basket basket = clientBasketLogic.findClientBasketContent(login);
-           addBasketParameters(requestContent, login, basket);
-           return new Trigger(PagePath.BASKET_PATH, Trigger.TriggerType.FORWARD);
+            List<Recipe> recipeList = recipeLogic.findRecipes(login);
+            List<Medicine> medicineList = recipeLogic.formMedicineList(recipeList);
+            requestContent.addRequestAttribute(Parameter.RECIPE_LIST.name().toLowerCase(), recipeList);
+            requestContent.addRequestAttribute(Parameter.MEDICINE_LIST.name().toLowerCase(), medicineList);
+            return new Trigger(PagePath.RECIPE_PATH, Trigger.TriggerType.FORWARD);
         } catch (LogicException e) {
             logger.catching(e);
             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);

@@ -9,7 +9,6 @@ public class Credit {
     private int orderId;
     private String client;
     private Date startDate;
-    private Date endDate;
     private BigDecimal latestDeposite;
     private BigDecimal obligation;
     private CreditStatus creditStatus;
@@ -52,14 +51,6 @@ public class Credit {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
     public BigDecimal getLatestDeposite() {
         return latestDeposite;
     }
@@ -93,7 +84,6 @@ public class Credit {
                 orderId == credit.orderId &&
                 Objects.equals(client, credit.client) &&
                 Objects.equals(startDate, credit.startDate) &&
-                Objects.equals(endDate, credit.endDate) &&
                 Objects.equals(latestDeposite, credit.latestDeposite) &&
                 Objects.equals(obligation, credit.obligation) &&
                 creditStatus == credit.creditStatus;
@@ -102,6 +92,6 @@ public class Credit {
     @Override
     public int hashCode() {
 
-        return Objects.hash(creditId, orderId, client, startDate, endDate, latestDeposite, obligation, creditStatus);
+        return Objects.hash(creditId, orderId, client, startDate, latestDeposite, obligation, creditStatus);
     }
 }

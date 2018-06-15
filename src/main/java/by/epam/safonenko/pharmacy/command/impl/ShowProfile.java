@@ -15,6 +15,7 @@ import by.epam.safonenko.pharmacy.util.SessionAttribute;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -36,7 +37,7 @@ public class ShowProfile implements Command {
         try {
             User user = userLogic.findUser(login);
             String role = resourceBundle.getString(user.getRole().name().toLowerCase());
-            int money = creditCardLogic.findMoneyAmount(login);
+            BigDecimal money = creditCardLogic.findMoneyAmount(login);
             requestContent.addRequestAttribute(UserParameter.SEX.name().toLowerCase(), user.getSex().name());
             requestContent.addRequestAttribute(UserParameter.ROLE.name().toLowerCase(), role);
             requestContent.addRequestAttribute(CardParameter.MONEY_AMOUNT.name().toLowerCase(), money);

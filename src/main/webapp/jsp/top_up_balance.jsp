@@ -12,10 +12,7 @@
     <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
 
     <fmt:message bundle = "${bundle}" key ="top_up_the_balance" var = "top_up_the_balance"/>
-    <fmt:message bundle = "${bundle}" key ="card_code" var = "code"/>
-    <fmt:message bundle = "${bundle}" key ="card_number" var = "number"/>
     <fmt:message bundle = "${bundle}" key ="sum" var = "sum"/>
-    <fmt:message bundle = "${bundle}" key ="incorrect_card_information" var = "incorrect_card_information"/>
     <fmt:message bundle = "${bundle}" key ="incorrect_sum" var = "incorrect_sum"/>
 </head>
 <body class="animsition">
@@ -28,15 +25,7 @@
                 <form name="top_up_the_balance" method="POST" action="/ControllerServlet">
                     <div class="row">
                         <input type="hidden" name="command" value="top_up_the_balance" />
-                        <div class="form-group organic-form-2">
-                            <label>${number}: </label>
-                            <input class="form-control" type="number" name="card_number" min="0" value="${card_number}">
-                        </div>
-                        <div class="form-group organic-form-2">
-                            <label>${code}: </label>
-                            <input class="form-control" type="number" name="card_code" min="0" value="${card_code}">
-                        </div>
-                        <c:if test="${requestScope.wrong_card_information}"><label class="text-danger">${incorrect_card_information}</label></c:if>
+                        <%@include file="../WEB-INF/jsp/card.jsp"%>
                         <div class="form-group organic-form-2">
                             <label>${sum}: </label>
                             <input class="form-control" type="number" step="0.01" min="0" name="money_amount" value="${money_amount}">

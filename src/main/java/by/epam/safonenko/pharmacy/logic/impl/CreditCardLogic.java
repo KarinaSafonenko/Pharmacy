@@ -13,9 +13,12 @@ import by.epam.safonenko.pharmacy.specification.impl.card.update.UpdateMoneyAmou
 import by.epam.safonenko.pharmacy.specification.impl.user.update.UpdateCardUser;
 import by.epam.safonenko.pharmacy.validator.Validator;
 
+import javax.smartcardio.Card;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CreditCardLogic implements Logic {
     private CreditCardRepository creditCardRepository;
@@ -43,45 +46,69 @@ public class CreditCardLogic implements Logic {
         }
     }
 
-    public int findMoneyAmount(String login) throws LogicException {
+    public BigDecimal findMoneyAmount(String login) throws LogicException {
         if (!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while trying to find money amount.");
         }
         try {
             String money = creditCardRepository.find(new FindCreditCardMoneyAmount(login));
-            return Integer.valueOf(money);
+            return new BigDecimal(money);
         } catch (RepositoryException e) {
             throw new LogicException(e);
         }
     }
 
-    public List<TopUpTheBalance.Parameter> topUpTheBalance(String login, String cardNumber, String cardCode, String moneyAmount) throws LogicException {
-        List<TopUpTheBalance.Parameter> incorrect = new ArrayList();
+    public Set<TopUpTheBalance.Parameter> topUpTheBalance(String login, String cardNumber, String cardCode, String moneyAmount) throws LogicException {
+        Set<TopUpTheBalance.Parameter> incorrect = new HashSet<>();
         if (! Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while checking card parameters.");
         }
-        if (!Validator.validateCardNumber(cardNumber) || !Validator.validateCardCode(cardCode)){
-            incorrect.add(TopUpTheBalance.Parameter.WRONG_CARD_INFORMATION);
-        }else if (!Validator.validateMoneyAmount(moneyAmount)){
+       if (!Validator.validateMoneyAmount(moneyAmount)){
             incorrect.add(TopUpTheBalance.Parameter.WRONG_SUM);
         }else{
             try {
-                CreditCard creditCard = creditCardRepository.find(new FindCardByLogin(login)).get(0);
-                String code = String.valueOf(creditCard.getCode());
-                if (! cardCode.equals(code) || ! cardNumber.equals(creditCard.getNumber())){
+                if (!checkCardParameters(login, cardCode, cardNumber)){
                     incorrect.add(TopUpTheBalance.Parameter.WRONG_CARD_INFORMATION);
                 }
-                BigDecimal sum = new BigDecimal(moneyAmount);
-                BigDecimal totalSum = sum.add(creditCard.getMoneyAmount());
-                if (incorrect.isEmpty() && Validator.validateMoneyAmount(totalSum.toString())){
-                    creditCardRepository.update(new UpdateMoneyAmount(totalSum, login));
-                }else{
-                    incorrect.add(TopUpTheBalance.Parameter.WRONG_SUM);
-                }
+                    BigDecimal sum = new BigDecimal(moneyAmount);
+                    BigDecimal money = findMoneyAmount(login);
+                    BigDecimal totalSum = sum.add(money);
+                    if (incorrect.isEmpty() && Validator.validateMoneyAmount(totalSum.toString())) {
+                        creditCardRepository.update(new UpdateMoneyAmount(totalSum, login));
+                    } else {
+                        incorrect.add(TopUpTheBalance.Parameter.WRONG_SUM);
+                    }
             } catch (RepositoryException e) {
                 throw new LogicException(e);
             }
         }
         return incorrect;
+    }
+
+    private CreditCard findCreditCard(String login) throws LogicException {
+        if (!Validator.validateLogin(login)){
+            throw new LogicException("Incorrect login while finding credit card.");
+        }
+        List<CreditCard> creditCards;
+        try {
+            creditCards = creditCardRepository.find(new FindCardByLogin(login));
+        } catch (RepositoryException e) {
+            throw new LogicException(e);
+        }
+        if (creditCards.isEmpty()){
+            throw new LogicException("Credit card hasn't been found");
+        }else{
+            return creditCards.get(0);
+        }
+    }
+
+    public boolean checkCardParameters(String login, String cardCode, String cardNumber) throws LogicException {
+        if (!Validator.validateCardNumber(cardNumber) || !Validator.validateCardCode(cardCode)){
+            return false;
+        }
+            CreditCard creditCard = findCreditCard(login);
+            String code = String.valueOf(creditCard.getCode());
+            String number = creditCard.getNumber();
+            return cardCode.equals(code) && number.equals(cardNumber);
     }
 }

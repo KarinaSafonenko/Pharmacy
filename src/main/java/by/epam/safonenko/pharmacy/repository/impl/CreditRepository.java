@@ -13,7 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class CreditRepository implements Repository<Credit> {
-    private static final String INSERT_CREDIT = "INSERT INTO pharmacy.credit (order_id, client, start_date, end_date, obligation) values(?, ?, ?, ?, ?)";
+    private static final String INSERT_CREDIT = "INSERT INTO pharmacy.credit (order_id, client, start_date, obligation) values(?, ?, ?, ?)";
 
     public void add(int orderId, String client, Date startDate, Date endDate, BigDecimal obligation) throws RepositoryException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
