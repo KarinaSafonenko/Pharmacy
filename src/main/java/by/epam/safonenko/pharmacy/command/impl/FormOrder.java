@@ -40,7 +40,7 @@ public class FormOrder implements Command {
                 requestContent.addRequestAttribute(current.name().toLowerCase(), true);
             }
             if (incorrect.isEmpty()){
-                return new Trigger(PagePath.INDEX_PATH, Trigger.TriggerType.REDIRECT); //к заказам
+                return new Trigger(PagePath.SHOW_USER_ORDERS, Trigger.TriggerType.REDIRECT);
             }else{
                 requestContent.addRequestAttribute(Parameter.STREET.name().toLowerCase(), street);
                 requestContent.addRequestAttribute(Parameter.HOUSE.name().toLowerCase(), house);

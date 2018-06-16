@@ -31,7 +31,7 @@ public class UserLogic implements Logic {
             incorrect.put(Registration.Parameter.WRONG_EMAIL, UserParameter.MAIL);
             validated = false;
         }
-        if (!Validator.validateLogin(login)){
+        if (Validator.validateLogin(login)){
             incorrect.put(Registration.Parameter.WRONG_LOGIN, UserParameter.LOGIN);
             validated = false;
         }else if (findLogin(login)){
@@ -39,7 +39,7 @@ public class UserLogic implements Logic {
             validated = false;
         }
 
-        if (!Validator.validatePassword(password)){
+        if (Validator.validatePassword(password)){
             incorrect.put(Registration.Parameter.WRONG_PASSWORD, UserParameter.PASSWORD);
             validated = false;
         }
@@ -61,13 +61,13 @@ public class UserLogic implements Logic {
 
     public Map<Registration.Parameter, UserParameter> checkInitials(String name, String surname, String patronymic){
         Map<Registration.Parameter, UserParameter> incorrect = new HashMap<>();
-        if (!Validator.validateInitials(name)){
+        if (Validator.validateInitials(name)){
             incorrect.put(Registration.Parameter.WRONG_NAME, UserParameter.NAME);
         }
-        if (!Validator.validateInitials(surname)){
+        if (Validator.validateInitials(surname)){
             incorrect.put(Registration.Parameter.WRONG_SURNAME, UserParameter.SURNAME);
         }
-        if (!Validator.validateInitials(patronymic)) {
+        if (Validator.validateInitials(patronymic)) {
             incorrect.put(Registration.Parameter.WRONG_PATRONYMIC, UserParameter.PATRONYMIC);
         }
         return incorrect;
@@ -75,7 +75,7 @@ public class UserLogic implements Logic {
 
     public Map<Registration.Parameter, UserParameter> comparePasswords(String password, String repeatPassword){
         Map<Registration.Parameter, UserParameter> incorrect = new HashMap<>();
-        if (!Validator.validatePassword(password)){
+        if (Validator.validatePassword(password)){
             incorrect.put(Registration.Parameter.WRONG_PASSWORD, UserParameter.PASSWORD);
         }else if (!password.equals(repeatPassword)){
             incorrect.put(Registration.Parameter.DIFFERENT_PASSWORDS, UserParameter.REPEAT_PASSWORD);
@@ -84,8 +84,8 @@ public class UserLogic implements Logic {
     }
 
     public void updateUserInfo (String login, String name, String surname, String patronymic, String sex) throws LogicException {
-        if (!Validator.validateLogin(login) || !Validator.validateInitials(name)
-                || !Validator.validateInitials(surname) || !Validator.validateInitials(patronymic)) {
+        if (Validator.validateLogin(login) || Validator.validateInitials(name)
+                || Validator.validateInitials(surname) || Validator.validateInitials(patronymic)) {
             throw new LogicException("Trying to update user info with incorrect parameter values");
         }
         try {
@@ -97,7 +97,7 @@ public class UserLogic implements Logic {
 
 
     public void setUserCode(String login, String code) throws LogicException {
-        if (!Validator.validateCode(code)){
+        if (Validator.validateCode(code)){
             throw new LogicException("Trying to set invalid code");
         }
         try {
@@ -108,7 +108,7 @@ public class UserLogic implements Logic {
     }
 
     public void setUserPassword(String login, String pasword) throws LogicException {
-        if (!Validator.validatePassword(pasword)){
+        if (Validator.validatePassword(pasword)){
             throw new LogicException("Trying to set invalid password");
         }
         try {
@@ -146,7 +146,7 @@ public class UserLogic implements Logic {
     }
 
     public boolean checkConfirmationCode(String login, String code) throws LogicException {
-        if (!Validator.validateLogin(login) || !Validator.validateCode(code)){
+        if (Validator.validateLogin(login) || Validator.validateCode(code)){
             return false;
         } else{
             String foundCode;
@@ -160,7 +160,7 @@ public class UserLogic implements Logic {
     }
 
     public boolean checkUserRegisteredStatus(String login) throws LogicException {
-        if (!Validator.validateLogin(login)){
+        if (Validator.validateLogin(login)){
             return false;
         } else{
             String foundStatus;
@@ -174,7 +174,7 @@ public class UserLogic implements Logic {
     }
 
     public String findMailByLogin(String login) throws LogicException {
-        if (!Validator.validateLogin(login)){
+        if (Validator.validateLogin(login)){
             throw new LogicException("Trying to use invalid user login while finding mail by login.");
         } else{
             try {
@@ -195,7 +195,7 @@ public class UserLogic implements Logic {
     }
 
     public boolean checkPassword(String login, String password) throws LogicException {
-        if (!Validator.validateLogin(login) || !Validator.validatePassword(password)) {
+        if (Validator.validateLogin(login) || Validator.validatePassword(password)) {
             return false;
         } else {
             try {

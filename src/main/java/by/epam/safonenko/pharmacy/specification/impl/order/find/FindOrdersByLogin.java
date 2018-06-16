@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FindOrdersByLogin implements FindSpecification<Order> {
-    private static String REQUEST = "SELECT order_id, address, payment, date FROM pharmacy.order WHERE client = ?";
+    private static String REQUEST = "SELECT order_id, address, payment, date, sum FROM pharmacy.order WHERE client = ?";
     private String login;
 
     public FindOrdersByLogin(String login){
@@ -33,6 +33,7 @@ public class FindOrdersByLogin implements FindSpecification<Order> {
                 order.setAddress(resultSet.getString(OrderParameter.ADDRESS.name().toLowerCase()));
                 order.setPaymentType(Order.PaymentType.valueOf(resultSet.getString(OrderParameter.PAYMENT.name().toLowerCase())));
                 order.setStartDate(resultSet.getDate(OrderParameter.DATE.name().toLowerCase()));
+                order.setSum(resultSet.getBigDecimal(OrderParameter.SUM.name().toLowerCase()));
                 result.add(order);
             }
         }catch (SQLException e){

@@ -9,6 +9,8 @@
     <fmt:message bundle = "${bundle}" key ="ru" var = "ru"/>
     <fmt:message bundle = "${bundle}" key ="welcome" var = "welcome_message"/>
     <fmt:message bundle = "${bundle}" key ="recipes" var = "recipes"/>
+    <fmt:message bundle = "${bundle}" key ="orders" var = "orders"/>
+    <fmt:message bundle = "${bundle}" key ="credits" var = "credits"/>
     <fmt:message bundle = "${bundle}" key ="home" var = "home"/>
     <fmt:message bundle = "${bundle}" key ="profile" var = "profile"/>
     <fmt:message bundle = "${bundle}" key ="basket" var = "basket"/>
@@ -26,7 +28,7 @@
                 <nav>
                     <ul class="menu hidden-xs">
                         <li>
-                            <a href="/ControllerServlet?command=change_latest_path&path=index.jsp">${home}</a>
+                            <a href="/ControllerServlet?command=form_main_page">${home}</a>
                         </li>
                         <c:if test="${not empty sessionScope.name}">
                         <li>
@@ -37,6 +39,12 @@
                         </li>
                             <li>
                                 <a href="/ControllerServlet?command=show_user_recipes">${recipes}</a>
+                            </li>
+                            <li>
+                                <a href="/ControllerServlet?command=show_user_orders">${orders}</a>
+                            </li>
+                            <li>
+                                <a href="/ControllerServlet?command=show_user_credits">${credits}</a>
                             </li>
                         <li>
                                 ${welcome_message}, ${sessionScope.name} ${sessionScope.surname} !

@@ -7,7 +7,6 @@ import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.logic.Logic;
 import by.epam.safonenko.pharmacy.repository.impl.RecipeRepository;
-import by.epam.safonenko.pharmacy.repository.impl.UserRepository;
 import by.epam.safonenko.pharmacy.specification.impl.recipe.find.FindRecipesByLogin;
 import by.epam.safonenko.pharmacy.specification.impl.recipe.find.FindRecipesByLoginAndPackId;
 import by.epam.safonenko.pharmacy.validator.Validator;
@@ -25,7 +24,7 @@ public class RecipeLogic implements Logic {
     }
 
     public void addRecipe(String login, String packId) throws LogicException {
-        if (!Validator.validateLogin(login) || !Validator.validateId(packId)){
+        if (Validator.validateLogin(login) || Validator.validateId(packId)){
             throw new LogicException("Incorrect login or pack id while adding recipe.");
         }
         try {
@@ -36,7 +35,7 @@ public class RecipeLogic implements Logic {
     }
 
     public Recipe findRecipe(String login, String packId) throws LogicException {
-        if (!Validator.validateId(packId) || !Validator.validateLogin(login)){
+        if (Validator.validateId(packId) || Validator.validateLogin(login)){
             throw  new LogicException("Incorrect login or pack id while finding recipe.");
         }
         try {
@@ -48,7 +47,7 @@ public class RecipeLogic implements Logic {
     }
 
     public boolean checkRecipe(String login, String packId) throws LogicException {
-        if (!Validator.validateLogin(login) || !Validator.validateId(packId)){
+        if (Validator.validateLogin(login) || Validator.validateId(packId)){
             throw new LogicException("Incorrect login or pack id while checking recipe.");
         }
         List<Recipe> recipeList;
@@ -61,7 +60,7 @@ public class RecipeLogic implements Logic {
     }
 
     public void deleteRecipe(String login, String packId) throws LogicException{
-        if (!Validator.validateLogin(login) || !Validator.validateId(packId)){
+        if (Validator.validateLogin(login) || Validator.validateId(packId)){
             throw new LogicException("Incorrect login or pack id while deleting recipe.");
         }
         try {
@@ -72,7 +71,7 @@ public class RecipeLogic implements Logic {
     }
 
     public List<Recipe> findRecipes(String login) throws LogicException {
-        if (!Validator.validateLogin(login)){
+        if (Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while finding recipes.");
         }
         try {

@@ -13,9 +13,7 @@ import by.epam.safonenko.pharmacy.specification.impl.card.update.UpdateMoneyAmou
 import by.epam.safonenko.pharmacy.specification.impl.user.update.UpdateCardUser;
 import by.epam.safonenko.pharmacy.validator.Validator;
 
-import javax.smartcardio.Card;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +34,7 @@ public class CreditCardLogic implements Logic {
     }
 
     public void bindUserToCard(String login, String cardId) throws LogicException {
-        if (!Validator.validateId(cardId)){
+        if (Validator.validateId(cardId)){
             throw new LogicException("Trying to bind user to invalid card id.");
         }
         try {
@@ -47,7 +45,7 @@ public class CreditCardLogic implements Logic {
     }
 
     public BigDecimal findMoneyAmount(String login) throws LogicException {
-        if (!Validator.validateLogin(login)){
+        if (Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while trying to find money amount.");
         }
         try {
@@ -60,14 +58,14 @@ public class CreditCardLogic implements Logic {
 
     public Set<TopUpTheBalance.Parameter> topUpTheBalance(String login, String cardNumber, String cardCode, String moneyAmount) throws LogicException {
         Set<TopUpTheBalance.Parameter> incorrect = new HashSet<>();
-        if (! Validator.validateLogin(login)){
+        if (Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while checking card parameters.");
         }
        if (!Validator.validateMoneyAmount(moneyAmount)){
             incorrect.add(TopUpTheBalance.Parameter.WRONG_SUM);
         }else{
             try {
-                if (!checkCardParameters(login, cardCode, cardNumber)){
+                if (checkCardParameters(login, cardCode, cardNumber)){
                     incorrect.add(TopUpTheBalance.Parameter.WRONG_CARD_INFORMATION);
                 }
                     BigDecimal sum = new BigDecimal(moneyAmount);
@@ -86,7 +84,7 @@ public class CreditCardLogic implements Logic {
     }
 
     private CreditCard findCreditCard(String login) throws LogicException {
-        if (!Validator.validateLogin(login)){
+        if (Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while finding credit card.");
         }
         List<CreditCard> creditCards;
@@ -104,11 +102,24 @@ public class CreditCardLogic implements Logic {
 
     public boolean checkCardParameters(String login, String cardCode, String cardNumber) throws LogicException {
         if (!Validator.validateCardNumber(cardNumber) || !Validator.validateCardCode(cardCode)){
-            return false;
+            return true;
         }
             CreditCard creditCard = findCreditCard(login);
             String code = String.valueOf(creditCard.getCode());
             String number = creditCard.getNumber();
-            return cardCode.equals(code) && number.equals(cardNumber);
+            return !cardCode.equals(code) || !number.equals(cardNumber);
+    }
+
+    public boolean checkSumParameters(String obligation, String moneyAmount, String login) throws LogicException {
+        if (!Validator.validateMoneyAmount(obligation) || !Validator.validateMoneyAmount(moneyAmount)){
+            return false;
+        }
+        BigDecimal payment = new BigDecimal(moneyAmount);
+        BigDecimal creditSum = new BigDecimal(obligation);
+        if (payment.compareTo(creditSum) > 0){
+            return false;
+        }
+        BigDecimal cardSum = findMoneyAmount(login);
+        return cardSum.compareTo(payment) >= 0;
     }
 }

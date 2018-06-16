@@ -40,11 +40,6 @@ public class ShowBasketProductTag extends TagSupport {
             "                                <a class=\"remove\" href=\"/ControllerServlet?command=remove_pack&pack_id=%d\" aria-label=\"Remove this item\">×</a>\n" +
             "                            </td>\n" +
             "                        </tr>";
-
-    private static final String RECIPE = "<div class=\"product-meta\">\n" +
-            "                                    <p class=\"posted-in\">\n" + "%s" +
-            "                                    </p>\n" +
-            "                                </div>";
     private Basket basket;
     private Map<Medicine, Boolean> recipeMap;
 
@@ -62,7 +57,8 @@ public class ShowBasketProductTag extends TagSupport {
 
     @Override
     public int doStartTag() {
-        if (basket == null || recipeMap.isEmpty() || basket.getContent().isEmpty()
+        if (basket == null || recipeMap.isEmpty() || basket.getContent() == null ||
+                basket.getContent().isEmpty()
                 || basket.getContent().size() != recipeMap.size()) {
             return SKIP_BODY;
         }
@@ -87,10 +83,10 @@ public class ShowBasketProductTag extends TagSupport {
                     String image = medicine.getImagePath();
                     String name = medicine.getName();
                     StringBuilder builder = new StringBuilder();
-                    String recipe = String.format(RECIPE, recipeMessage);
+                    String recipe = TagUtil.formHref(recipeMessage);
                     if (!recipeMap.get(medicine)){
                         builder.append(String.format(RECIPE_BUTTON, packId, requestRecipe));
-                        recipe = String.format(RECIPE, builder.toString());
+                        recipe = TagUtil.formHref(builder.toString());
                     }
                     BigDecimal price = pack.getPrice();
                     BigDecimal total = price.multiply(number);

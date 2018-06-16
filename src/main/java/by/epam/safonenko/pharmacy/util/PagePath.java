@@ -4,8 +4,14 @@ public final class PagePath {
     public static final String SHOW_PROFILE = "/ControllerServlet?command=show_profile";
     public static final String SHOW_BASKET = "/ControllerServlet?command=show_basket";
     public static final String SHOW_USER_RECIPES = "/ControllerServlet?command=show_user_recipes";
+    public static final String SHOW_USER_ORDERS = "/ControllerServlet?command=show_user_orders";
+    public static final String SHOW_USER_CREDITS = "/ControllerServlet?command=show_user_credits";
     public static final String BASKET_PATH = "/jsp/basket.jsp";
+    public static final String PAY_CREDIT_PATH = "/jsp/pay_credit.jsp";
     public static final String MAIN_PATH = "/jsp/main.jsp";
+    public static final String ORDER_PATH = "/jsp/order.jsp";
+    public static final String ORDER_CONTENT_PATH = "/jsp/order_content.jsp";
+    public static final String CREDIT_PATH = "/jsp/credit.jsp";
     public static final String INDEX_PATH = "/index.jsp";
     public static final String CONFIRM_PATH = "/jsp/confirmation.jsp";
     public static final String LOGIN_PATH = "/jsp/login.jsp";

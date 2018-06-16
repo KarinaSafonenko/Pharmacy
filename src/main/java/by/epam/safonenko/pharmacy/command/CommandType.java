@@ -25,7 +25,12 @@ public enum CommandType {
     SHOW_USER_RECIPES(new ShowUserRecipes()),
     CHECKOUT(new Checkout()),
     FORM_CREDIT(new FormCredit()),
-    FORM_ORDER(new FormOrder());
+    FORM_ORDER(new FormOrder()),
+    SHOW_USER_ORDERS(new ShowUserOrders()),
+    SHOW_ORDER_CONTENT(new ShowOrderContent()),
+    SHOW_USER_CREDITS(new ShowUserCredits()),
+    PREPARE_PAY_CREDIT(new PreparePayCredit()),
+    PAY_CREDIT(new PayCredit());
 
     private Command command;
 

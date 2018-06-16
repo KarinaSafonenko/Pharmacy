@@ -4,6 +4,7 @@ import by.epam.safonenko.pharmacy.util.SessionAttribute;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.PageContext;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,13 +31,19 @@ final class TagUtil {
             "                                <a class=\"product-name\">%s</a>\n" +
             "                                   </td>";
 
+    private static final String HREF = "<div class=\"product-meta\">\n" +
+            "                                 <p class=\"posted-in\">\n" +
+            "                                   %s\n" +
+            "                                 </p>\n" +
+            "                            </div>";
+    private static String SUM = "$%5.2f";
     private static final String CELL = "<td>%s</td>";
     private static final String DATE = "dd.MM.yyyy";
 
     private TagUtil(){}
 
-    static String formImageWrapper(String image, int packId){
-        return String.format(IMAGE_WRAPPER, image, packId);
+    static String formImageWrapper(String image, int medicineId){
+        return String.format(IMAGE_WRAPPER, image, medicineId);
     }
 
     static String formCaption(String name){
@@ -47,9 +54,18 @@ final class TagUtil {
         return String.format(CELL, text);
     }
 
+    static String formHref(String text){
+        return String.format(HREF, text);
+    }
+
     static String formProductName(String name){
         return String.format(PRODUCT_NAME, name);
     }
+
+    static String formSum(BigDecimal sum){
+        return String.format(SUM, sum);
+    }
+
 
     static String formDateString(Date date){
         DateFormat dateFormat = new SimpleDateFormat(DATE);

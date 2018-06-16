@@ -41,7 +41,7 @@ public abstract class OrderTransaction extends Transaction {
         addOrder();
         int orderId = getGeneratedOrderId();
         updateRelatedTables(orderId);
-        makePayment(orderId); //возможно либо снять кредит
+        makePayment(orderId);
         proxyConnection.commit();
     }
 

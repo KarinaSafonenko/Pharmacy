@@ -26,7 +26,7 @@ public abstract class AbstractFindCredits implements FindSpecification<Credit> {
                 credit.setCreditId(resultSet.getInt(CreditParameter.CREDIT_ID.name().toLowerCase()));
                 credit.setCreditStatus(Credit.CreditStatus.valueOf(resultSet.getString(CreditParameter.STATUS.name().toLowerCase())));
                 credit.setStartDate(resultSet.getDate(CreditParameter.START_DATE.name().toLowerCase()));
-                credit.setLatestDeposite(resultSet.getBigDecimal(CreditParameter.LATEST_DEPOSIT.name().toLowerCase()));
+                credit.setLatestDeposit(resultSet.getDate(CreditParameter.LATEST_DEPOSIT.name().toLowerCase()));
                 credit.setObligation(resultSet.getBigDecimal(CreditParameter.OBLIGATION.name().toLowerCase()));
                 credit.setOrderId(resultSet.getInt(CreditParameter.ORDER_ID.name().toLowerCase()));
                 result.add(credit);

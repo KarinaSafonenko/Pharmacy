@@ -60,6 +60,36 @@
         </attribute>
     </tag>
     <tag>
+        <name>show-order</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowOrderTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>orders</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>show-order-content</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowOrderContentTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>basket</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
+        <name>show-credit</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowCreditTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>credits</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+    <tag>
         <name>show-recipe</name>
         <tag-class>by.epam.safonenko.pharmacy.tag.ShowRecipeTag</tag-class>
         <body-content>empty</body-content>

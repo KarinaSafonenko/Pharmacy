@@ -31,7 +31,7 @@ public class FormCredit implements Command {
         String sum = requestContent.getRequestParameter(Checkout.Parameter.CART_SUM.name().toLowerCase());
         try {
             if (creditLogic.formCredit(login, street, house, flat, sum)) {
-                return new Trigger(PagePath.INDEX_PATH, Trigger.TriggerType.REDIRECT); //к кредитам
+                return new Trigger(PagePath.SHOW_USER_CREDITS, Trigger.TriggerType.REDIRECT);
             }else{
                 requestContent.addRequestAttribute(Parameter.INCORRECT.name().toLowerCase(), true);
                 requestContent.addRequestAttribute(FormOrder.Parameter.STREET.name().toLowerCase(), street);

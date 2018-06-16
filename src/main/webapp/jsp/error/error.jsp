@@ -6,12 +6,12 @@
 <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
 
 <fmt:message bundle = "${bundle}" key ="error_message" var = "error_message"/>
-<fmt:message bundle = "${bundle}" key ="error" var = "error"/>
+<fmt:message bundle = "${bundle}" key ="oops" var = "oops"/>
 
 
 <html>
 <head>
-    <title>${error}</title>
+    <title>${oops}</title>
     <%@ include file="../../WEB-INF/jsp/style.jsp"%>
 </head>
 <body class="animsition">
@@ -20,7 +20,7 @@
     <section class="boxed-sm section-404-wrapper">
         <div class="container">
             <div class="page-404-wrapper">
-                <h3>${pageContext.errorData.statusCode}</h3>
+                <h3>${oops}</h3>
                 <hr class="style-one">
                 <p>${error_message}</p>
             </div>

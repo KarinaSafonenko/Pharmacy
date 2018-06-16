@@ -1,5 +1,6 @@
 package by.epam.safonenko.pharmacy.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,6 +9,16 @@ public class Order {
     private String address;
     private PaymentType paymentType;
     private Date startDate;
+
+    public BigDecimal getSum() {
+        return sum;
+    }
+
+    public void setSum(BigDecimal sum) {
+        this.sum = sum;
+    }
+
+    private BigDecimal sum;
 
     public enum PaymentType{
         CREDIT, CARD
@@ -55,12 +66,13 @@ public class Order {
         return id == order.id &&
                 Objects.equals(address, order.address) &&
                 paymentType == order.paymentType &&
-                Objects.equals(startDate, order.startDate);
+                Objects.equals(startDate, order.startDate) &&
+                Objects.equals(sum, order.sum);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, address, paymentType, startDate);
+        return Objects.hash(id, address, paymentType, startDate, sum);
     }
 }

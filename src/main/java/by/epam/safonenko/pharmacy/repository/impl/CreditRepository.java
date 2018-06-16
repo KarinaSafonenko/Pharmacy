@@ -3,7 +3,6 @@ package by.epam.safonenko.pharmacy.repository.impl;
 import by.epam.safonenko.pharmacy.connection.ConnectionPool;
 import by.epam.safonenko.pharmacy.connection.ProxyConnection;
 import by.epam.safonenko.pharmacy.entity.Credit;
-import by.epam.safonenko.pharmacy.entity.Order;
 import by.epam.safonenko.pharmacy.exception.RepositoryException;
 import by.epam.safonenko.pharmacy.repository.Repository;
 
@@ -21,8 +20,7 @@ public class CreditRepository implements Repository<Credit> {
             statement.setInt(1, orderId);
             statement.setString(2, client);
             statement.setDate(3, startDate);
-            statement.setDate(4, endDate);
-            statement.setBigDecimal(5, obligation);
+            statement.setBigDecimal(4, obligation);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException(e);
