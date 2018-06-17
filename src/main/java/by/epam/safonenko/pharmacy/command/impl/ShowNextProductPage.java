@@ -14,11 +14,11 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class ShowNextProductPageUtil implements Command, PageUtil {
-    private static Logger logger = LogManager.getLogger(ShowNextProductPageUtil.class);
+public class ShowNextProductPage implements Command, PageUtil {
+    private static Logger logger = LogManager.getLogger(ShowNextProductPage.class);
     private MedicineLogic medicineLogic;
 
-    public ShowNextProductPageUtil() {
+    public ShowNextProductPage() {
         medicineLogic = new MedicineLogic();
     }
 

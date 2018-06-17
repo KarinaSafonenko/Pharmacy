@@ -62,7 +62,7 @@
 	  <div class="heading-wrapper text-center">
           <div class="heading-style-4">
             <h3>${our_products}</h3>
-              <img src="../images/icons/seperator.png" alt="seperator">
+              <img src="${pageContext.request.contextPath}/images/icons/seperator.png" alt="seperator">
           </div>
         </div>
         <div class="product-category-grid-style-3">
@@ -71,7 +71,7 @@
               <a href="/ControllerServlet?command=show_category_products&category=vitamins">
                 <figure class="product-category-item-3">
                   <div class="thumbnail">
-                    <img src="../images/category-product/vitamin.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/images/category-product/vitamin.jpg" alt="" />
                   </div>
                   <figcaption>
                     <h3>#${vitamins}</h3>
@@ -83,7 +83,7 @@
               <a href="/ControllerServlet?command=show_category_products&category=allergy">
                 <figure class="product-category-item-3">
                   <div class="thumbnail">
-                    <img src="../images/category-product/allergy.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/images/category-product/allergy.jpg" alt="" />
                   </div>
                   <figcaption>
                     <h3>#${allergy}</h3>
@@ -95,7 +95,7 @@
               <a href="/ControllerServlet?command=show_category_products&category=heart">
                 <figure class="product-category-item-3">
                   <div class="thumbnail">
-                    <img src="../images/category-product/heart.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/images/category-product/heart.jpg" alt="" />
                   </div>
                   <figcaption>
                     <h3>#${heart}</h3>
@@ -107,7 +107,7 @@
               <a href="/ControllerServlet?command=show_category_products&category=antibiotics">
                 <figure class="product-category-item-3">
                   <div class="thumbnail">
-                    <img src="../images/category-product/anti.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/images/category-product/anti.jpg" alt="" />
                   </div>
                   <figcaption>
                     <h3>#${antibiotics}</h3>
@@ -125,7 +125,7 @@
               <a href="/ControllerServlet?command=show_category_products&category=cold">
                 <figure class="product-category-item-3">
                   <div class="thumbnail">
-                    <img src="../images/category-product/cold.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/images/category-product/cold.jpg" alt="" />
                   </div>
                   <figcaption>
                     <h3>#${cold}</h3>
@@ -137,7 +137,7 @@
               <a href="/ControllerServlet?command=show_category_products&category=cosmetics">
                 <figure class="product-category-item-3">
                   <div class="thumbnail">
-                    <img src="../images/category-product/cosmetics.jpg" alt="" />
+                    <img src="${pageContext.request.contextPath}/images/category-product/cosmetics.jpg" alt="" />
                   </div>
                   <figcaption>
                     <h3>#${cosmetics}</h3>
@@ -153,14 +153,14 @@
       <section class="boxed">
 		<div class="heading-wrapper text-center">
           <div class="heading-style-4">
-            <img src="../images/icons/seperator.png" alt="seperator">
+            <img src="${pageContext.request.contextPath}/images/icons/seperator.png" alt="seperator">
           </div>
         </div>
         <div class="row">
           <div class="product-category-item-4">
             <div class="col-md-6">
               <div class="banner-category">
-                <img src="../images/product/popular.jpg">
+                <img src="${pageContext.request.contextPath}/images/product/popular.jpg">
                 <div class="inner text-center">
                   <h3>${popular}</h3>
                 </div>

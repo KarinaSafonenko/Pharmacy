@@ -25,7 +25,7 @@ public class ClientBasketLogic implements Logic {
     }
 
     public boolean checkPackIdInClientBasket(String packId, String login) throws LogicException {
-        if (Validator.validateId(packId) || Validator.validateLogin(login)){
+        if (!Validator.validateId(packId) || !Validator.validateLogin(login)){
             return false;
         }
         try {
@@ -37,7 +37,7 @@ public class ClientBasketLogic implements Logic {
     }
 
     private int findPackAmount(String packId, String login) throws LogicException {
-        if (Validator.validateId(packId) || Validator.validateLogin(login)){
+        if (!Validator.validateId(packId) || !Validator.validateLogin(login)){
             throw new LogicException("Incorrect parameters while finding pack amount");
         }
         try {
@@ -52,7 +52,7 @@ public class ClientBasketLogic implements Logic {
     }
 
     public void updatePackAmount(String login, String amount, String packId) throws LogicException {
-        if (Validator.validateLogin(login) || !Validator.validateNumber(amount) || Validator.validateId(packId)){
+        if (!Validator.validateLogin(login) || !Validator.validateNumber(amount) || Validator.validateId(packId)){
             throw new LogicException("Incorrect parameters while setting pack amount.");
         }
         try {
@@ -63,7 +63,7 @@ public class ClientBasketLogic implements Logic {
     }
 
     public Basket findClientBasketContent(String login) throws LogicException {
-        if (Validator.validateLogin(login)){
+        if (!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while finding client basket content.");
         }
         List<Basket> baskets;
@@ -77,7 +77,7 @@ public class ClientBasketLogic implements Logic {
     }
 
     public Map<Medicine, Boolean> formRecipeMap(String login, Basket basket) throws LogicException {
-        if (Validator.validateLogin(login)){
+        if (!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while forming recipe map.");
         }
         Map<Medicine, Boolean> result = new HashMap<>();
@@ -101,7 +101,7 @@ public class ClientBasketLogic implements Logic {
     }
 
     public Basket findOrderContent(String orderId) throws LogicException {
-        if (Validator.validateId(orderId)){
+        if (!Validator.validateId(orderId)){
             throw  new LogicException("Incorrect order id while finding order content.");
         }
         List<Basket> baskets;
@@ -118,7 +118,7 @@ public class ClientBasketLogic implements Logic {
 
 
     public void removeFromBasket(String login, String packId) throws LogicException {
-        if (Validator.validateLogin(login) || Validator.validateId(packId)){
+        if (!Validator.validateLogin(login) || Validator.validateId(packId)){
             throw new LogicException("Incorrect login or pack id while removing pack from client basket.");
         }
         try {
@@ -176,7 +176,7 @@ public class ClientBasketLogic implements Logic {
         int amount = Integer.parseInt(quantity);
         int currentAmount = findPackAmount(packId, login);
         int resultAmount = amount + currentAmount;
-        if (Validator.validateNumber(String.valueOf(resultAmount))){
+        if (!Validator.validateNumber(String.valueOf(resultAmount))){
             return resultAmount;
         }else{
             throw new LogicException("Incorrect product amount while adding to cart.");
@@ -184,7 +184,7 @@ public class ClientBasketLogic implements Logic {
     }
 
     public void addToCart(String login, String packId, String amount) throws LogicException {
-        if (Validator.validateLogin(login) || Validator.validateId(packId) || ! Validator.validateNumber(amount)){
+        if (!Validator.validateLogin(login) || !Validator.validateId(packId) || ! Validator.validateNumber(amount)){
             throw new LogicException("Incorrect parameters while adding to cart.");
         }
         try {

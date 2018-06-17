@@ -30,7 +30,7 @@ public class OrderLogic implements Logic {
     }
 
     public List<Order> findOrders(String login) throws LogicException {
-        if(Validator.validateLogin(login)){
+        if(!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while finding client orders.");
         }
         try {
@@ -41,11 +41,11 @@ public class OrderLogic implements Logic {
     }
 
     public Set<FormOrder.Parameter> formOrder(String login, String street, String house, String flat, String sum, String cardCode, String cardNumber) throws LogicException {
-        if(Validator.validateLogin(login) || !Validator.validateMoneyAmount(sum)){
+        if(!Validator.validateLogin(login) || !Validator.validateMoneyAmount(sum)){
             throw new LogicException("Incorrect login or sum while forming credit.");
         }
         Set<FormOrder.Parameter> result = new HashSet<>();
-        if (Validator.validateStreet(street) || !Validator.validateNumber(house) || !Validator.validateNumber(flat)){
+        if (!Validator.validateStreet(street) || !Validator.validateNumber(house) || !Validator.validateNumber(flat)){
             result.add(FormOrder.Parameter.INCORRECT_ADDRESS);
         }
         if (creditCardLogic.checkCardParameters(login, cardCode, cardNumber)){

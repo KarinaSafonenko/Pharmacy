@@ -35,7 +35,17 @@ public class Login implements Command {
                 requestContent.addSessionAttribute(UserParameter.SURNAME.name().toLowerCase(), current.getSurname());
                 requestContent.addSessionAttribute(UserParameter.ROLE.name().toLowerCase(), current.getRole());
                 requestContent.addSessionAttribute(UserParameter.PATRONYMIC.name().toLowerCase(), current.getPatronymic());
-                return new Trigger(PagePath.INDEX_PATH, Trigger.TriggerType.REDIRECT);
+                User.UserRole role = current.getRole();
+                switch (role){
+                    case CLIENT:
+                        return new Trigger(PagePath.INDEX_PATH, Trigger.TriggerType.REDIRECT);
+                    case ADMIN:
+                        return new Trigger(PagePath.SHOW_USERS, Trigger.TriggerType.REDIRECT);
+                    case DOCTOR:
+                        return new Trigger(PagePath.SHOW_DOCTOR_RECIPES, Trigger.TriggerType.REDIRECT);
+                        default:
+                            return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
+                }
             }else{
                 requestContent.addRequestAttribute(Parameter.LOGIN_FAILED.name().toLowerCase(), true);
                 return new Trigger(PagePath.LOGIN_PATH, Trigger.TriggerType.FORWARD);

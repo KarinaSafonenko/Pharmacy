@@ -56,12 +56,16 @@ public interface Logic {
 
    default Date getCurrentDate(){
        Calendar today = Calendar.getInstance();
-       today.set(Calendar.HOUR,0);
-       today.set(Calendar.HOUR_OF_DAY,0);
-       today.set(Calendar.MINUTE,0);
-       today.set(Calendar.SECOND,0);
-       today.set(Calendar.MILLISECOND,0);
+       clearTime(today);
        return today.getTime();
+   }
+
+   default void clearTime(Calendar date){
+       date.set(Calendar.HOUR,0);
+       date.set(Calendar.HOUR_OF_DAY,0);
+       date.set(Calendar.MINUTE,0);
+       date.set(Calendar.SECOND,0);
+       date.set(Calendar.MILLISECOND,0);
    }
 
    default String formAddress(String street, String house, String flat){

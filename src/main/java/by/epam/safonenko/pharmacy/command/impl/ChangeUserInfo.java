@@ -10,7 +10,7 @@ import by.epam.safonenko.pharmacy.util.RequestContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Map;
+import java.util.Set;
 
 public class ChangeUserInfo implements Command {
     private static Logger logger = LogManager.getLogger(ChangeUserInfo.class);
@@ -27,12 +27,9 @@ public class ChangeUserInfo implements Command {
         String patronymic = requestContent.getRequestParameter(UserParameter.PATRONYMIC.name().toLowerCase()).trim();
         String sex = requestContent.getRequestParameter(UserParameter.SEX.name().toLowerCase()).trim();
         try {
-            Map<Registration.Parameter, UserParameter> incorrect = userLogic.checkInitials(name, surname, patronymic);
+            Set<Registration.Parameter> incorrect = userLogic.checkInitials(name, surname, patronymic);
             requestContent.addRequestAttribute(UserParameter.SEX.name().toLowerCase(), sex);
 
-            for (Map.Entry<Registration.Parameter, UserParameter> entry : incorrect.entrySet()) {
-                requestContent.addRequestAttribute(entry.getKey().name().toLowerCase(), true);
-            }
             if (incorrect.isEmpty()) {
                 userLogic.updateUserInfo(login, name, surname, patronymic, sex);
                 requestContent.addSessionAttribute(UserParameter.NAME.name().toLowerCase(), name);

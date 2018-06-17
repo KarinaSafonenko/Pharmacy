@@ -9,6 +9,7 @@ public class Validator {
     private static final String ID_TEMPLATE = "\\d{1,5}";
     private static final String AMOUNT_TEMPLATE = "\\d{1,3}";
     private static final String MONEY_AMOUNT_TEMPLATE = "\\d{1,5}(.\\d{1,2})*";
+    private static final String DATE_TEMPLATE = "\\d{4}-\\d{2}-\\d{2}";
     private static final String CARD_NUMBER_TEMPLATE = "\\d{12}";
     private static final String CARD_CODE_TEMPLATE = "\\d{3}";
     private static final String STREET_TEMPLATE = "[а-яА-Я]+(-|\\s)?[а-яА-Я]*";
@@ -16,7 +17,7 @@ public class Validator {
     private static final int MAX_LOGIN_LENGTH = 20;
 
     public static boolean validateInitials(String input) {
-        return isEmptyOrNull(input) || !input.matches(INITIALS_TEMPLATE);
+        return !isEmptyOrNull(input) && input.matches(INITIALS_TEMPLATE);
     }
 
     public static boolean validateNumber(String input) {
@@ -24,7 +25,11 @@ public class Validator {
     }
 
     public static boolean validateStreet(String input) {
-        return isEmptyOrNull(input) || !input.matches(STREET_TEMPLATE);
+        return !isEmptyOrNull(input) && input.matches(STREET_TEMPLATE);
+    }
+
+    public static boolean validateDate(String input) {
+        return !isEmptyOrNull(input) && input.matches(DATE_TEMPLATE);
     }
 
     public static boolean validateCardNumber(String input) {
@@ -36,7 +41,7 @@ public class Validator {
     }
 
     public static boolean validateId(String input) {
-        return isEmptyOrNull(input) || !input.matches(ID_TEMPLATE);
+        return !isEmptyOrNull(input) && input.matches(ID_TEMPLATE);
     }
 
     public static boolean validateMoneyAmount(String input) {
@@ -48,15 +53,15 @@ public class Validator {
     }
 
     public static boolean validateLogin(String input) {
-        return input.length() > MAX_LOGIN_LENGTH || isEmptyOrNull(input) || !input.matches(LOGIN_TEMPLATE);
+        return input.length() <= MAX_LOGIN_LENGTH && !isEmptyOrNull(input) && input.matches(LOGIN_TEMPLATE);
     }
 
     public static boolean validatePassword(String input) {
-        return isEmptyOrNull(input) || !input.matches(PASSWORD_TEMPLATE);
+        return !isEmptyOrNull(input) && input.matches(PASSWORD_TEMPLATE);
     }
 
     public static boolean validateCode(String input) {
-        return isEmptyOrNull(input) || !input.matches(CODE_TEMPLATE);
+        return !isEmptyOrNull(input) && input.matches(CODE_TEMPLATE);
     }
 
     private static boolean isEmptyOrNull(String input){

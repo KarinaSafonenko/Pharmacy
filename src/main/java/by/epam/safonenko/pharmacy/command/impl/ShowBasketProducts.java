@@ -4,7 +4,6 @@ import by.epam.safonenko.pharmacy.command.Command;
 import by.epam.safonenko.pharmacy.command.util.ShowBasket;
 import by.epam.safonenko.pharmacy.controller.Trigger;
 import by.epam.safonenko.pharmacy.entity.Basket;
-import by.epam.safonenko.pharmacy.entity.Medicine;
 import by.epam.safonenko.pharmacy.exception.LogicException;
 import by.epam.safonenko.pharmacy.logic.impl.ClientBasketLogic;
 import by.epam.safonenko.pharmacy.specification.impl.user.UserParameter;
@@ -12,12 +11,6 @@ import by.epam.safonenko.pharmacy.util.PagePath;
 import by.epam.safonenko.pharmacy.util.RequestContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class ShowBasketProducts implements Command, ShowBasket {
     private static Logger logger = LogManager.getLogger(ShowBasketProducts.class);

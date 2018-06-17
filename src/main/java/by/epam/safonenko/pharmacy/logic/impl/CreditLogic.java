@@ -30,7 +30,7 @@ public class CreditLogic implements Logic {
     }
 
     public boolean isAnyOpenCredit(String login) throws LogicException {
-        if(Validator.validateLogin(login)){
+        if(!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while finding open user credits.");
         }
         try {
@@ -42,7 +42,7 @@ public class CreditLogic implements Logic {
     }
 
     public BigDecimal findObligation(String creditId) throws LogicException {
-        if(Validator.validateId(creditId)){
+        if(!Validator.validateId(creditId)){
             throw new LogicException("Incorrect credit id while finding credit obligation.");
         }
         try {
@@ -54,7 +54,7 @@ public class CreditLogic implements Logic {
     }
 
     public List<Credit> findUserCredits(String login) throws LogicException {
-        if(Validator.validateLogin(login)){
+        if(!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while finding user credits.");
         }
         try {
@@ -65,10 +65,10 @@ public class CreditLogic implements Logic {
     }
 
     public boolean formCredit(String login, String street, String house, String flat, String sum) throws LogicException {
-        if(Validator.validateLogin(login) || !Validator.validateMoneyAmount(sum)){
+        if(!Validator.validateLogin(login) || !Validator.validateMoneyAmount(sum)){
             throw new LogicException("Incorrect login or sum while forming credit.");
         }
-        if (Validator.validateStreet(street) || !Validator.validateNumber(house) || !Validator.validateNumber(flat)){
+        if (!Validator.validateStreet(street) || !Validator.validateNumber(house) || !Validator.validateNumber(flat)){
             return false;
         }else{
             Basket basket = clientBasketLogic.findClientBasketContent(login);
@@ -86,7 +86,7 @@ public class CreditLogic implements Logic {
 
     public void payCredit(String moneyAmount, String obligation, String creditId, String login) throws LogicException {
         if (!Validator.validateMoneyAmount(moneyAmount) || !Validator.validateMoneyAmount(obligation)
-                || Validator.validateId(creditId) || Validator.validateLogin(login)){
+                || !Validator.validateId(creditId) || !Validator.validateLogin(login)){
             throw new LogicException("Incorrect parameters while paying credit.");
         }
         BigDecimal sum = new BigDecimal(moneyAmount);

@@ -9,7 +9,7 @@ import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-final class TagUtil {
+public final class TagUtil {
     private static final String IMAGE_WRAPPER = "<div class=\"img-wrapper\">\n" +
             "                                            <img class=\"img-responsive\" src=\"%s\" alt=\"product thumbnail\">\n" +
             "                                            <div class=\"product-control-wrapper top-right\">\n" +

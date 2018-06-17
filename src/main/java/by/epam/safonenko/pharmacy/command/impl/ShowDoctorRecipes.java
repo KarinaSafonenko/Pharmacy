@@ -9,12 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class ShowUserRecipes extends AbstractShowRecipes {
-    private static Logger logger = LogManager.getLogger(ShowUserRecipes.class);
-
-    public ShowUserRecipes(){
-        super();
-    }
+public class ShowDoctorRecipes extends AbstractShowRecipes {
+    private static Logger logger = LogManager.getLogger(ShowDoctorRecipes.class);
 
     @Override
     protected void logException(LogicException e) {
@@ -23,13 +19,11 @@ public class ShowUserRecipes extends AbstractShowRecipes {
 
     @Override
     protected List<Recipe> findRecipes(String login) throws LogicException {
-        return recipeLogic.findRecipes(login);
+        return recipeLogic.findOpenRecipes();
     }
 
     @Override
     protected Trigger forward() {
-        return new Trigger(PagePath.RECIPE_PATH, Trigger.TriggerType.FORWARD);
+        return new Trigger(PagePath.DOCTOR_RECIPES, Trigger.TriggerType.FORWARD);
     }
-
-
 }

@@ -34,7 +34,7 @@ public class CreditCardLogic implements Logic {
     }
 
     public void bindUserToCard(String login, String cardId) throws LogicException {
-        if (Validator.validateId(cardId)){
+        if (!Validator.validateId(cardId)){
             throw new LogicException("Trying to bind user to invalid card id.");
         }
         try {
@@ -45,7 +45,7 @@ public class CreditCardLogic implements Logic {
     }
 
     public BigDecimal findMoneyAmount(String login) throws LogicException {
-        if (Validator.validateLogin(login)){
+        if (!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while trying to find money amount.");
         }
         try {
@@ -58,7 +58,7 @@ public class CreditCardLogic implements Logic {
 
     public Set<TopUpTheBalance.Parameter> topUpTheBalance(String login, String cardNumber, String cardCode, String moneyAmount) throws LogicException {
         Set<TopUpTheBalance.Parameter> incorrect = new HashSet<>();
-        if (Validator.validateLogin(login)){
+        if (!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while checking card parameters.");
         }
        if (!Validator.validateMoneyAmount(moneyAmount)){
@@ -84,7 +84,7 @@ public class CreditCardLogic implements Logic {
     }
 
     private CreditCard findCreditCard(String login) throws LogicException {
-        if (Validator.validateLogin(login)){
+        if (!Validator.validateLogin(login)){
             throw new LogicException("Incorrect login while finding credit card.");
         }
         List<CreditCard> creditCards;

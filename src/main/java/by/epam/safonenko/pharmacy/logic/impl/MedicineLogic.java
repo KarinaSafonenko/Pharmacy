@@ -8,7 +8,7 @@ import by.epam.safonenko.pharmacy.logic.Logic;
 import by.epam.safonenko.pharmacy.repository.impl.MedicineRepository;
 import by.epam.safonenko.pharmacy.repository.impl.PackRepository;
 import by.epam.safonenko.pharmacy.specification.impl.medicine.find.FindMedicinePacks;
-import by.epam.safonenko.pharmacy.specification.impl.medicine.find.FindMedicines;
+import by.epam.safonenko.pharmacy.specification.impl.medicine.find.FindPopularMedicines;
 import by.epam.safonenko.pharmacy.specification.impl.medicine.find.FindMedicinesByCategory;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class MedicineLogic implements Logic {
 
     public List<Medicine> findPopularProducts() throws LogicException {
         try {
-            List<Medicine> foundMedicines = medicineRepository.find(new FindMedicines(FindMedicines.FindType.POPULAR));
+            List<Medicine> foundMedicines = medicineRepository.find(new FindPopularMedicines());
             return findMedicinePacks(foundMedicines);
         } catch (RepositoryException e) {
             throw new LogicException(e);

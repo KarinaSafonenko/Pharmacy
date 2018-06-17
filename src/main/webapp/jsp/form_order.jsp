@@ -12,7 +12,7 @@
     <fmt:message bundle = "${bundle}" key ="checkout" var = "checkout"/>
     <fmt:message bundle = "${bundle}" key ="cart_total" var = "cart_total"/>
     <fmt:message bundle = "${bundle}" key ="verify_data" var = "verify_data"/>
-    <fmt:message bundle = "${bundle}" key ="not_enought_money_message" var = "not_enought_money_message"/>
+    <fmt:message bundle = "${bundle}" key ="not_enough_money_message" var = "not_enought_money_message"/>
 </head>
 <body class="animsition">
 <%@ include file="../WEB-INF/jsp/header.jsp"%>

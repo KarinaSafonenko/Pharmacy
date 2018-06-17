@@ -5,8 +5,6 @@
 <head>
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
-    <fmt:message bundle = "${bundle}" key ="en" var = "en"/>
-    <fmt:message bundle = "${bundle}" key ="ru" var = "ru"/>
     <fmt:message bundle = "${bundle}" key ="welcome" var = "welcome_message"/>
     <fmt:message bundle = "${bundle}" key ="recipes" var = "recipes"/>
     <fmt:message bundle = "${bundle}" key ="orders" var = "orders"/>
@@ -14,7 +12,6 @@
     <fmt:message bundle = "${bundle}" key ="home" var = "home"/>
     <fmt:message bundle = "${bundle}" key ="profile" var = "profile"/>
     <fmt:message bundle = "${bundle}" key ="basket" var = "basket"/>
-    <fmt:message bundle = "${bundle}" key ="language" var = "language"/>
     <fmt:message bundle = "${bundle}" key ="logout" var = "logout"/>
 </head>
 <body>
@@ -55,30 +52,7 @@
                         </c:if>
                     </ul>
                 </nav>
-                <aside class="right">
-                    <div class="widget widget-control-header">
-                    <form name="login" method="POST" action="/ControllerServlet">
-                            <input type="hidden" name="command" value="change_locale"/>
-                            <input type="hidden" name="locale" value="ru_RU" />
-                            <input type="hidden" name="url" value="${pageContext.request.requestURL}" />
-                            <input type="hidden" name="query" value="${pageContext.request.queryString.toString()}" />
-                            <button class="btn-icon btn-icon-brand" type="submit">
-                               ${ru}
-                            </button>
-                        </form>
-                    </div>
-                    <div class="widget widget-control-header">
-                    <form name="login" method="POST" action="/ControllerServlet">
-                            <input type="hidden" name="command" value="change_locale"/>
-                            <input type="hidden" name="locale" value="en_EN" />
-                            <input type="hidden" name="url" value="${pageContext.request.requestURL}" />
-                            <input type="hidden" name="query" value="${pageContext.request.queryString.toString()}" />
-                            <button class="btn-icon btn-icon-brand" type="submit">
-                                ${en}
-                            </button>
-                        </form>
-                    </div>
-                </aside>
+                <%@include file="language.jsp"%>
             </div>
         </div>
     </div>

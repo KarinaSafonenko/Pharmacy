@@ -32,11 +32,24 @@
             <name>products</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.List</type>
         </attribute>
         <attribute>
             <name>number</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
+        </attribute>
+    </tag>
+    <tag>
+        <name>show-user</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowUserTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <name>users</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.util.List</type>
         </attribute>
     </tag>
     <tag>
@@ -47,16 +60,19 @@
             <name>products</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.List</type>
         </attribute>
         <attribute>
             <name>number</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Integer</type>
         </attribute>
         <attribute>
             <name>buttons</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Boolean</type>
         </attribute>
     </tag>
     <tag>
@@ -67,6 +83,7 @@
             <name>orders</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.List</type>
         </attribute>
     </tag>
     <tag>
@@ -77,6 +94,7 @@
             <name>basket</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>by.epam.safonenko.pharmacy.entity.Basket</type>
         </attribute>
     </tag>
     <tag>
@@ -87,6 +105,7 @@
             <name>credits</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.List</type>
         </attribute>
     </tag>
     <tag>
@@ -97,11 +116,18 @@
             <name>recipes</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.List</type>
         </attribute>
+    </tag>
+    <tag>
+        <name>show-doctor-recipe</name>
+        <tag-class>by.epam.safonenko.pharmacy.tag.ShowDoctorRecipeTag</tag-class>
+        <body-content>empty</body-content>
         <attribute>
-            <name>number</name>
+            <name>recipes</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.List</type>
         </attribute>
     </tag>
     <tag>
@@ -112,6 +138,7 @@
             <name>name</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
         </attribute>
     </tag>
     <tag>
@@ -122,6 +149,7 @@
             <name>sex</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
         </attribute>
     </tag>
     <tag>
@@ -132,11 +160,13 @@
             <name>basket</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>by.epam.safonenko.pharmacy.entity.Basket</type>
         </attribute>
         <attribute>
             <name>recipeMap</name>
             <required>true</required>
             <rtexprvalue>true</rtexprvalue>
+            <type>java.util.Map</type>
         </attribute>
     </tag>
 </taglib>

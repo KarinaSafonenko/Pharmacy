@@ -6,6 +6,10 @@ public final class PagePath {
     public static final String SHOW_USER_RECIPES = "/ControllerServlet?command=show_user_recipes";
     public static final String SHOW_USER_ORDERS = "/ControllerServlet?command=show_user_orders";
     public static final String SHOW_USER_CREDITS = "/ControllerServlet?command=show_user_credits";
+    public static final String SHOW_DOCTOR_RECIPES = "/ControllerServlet?command=show_doctor_recipes";
+    public static final String SHOW_USERS = "/ControllerServlet?command=show_users";
+    public static final String DOCTOR_RECIPES = "/jsp/doctor_recipe.jsp";
+    public static final String EXTEND_RECIPE = "/jsp/extend_recipe.jsp";
     public static final String BASKET_PATH = "/jsp/basket.jsp";
     public static final String PAY_CREDIT_PATH = "/jsp/pay_credit.jsp";
     public static final String MAIN_PATH = "/jsp/main.jsp";
@@ -20,6 +24,8 @@ public final class PagePath {
     public static final String RECIPE_PATH = "/jsp/recipe.jsp";
     public static final String PROFILE_PATH = "/jsp/profile.jsp";
     public static final String SHOP_PATH = "/jsp/shop.jsp";
+    public static final String USER_PATH = "/jsp/user.jsp";
+    public static final String ADD_USER_PATH = "/jsp/add_user.jsp";
     public static final String ERROR_PATH = "/jsp/error/error.jsp";
     public static final String REGISTRATION_PATH = "/jsp/registration.jsp";
     public static final String FORGOT_PASSWORD_PATH = "/jsp/forgot_password.jsp";

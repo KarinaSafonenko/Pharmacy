@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Recipe {
+    private int recipeId;
     private Medicine medicine;
     private User doctor;
+    private User client;
     private int amount;
     private Date startDate;
     private Date endDate;
@@ -52,14 +54,32 @@ public class Recipe {
         this.doctor = doctor;
     }
 
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Recipe)) return false;
         Recipe recipe = (Recipe) o;
-        return amount == recipe.amount &&
+        return recipeId == recipe.recipeId &&
+                amount == recipe.amount &&
                 Objects.equals(medicine, recipe.medicine) &&
                 Objects.equals(doctor, recipe.doctor) &&
+                Objects.equals(client, recipe.client) &&
                 Objects.equals(startDate, recipe.startDate) &&
                 Objects.equals(endDate, recipe.endDate);
     }
@@ -67,6 +87,6 @@ public class Recipe {
     @Override
     public int hashCode() {
 
-        return Objects.hash(medicine, doctor, amount, startDate, endDate);
+        return Objects.hash(recipeId, medicine, doctor, client, amount, startDate, endDate);
     }
 }

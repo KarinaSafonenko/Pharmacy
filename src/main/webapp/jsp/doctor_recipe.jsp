@@ -16,6 +16,8 @@
     <fmt:message bundle = "${bundle}" key ="recipe" var = "recipe"/>
     <fmt:message bundle = "${bundle}" key ="start_date" var = "start_date"/>
     <fmt:message bundle = "${bundle}" key ="end_date" var = "end_date"/>
+    <fmt:message bundle = "${bundle}" key ="edit" var = "edit"/>
+    <fmt:message bundle = "${bundle}" key ="client" var = "client"/>
 </head>
 <body class="animsition">
 <%@ include file="../WEB-INF/jsp/header.jsp"%>
@@ -28,23 +30,25 @@
                     ${no_recipes}.
                 </c:if>
                 <c:if test="${not empty recipe_list}">
-                <form class="woocommerce-cart-form">
-                <table class="woocommerce-cart-table">
+                    <form class="woocommerce-cart-form">
+                        <table class="woocommerce-cart-table">
                             <thead>
                             <tr>
                                 <th class="product-thumbnail">${product}</th>
                                 <th class="product-name"></th>
                                 <th>${quantity}</th>
                                 <th>${doctor}</th>
+                                <th>${client}</th>
                                 <th>${start_date}</th>
                                 <th>${end_date}</th>
+                                <th>${edit}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <ctg:show-recipe recipes="${recipe_list}"/>
+                            <ctg:show-doctor-recipe recipes="${recipe_list}"/>
                             </tbody>
-                </table>
-                </form>
+                        </table>
+                    </form>
                 </c:if>
             </div>
         </div>

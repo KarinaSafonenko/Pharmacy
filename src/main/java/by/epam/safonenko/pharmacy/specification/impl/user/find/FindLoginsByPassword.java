@@ -25,7 +25,7 @@ public class FindLoginsByPassword implements FindSpecification<String>{
         try(PreparedStatement current = (PreparedStatement) statement) {
             current.setString(1, password);
             ResultSet resultSet = current.executeQuery();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 String login = resultSet.getString(UserParameter.LOGIN.name().toLowerCase());
                 result.add(login);
             }
