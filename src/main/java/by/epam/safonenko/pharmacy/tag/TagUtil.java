@@ -77,4 +77,5 @@ public final class TagUtil {
         HttpServletRequest request = ((HttpServletRequest) pageContext.getRequest());
         return (String) request.getSession().getAttribute(SessionAttribute.LOCALE.name().toLowerCase());
     }
+
 }

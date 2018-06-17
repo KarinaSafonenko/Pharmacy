@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 
-public class ShowPopularTag extends AbstractShowProduct{
+public class ShowPopularTag extends AbstractShowProductTag {
     private static Logger logger = LogManager.getLogger(ShowPopularTag.class);
     private static final String POPULAR_PRODUCT = "<div class=\"col-md-4\">\n" +
             "                                      <figure>\n" +

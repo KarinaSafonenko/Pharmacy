@@ -43,6 +43,8 @@ public class Login implements Command {
                         return new Trigger(PagePath.SHOW_USERS, Trigger.TriggerType.REDIRECT);
                     case DOCTOR:
                         return new Trigger(PagePath.SHOW_DOCTOR_RECIPES, Trigger.TriggerType.REDIRECT);
+                    case PHARMACIST:
+                        return new Trigger(PagePath.SHOW_ALL_PRODUCTS, Trigger.TriggerType.REDIRECT);
                         default:
                             return new Trigger(PagePath.ERROR_PATH, Trigger.TriggerType.REDIRECT);
                 }

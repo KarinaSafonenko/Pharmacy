@@ -12,4 +12,8 @@
     <error-page>
         <location>/jsp/error/error.jsp</location>
     </error-page>
+    <context-param>
+        <param-name>uploadPath</param-name>
+        <param-value>/images/product/</param-value>
+    </context-param>
 </web-app>

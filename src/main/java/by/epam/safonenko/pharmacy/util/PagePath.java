@@ -8,8 +8,12 @@ public final class PagePath {
     public static final String SHOW_USER_CREDITS = "/ControllerServlet?command=show_user_credits";
     public static final String SHOW_DOCTOR_RECIPES = "/ControllerServlet?command=show_doctor_recipes";
     public static final String SHOW_USERS = "/ControllerServlet?command=show_users";
+    public static final String SHOW_ALL_PRODUCTS = "/ControllerServlet?command=show_all_products";
     public static final String DOCTOR_RECIPES = "/jsp/doctor_recipe.jsp";
+    public static final String ADD_PRODUCER_PATH = "/jsp/add_producer.jsp";
+    public static final String ADD_PRODUCT_PATH = "/jsp/add_product.jsp";
     public static final String EXTEND_RECIPE = "/jsp/extend_recipe.jsp";
+    public static final String MEDICINES_PATH = "/jsp/medicines.jsp";
     public static final String BASKET_PATH = "/jsp/basket.jsp";
     public static final String PAY_CREDIT_PATH = "/jsp/pay_credit.jsp";
     public static final String MAIN_PATH = "/jsp/main.jsp";

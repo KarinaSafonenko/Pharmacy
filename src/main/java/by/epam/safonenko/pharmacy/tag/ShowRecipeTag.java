@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 
-public class ShowRecipeTag extends AbstractShowRecipe {
+public class ShowRecipeTag extends AbstractShowRecipeTag {
     private static Logger logger = LogManager.getLogger(ShowRecipeTag.class);
     private static final String RECIPE = "<tr>\n" +
             "                            <td class=\"product-thumbnail\">\n" +

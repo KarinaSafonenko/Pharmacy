@@ -8,7 +8,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractShowProduct extends TagSupport {
+public abstract class AbstractShowProductTag extends TagSupport {
     protected List<Medicine> products;
     protected int number;
 

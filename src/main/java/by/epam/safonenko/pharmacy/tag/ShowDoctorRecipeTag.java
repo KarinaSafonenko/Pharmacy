@@ -10,7 +10,7 @@ import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
-public class ShowDoctorRecipeTag extends AbstractShowRecipe {
+public class ShowDoctorRecipeTag extends AbstractShowRecipeTag {
     private static Logger logger = LogManager.getLogger(ShowDoctorRecipeTag.class);
     private static final String SHOW_HREF  = "<a href=\"/ControllerServlet?command=prepare_extend_recipe&recipe_id=%d\" rel=\"tag\">%s</a>\n";
     private static final String RECIPE = "<tr>\n" +

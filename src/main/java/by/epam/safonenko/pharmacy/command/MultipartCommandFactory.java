@@ -6,16 +6,16 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 
-public class CommandFactory {
-    private static Logger logger = LogManager.getLogger(CommandFactory.class);
+public class MultipartCommandFactory {
+    private static Logger logger = LogManager.getLogger();
 
-    public Optional<Command> defineCommand(String commandType) {
-        Optional<Command> command = Optional.empty();
+    public Optional<MultipartCommand> defineCommand(String commandType) {
+        Optional<MultipartCommand> command = Optional.empty();
         if (commandType == null){
             return command;
         }
         try {
-            CommandType type = CommandType.valueOf(commandType.toUpperCase());
+            MultipartCommandType type = MultipartCommandType.valueOf(commandType.toUpperCase());
             command = Optional.of(type.getCommand());
         }catch (IllegalArgumentException e){
             logger.catching(Level.WARN, e);

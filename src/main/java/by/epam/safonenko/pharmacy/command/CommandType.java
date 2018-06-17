@@ -35,7 +35,12 @@ public enum CommandType {
     ADD_USER(new AddUser()),
     SHOW_DOCTOR_RECIPES(new ShowDoctorRecipes()),
     PREPARE_EXTEND_RECIPE(new PrepareExtendRecipe()),
-    EXTEND_RECIPE(new ExtendRecipe());
+    EXTEND_RECIPE(new ExtendRecipe()),
+    SHOW_ALL_PRODUCTS(new ShowAllProducts()),
+    SHOW_ALL_PRODUCTS_NEXT_PAGE(new ShowAllProductsNextPage()),
+    SHOW_ALL_PRODUCTS_PREVIOUS_PAGE(new ShowAllProductsPreviousPage()),
+    ADD_PRODUCER(new AddProducer()),
+    PREPARE_ADD_PRODUCT(new PrepareAddProduct());
 
     private Command command;
 

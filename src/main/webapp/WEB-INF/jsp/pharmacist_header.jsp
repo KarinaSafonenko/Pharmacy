@@ -6,9 +6,9 @@
     <fmt:setLocale value="${sessionScope.locale}"/>
     <fmt:setBundle basename="property.message" var="bundle" scope="request"/>
     <fmt:message bundle = "${bundle}" key ="welcome" var = "welcome_message"/>
-    <fmt:message bundle = "${bundle}" key ="users" var = "users"/>
     <fmt:message bundle = "${bundle}" key ="profile" var = "profile"/>
     <fmt:message bundle = "${bundle}" key ="logout" var = "logout"/>
+    <fmt:message bundle = "${bundle}" key ="shop" var = "shop"/>
 </head>
 <body>
 <header class="header-style-4">
@@ -21,7 +21,7 @@
                             <a href="/ControllerServlet?command=show_profile">${profile}</a>
                         </li>
                         <li>
-                            <a href="/ControllerServlet?command=show_users">${users}</a>
+                            <a href="/ControllerServlet?command=show_all_products">${shop}</a>
                         </li>
                         <li>
                             ${welcome_message}, ${sessionScope.name} ${sessionScope.surname} !

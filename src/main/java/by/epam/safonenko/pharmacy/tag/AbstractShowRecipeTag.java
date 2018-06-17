@@ -10,7 +10,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.io.IOException;
 import java.util.List;
 
-public abstract class AbstractShowRecipe extends TagSupport {
+public abstract class AbstractShowRecipeTag extends TagSupport {
     protected List<Recipe> recipes;
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;

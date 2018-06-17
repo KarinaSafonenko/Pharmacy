@@ -2,6 +2,7 @@ package by.epam.safonenko.pharmacy.logic;
 
 import by.epam.safonenko.pharmacy.exception.LogicException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
@@ -12,6 +13,9 @@ public interface Logic {
     int FIRST_PAGE_NUMBER = 1;
 
     default int countPageNumber(List infoList){
+        if (infoList.size() == 0){
+            return FIRST_PAGE_NUMBER;
+        }
         return (int) Math.ceil((double) infoList.size()/MAX_NUMBER_ON_PAGE);
     }
 
@@ -48,6 +52,9 @@ public interface Logic {
     }
 
    default List formSubList(List infoList, int page) throws LogicException {
+        if (infoList.isEmpty()){
+            return new ArrayList();
+        }
         int size = infoList.size();
         int leftBorder = countLeftBorder(size, page);
         int rightBorder = countRightBorder(size, page);

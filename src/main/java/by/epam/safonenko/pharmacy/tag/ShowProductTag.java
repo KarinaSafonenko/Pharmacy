@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.jsp.JspWriter;
 import java.io.IOException;
 
-public class ShowProductTag extends AbstractShowProduct {
+public class ShowProductTag extends AbstractShowProductTag {
     private static Logger logger = LogManager.getLogger(ShowProductTag.class);
     private static final String PRODUCT = "<figure class=\"item\">\n" +
             "                <div class=\"product product-style-1\">\n" +

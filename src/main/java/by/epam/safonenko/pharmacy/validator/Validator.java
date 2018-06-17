@@ -7,11 +7,12 @@ public class Validator {
     private static final String PASSWORD_TEMPLATE = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,20})";
     private static final String CODE_TEMPLATE = "[\\da-zA-Z]{8}-[\\da-zA-Z]{4}-[\\da-zA-Z]{4}-[\\da-zA-Z]{4}-[\\da-zA-Z]{12}";
     private static final String ID_TEMPLATE = "\\d{1,5}";
-    private static final String AMOUNT_TEMPLATE = "\\d{1,3}";
+    private static final String AMOUNT_TEMPLATE = "\\d{1,5}";
     private static final String MONEY_AMOUNT_TEMPLATE = "\\d{1,5}(.\\d{1,2})*";
     private static final String DATE_TEMPLATE = "\\d{4}-\\d{2}-\\d{2}";
     private static final String CARD_NUMBER_TEMPLATE = "\\d{12}";
     private static final String CARD_CODE_TEMPLATE = "\\d{3}";
+    private static final String DESCRIPTION = "[^<>@$#^*]{1,300}";
     private static final String STREET_TEMPLATE = "[а-яА-Я]+(-|\\s)?[а-яА-Я]*";
     private static final int MAX_MAIL_LENGTH = 50;
     private static final int MAX_LOGIN_LENGTH = 20;
@@ -22,6 +23,10 @@ public class Validator {
 
     public static boolean validateNumber(String input) {
         return !isEmptyOrNull(input) && input.matches(AMOUNT_TEMPLATE);
+    }
+
+    public static boolean validateDescription(String input) {
+        return !isEmptyOrNull(input) && input.matches(DESCRIPTION);
     }
 
     public static boolean validateStreet(String input) {

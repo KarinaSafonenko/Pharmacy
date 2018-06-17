@@ -35,11 +35,6 @@
                   <label>${password}:</label>
                   <input class="form-control" type="Password" name="password">
                 </div>
-                  <input type="date"/>
-                  <label for="file-upload" class="custom-file-upload">
-                      <i class="fa fa-cloud-upload"></i> Custom Upload
-                  </label>
-                  <input id="file-upload" type="file"/>
                   <c:if test="${login_failed}"><label class="text-danger">${wrong_login_or_password}</label></c:if>
                   <a class="pull-right" href="${pageContext.request.contextPath}/jsp/forgot_password.jsp">${forgot_password_message}</a>
                   <div class="form-group footer-form">

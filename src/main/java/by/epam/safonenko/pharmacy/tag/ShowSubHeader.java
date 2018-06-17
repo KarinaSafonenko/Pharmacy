@@ -13,7 +13,7 @@ public class ShowSubHeader extends TagSupport{
     private String name;
 
     private static final String SUB_HEADER = "<section class=\"sub-header shop-layout-1\">\n" +
-            "        <img class=\"rellax bg-overlay\" src=\"../images/sub-header/sky.jpg\" alt=\"\">\n" +
+            "        <img class=\"rellax bg-overlay\" src=\"%s/images/sub-header/sky.jpg\" alt=\"\">\n" +
             "        <div class=\"overlay-call-to-action\"></div>\n" +
             "        <h3 class=\"heading-style-3\">%s</h3>\n" +
             "    </section>";
@@ -28,7 +28,8 @@ public class ShowSubHeader extends TagSupport{
         }
         try {
             JspWriter out = pageContext.getOut();
-            out.write(String.format(SUB_HEADER, name));
+            String path = pageContext.getRequest().getServletContext().getContextPath();
+            out.write(String.format(SUB_HEADER, path, name));
         } catch (IOException e) {
             logger.catching(e);
             throw new CustomTagException(e);

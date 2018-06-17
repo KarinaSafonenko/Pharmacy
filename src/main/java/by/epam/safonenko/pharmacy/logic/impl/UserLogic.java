@@ -20,9 +20,11 @@ import java.util.*;
 
 public class UserLogic implements Logic {
     private UserRepository userRepository;
+    private CreditCardLogic creditCardLogic;
 
     public UserLogic(){
         userRepository = new UserRepository();
+        creditCardLogic = new CreditCardLogic();
     }
 
     private Set<Registration.Parameter> checkUserParameters(String name, String surname, String patronymic, String mail, String login, String password, String repeatPassword) throws LogicException {
@@ -62,6 +64,8 @@ public class UserLogic implements Logic {
         if (incorrect.isEmpty()) {
             try {
                 userRepository.addRegisteredUser(name, surname, patronymic, sex, mail, login, password, role);
+                String cardId = creditCardLogic.findCardId();
+                creditCardLogic.bindUserToCard(login, cardId);
             } catch (RepositoryException e) {
                 throw new LogicException(e);
             }
